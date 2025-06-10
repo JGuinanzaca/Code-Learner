@@ -1,11 +1,10 @@
 const express = require("express");
+const userRoutes = require("./userRoutes.js");
 const server = express();
 const port = 3000;
 
-server.get("/", (req, res) => {
-  res.send("Hello World you jerk");
-});
+server.use("/codelearner", userRoutes); // Route defined in userRoutes.js
 
 server.listen(port, () => {
-  console.log("example server listening on port ${port}");
+  console.log(`Server is running at http://localhost:${port}`);
 });
