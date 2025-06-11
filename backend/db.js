@@ -1,12 +1,14 @@
 const { Client } = require("pg");
+const dotenv = require("dotenv");
+dotenv.config();
 
 function connectDatabase() {
   const client = new Client({
     host: "localhost",
-    user: "postgres",
+    user: process.env.USER,
     port: 5432,
-    password: "admin",
-    database: "postgres",
+    password: process.env.PASS,
+    database: process.env.DATABASE,
   });
 
   //missing try and catch blocks if connection fails
