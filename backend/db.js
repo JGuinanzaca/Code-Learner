@@ -16,6 +16,7 @@ function connectDatabase() {
     console.log("connected to postgres database in pgAdmin");
 
     //simple query to pull from default database (postgres)
+    /*
     client.query(`SELECT * FROM test`, (err, res) => {
       if (!err) {
         console.log(res.rows);
@@ -24,6 +25,7 @@ function connectDatabase() {
       }
       client.end;
     });
+    */
   }
 }
 
