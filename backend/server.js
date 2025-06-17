@@ -1,10 +1,8 @@
 const express = require("express");
 const userRoutes = require("./userRoutes.js");
-const connectDatabase = require("./db.js");
 const server = express();
 const port = 5000;
 
-connectDatabase(); //from db.js
 server.use("/codelearner", userRoutes); // Route defined in userRoutes.js
 
 server.listen(port, () => {
