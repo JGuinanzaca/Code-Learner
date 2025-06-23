@@ -1,12 +1,11 @@
-const { Client } = require("pg");
 const dotenv = require("dotenv");
 dotenv.config();
 
 const config = {
-  host: "localhost",
   user: process.env.USER,
-  port: 5432,
   password: process.env.PASS,
+  host: process.env.HOST,
+  port: process.env.DB_PORT,
   database: process.env.DATABASE,
 };
 
