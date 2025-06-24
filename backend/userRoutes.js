@@ -4,18 +4,73 @@ const { Client } = require("pg");
 const config = require("./config.js"); // Contains object that is used to config Client
 const bcrypt = require("bcrypt");
 
-// localhost:5000/codelearner (route tbd later, for now shows json of query result)
-router.get("/", async (req, res) => {
+// localhost:5000/codelearner/users
+router.get("/users", async (req, res) => {
   try {
     const client = new Client(config);
     await client.connect();
 
-    const result = await client.query(`SELECT * FROM test`);
+    const result = await client.query(`SELECT * FROM codelearner.users`);
     res.json(result.rows);
     await client.end();
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error selecting data from table" });
+  }
+});
+
+// localhost::5000/codelearner/users/:id
+router.get("/users/:id", async (req, res) => {
+  try {
+    const client = new Client(config);
+    await client.connect();
+
+    const result = await client.query(
+      `SELECT * FROM codelearner.users WHERE user_id = ${req.params.id}`
+    );
+    if (result.rowCount == 0)
+      return res.status(404).json({ message: "user is not found" });
+    res.json(result.rows);
+    await client.end();
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ message: "Error retrieving user data" });
+  }
+});
+
+// localhost::5000/codelearner/lessons
+router.get("/lessons", async (req, res) => {
+  try {
+    const client = new Client(config);
+    await client.connect();
+
+    const result = await client.query(
+      `SELECT title, content FROM codelearner.lessons`
+    );
+    res.json(result.rows);
+    await client.end();
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ message: "Error selecting lesson data from table" });
+  }
+});
+
+// localhost::5000/codelearner/lessons/:id
+router.get("/lessons/:id", async (req, res) => {
+  try {
+    const client = new Client(config);
+    await client.connect();
+
+    const result = await client.query(
+      `SELECT title, content FROM codelearner.lessons WHERE lesson_id = ${req.params.id}`
+    );
+    if (result.rowCount == 0)
+      return res.status(404).json({ message: "lesson is not found" });
+    res.json(result.rows);
+    await client.end();
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ message: "Error retrieving lesson data" });
   }
 });
 
@@ -32,13 +87,13 @@ router.post("/register", async (req, res) => {
     const client = new Client(config);
     await client.connect();
 
-    const result = await client.query(`SELECT * FROM test`);
-    let id = result.rowCount; //id stores the count of objects in the row
-    console.log(id); //Debug: checking current number of entries in table
+    const result = await client.query(`SELECT * FROM codelearner.users`); // poor query, but will use for now
+    let id = result.rowCount; // id stores the count of objects in the row
+    console.log(id); // Debug: checking current number of entries in table
     id++;
 
-    await client.query(`INSERT INTO test(name, id, email, password)
-                        VALUES ('john doe', ${id}, '${email}', '${hashedPassword}')`);
+    await client.query(`INSERT INTO codelearner.users(user_id, name, email, password)
+                        VALUES (${id}, 'john doe', '${email}', '${hashedPassword}')`);
     await client.end();
     res.json({ message: "Registration successful!" });
   } catch (error) {
@@ -54,7 +109,7 @@ router.post("/login", async (req, res) => {
   await client.connect();
 
   const result = await client.query(
-    `SELECT * FROM test WHERE email = '${email}'`
+    `SELECT * FROM codelearner.users WHERE email = '${email}'`
   );
   if (result.rowCount == 0)
     // If query returns nothing (meaning 0 results) return status code 400

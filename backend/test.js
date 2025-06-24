@@ -14,16 +14,18 @@ async function testing() {
   const client = new Client(config);
   client.connect();
 
-  const result = await client.query(`SELECT * FROM test`);
+  const result = await client.query(`SELECT * FROM codelearner.users`);
   let id = result.rowCount;
   id++;
 
-  const result2 = await client.query(`SELECT * FROM test WHERE name = 'bob'`);
-  console.log(result2.rows.at(0).id);
+  const result2 = await client.query(
+    `SELECT * FROM codelearner.users WHERE name = 'bob'`
+  );
+  console.log(result2.rows);
 
   // 100% query is incorrect, needs to get tested
-  client.query(`INSERT INTO test(name, id, email, password)
-                        VALUES ('john doe', ${id}, '${email}', '${hashedPassword}')`);
+  client.query(`INSERT INTO codelearner.users(user_id, name, email, password)
+                        VALUES (${id}, 'john doe', '${email}', '${hashedPassword}')`);
   console.log("Success!");
 }
 
