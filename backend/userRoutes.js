@@ -5,6 +5,7 @@ const config = require("./config.js"); // Contains object that is used to config
 const bcrypt = require("bcrypt");
 
 // localhost:5000/codelearner/users
+// may add a join of some sort to also display the users progress
 router.get("/users", async (req, res) => {
   try {
     const client = new Client(config);
@@ -19,7 +20,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
-// localhost::5000/codelearner/users/:id
+// localhost:5000/codelearner/users/:id
 router.get("/users/:id", async (req, res) => {
   try {
     const client = new Client(config);
@@ -29,7 +30,7 @@ router.get("/users/:id", async (req, res) => {
       `SELECT * FROM codelearner.users WHERE user_id = ${req.params.id}`
     );
     if (result.rowCount == 0)
-      return res.status(404).json({ message: "user is not found" });
+      return res.status(404).json({ message: "User is not found" });
     res.json(result.rows);
     await client.end();
   } catch (error) {
@@ -38,7 +39,7 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-// localhost::5000/codelearner/lessons
+// localhost:5000/codelearner/lessons
 router.get("/lessons", async (req, res) => {
   try {
     const client = new Client(config);
@@ -55,7 +56,7 @@ router.get("/lessons", async (req, res) => {
   }
 });
 
-// localhost::5000/codelearner/lessons/:id
+// localhost:5000/codelearner/lessons/:id
 router.get("/lessons/:id", async (req, res) => {
   try {
     const client = new Client(config);
@@ -65,12 +66,80 @@ router.get("/lessons/:id", async (req, res) => {
       `SELECT title, content FROM codelearner.lessons WHERE lesson_id = ${req.params.id}`
     );
     if (result.rowCount == 0)
-      return res.status(404).json({ message: "lesson is not found" });
+      return res.status(404).json({ message: "Lesson is not found" });
     res.json(result.rows);
     await client.end();
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error retrieving lesson data" });
+  }
+});
+
+// localhost:5000/codelearner/progress
+router.get("/progress", async (req, res) => {
+  try {
+    const client = new Client(config);
+    await client.connect();
+
+    const result = await client.query(
+      `SELECT * FROM codelearner.progress ORDER BY user_id ASC`
+    );
+    res.json(result.rows);
+    await client.end();
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ message: "Error selecting data from table" });
+  }
+});
+
+// localhost:5000/codelearner/progress/:id
+router.get("/progress/:id", async (req, res) => {
+  try {
+    const client = new Client(config);
+    await client.connect();
+
+    const result = await client.query(
+      `SELECT * FROM codelearner.progress WHERE user_id = ${req.params.id}`
+    );
+    if (result.rowCount == 0)
+      return res.status(404).json({ message: "User is not found" });
+    res.json(result.rows);
+    await client.end();
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ message: "Error selecting progress data" });
+  }
+});
+
+// localhost:5000/codelearner/progress/:id (needs testing)
+// Pseudo query for what it should look like for updating progress of user (remove later)
+//    UPDATE codelearner.progress
+//    SET lessons_completed[index] = 4
+//    WHERE user_id = id;
+router.put("/progress/:id", async (req, res) => {
+  console.log("Request Body: ", req.body); // Debug
+  const { lesson_id } = req.body;
+
+  try {
+    const client = new Client(config);
+    await client.connect();
+
+    // Select array tied to user that will have an entry inserted
+    const result = await client.query(
+      `SELECT lessons_completed FROM codelearner.progress WHERE user_id = ${req.params.id}`
+    );
+    if (result.rowCount == 0)
+      return res.status(404).json({ message: "User is not found" });
+    let index = result.rows.at(0).lessons_completed.length;
+    console.log(`Index: ${index}`); // Debug: shows new index that entry will be inserted in array
+
+    const result2 = await client.query(`UPDATE codelearner.progress
+                                 SET lessons_completed[${index}] = ${lesson_id}
+                                 WHERE user_id = ${req.params.id}`);
+    await client.end();
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ message: "Error inserting progress data" });
   }
 });
 
@@ -93,7 +162,9 @@ router.post("/register", async (req, res) => {
     id++;
 
     await client.query(`INSERT INTO codelearner.users(user_id, name, email, password)
-                        VALUES (${id}, 'john doe', '${email}', '${hashedPassword}')`);
+                        VALUES (${id}, 'bob', '${email}', '${hashedPassword}')`);
+    await client.query(`INSERT INTO codelearner.progress(user_id, lessons_completed)
+                        VALUES (${id}, '{}')`);
     await client.end();
     res.json({ message: "Registration successful!" });
   } catch (error) {
