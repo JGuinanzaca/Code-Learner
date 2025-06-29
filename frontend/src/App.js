@@ -8,15 +8,18 @@ function App() {
 
   return (
     <div className="App">
+      <img src="/logo.png" alt="Code Learner Logo" style={{ width: "100px", marginBottom: "10px" }} />
       <h1>Code Learner</h1>
-      {user ? (
-        <>
-          <p>Welcome, {user}!</p>
-          <LessonsPage />
-        </>
-      ) : (
-        <LoginPage onLogin={setUser} />
-      )}
+      <div className="card">
+        {user ? (
+          <>
+            <p>Welcome, {user}!</p>
+            <LessonsPage />
+          </>
+        ) : (
+          <LoginPage onLogin={setUser} />
+        )}
+      </div>
     </div>
   );
 }
