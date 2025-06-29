@@ -1,38 +1,49 @@
+body {
+  margin: 0;
+  font-family: "Comic Neue", "Poppins", "Segoe UI", sans-serif;
+  background: linear-gradient(to bottom right, #fdf6f0, #f7e7ff);
+  color: #333;
+}
+
 .App {
   text-align: center;
+  padding: 2rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-size: 3rem;
+  color: #6c3eb9;
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+button {
+  background-color: #ff90e8;
   color: white;
+  font-size: 1rem;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
-.App-link {
-  color: #61dafb;
+button:hover {
+  background-color: #e35fd0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin: 0.5rem 0;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 1rem 2rem;
+  margin: 1rem auto;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
