@@ -1,36 +1,27 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function LoginPage({ onLogin }) {
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password })
-    });
-
-    const data = await response.json();
-    if (data.success) {
-      onLogin(data.username);
-    } else {
-      setError("Invalid username or password");
+    if (username.trim()) {
+      onLogin(username);
     }
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} /><br />
-        <input placeholder="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} /><br />
-        <button type="submit">Login</button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <h2>Log In to Start Learning</h2>
+      <input
+        type="text"
+        placeholder="Enter your name"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <br />
+      <button type="submit">Start Learning</button>
+    </form>
   );
 }
 
