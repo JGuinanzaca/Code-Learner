@@ -1,12 +1,20 @@
 function LessonsPage() {
+  const lessons = [
+    { id: 1, title: "Introduction to Python", description: "Variables, data types, and basic syntax." },
+    { id: 2, title: "Control Flow", description: "if, else, loops and logic" },
+    { id: 3, title: "Functions", description: "Defining and calling functions." },
+  ];
+
   return (
-    <div style={{ padding: "2rem" }}>
-      <h2>Python Basics</h2>
-      <ul>
-        <li>Lesson 1: Print Statements</li>
-        <li>Lesson 2: Variables</li>
-        <li>Lesson 3: If Statements</li>
-      </ul>
+    <div>
+      <h2>Available Lessons</h2>
+      {lessons.map((lesson) => (
+        <div key={lesson.id} className="card">
+          <h3>{lesson.title}</h3>
+          <p>{lesson.description}</p>
+          <button>Start Lesson</button>
+        </div>
+      ))}
     </div>
   );
 }
