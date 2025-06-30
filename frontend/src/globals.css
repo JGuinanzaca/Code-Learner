@@ -394,8 +394,8 @@ button {
   justify-content: center;
   font-size: 3.75rem;
   font-weight: 200;
-  margin-top: 7.5rem; /* mt-30 */
-  margin: 2.5rem;      /* m-10 */
+  margin-top: 7.5rem; 
+  margin: 2.5rem;
 }
 
 .custom-grid {

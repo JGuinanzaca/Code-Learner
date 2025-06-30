@@ -22,9 +22,8 @@ export default function Code() {
         </div>
       </section>
 
-      {/* Main Content */}
-      <main className="custom-main mb-20">
-        {/* Code Challenge Info */}
+      <main className="custom-main">
+        
         <div className="custom-code-problem">
           <h2 className="custom-forum-title">X. Code Problem Title</h2>
           <p className="custom-forum-content">
@@ -38,8 +37,8 @@ export default function Code() {
 
         {/* Code Block */}
         <div className="custom-code-block">
-          <p className="mb-3">if this project is awesome, print “Yes!”</p>
-          <pre className="text-green-400 font-mono text-sm leading-relaxed">
+          <p>if this project is awesome, print “Yes!”</p>
+          <pre>
 {`if project.isAwesome == True:
     print("Yes!")
 else:
