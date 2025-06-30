@@ -12,11 +12,11 @@ function LessonsPage() {
         <div key={lesson.id} className="card">
           <h3>{lesson.title}</h3>
           <p>{lesson.description}</p>
-          <button>Start Lesson</button>
+          <button>Start Lesson</button> 
         </div>
       ))}
     </div>
-  );
+  ); 
 }
 
 export default LessonsPage;
