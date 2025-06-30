@@ -11,6 +11,7 @@ import Forums from "./pages/Forums.jsx";
 import Code from "./pages/Practice.jsx"
 import Docs from "./pages/Docs.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import SignUp from "./pages/Signup.jsx";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
             <Route path='/forums' element={<Forums />} />
             <Route path='/docs' element={<Docs />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
           <Footer />
         </main>

@@ -26,7 +26,7 @@ export default function Docs() {
       <main className="custom-main">
 
         <aside className="custom-sidebar">
-          <h2 className="custom-sidebar-title">Topics</h2>
+          <h2 className="custom-sidebar-title">References: </h2>
           <ul className="custom-topic-list">
             {[
               "Variables & Data Types",

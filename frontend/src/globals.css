@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 :root {
   --background: #1e1e1e;
@@ -15,14 +15,16 @@
   --text-light: #1e2939;
   --text-s-light: #1b1b1b; 
   --editor-l: #101828;
+  --sidebar-l: #f3f4f6;
 
-  --primary-dark: #0a192f;
-  --secondary-dark: #6d7e9b;
+  --primary-dark: #2c2a2e;
+  --secondary-dark: #2f2834;
   --accent-dark: #e4db74;
   --accent-s-dark: #f72870;
   --text-dark: #a6e22e;
   --text-s-dark: #ae81ff;
   --editor-d: #24262a;
+  --sidebar-d: #1e1e1e;
 
   --font-primary: 'Inter', sans-serif;
 }
@@ -78,6 +80,7 @@ button {
   --text: var(--text-dark);
   --text-secondary: var(--text-s-dark);
   --editor: var(--editor-d);
+  --sidebar: var(--sidebar-d);
 
   --tshadow:0 0 10px rgba(255, 255, 255, 0.1), 
             0 0 20px rgba(255, 255, 255, 0.1), 
@@ -95,6 +98,7 @@ button {
   --text: var(--text-light);
   --text-secondary: var(--text-s-light);
   --editor: var(--editor-l);
+  --sidebar: var(--sidebar-l);
 
   --tshadow:0 0 10px rgba(0, 0, 0, 0.1), 
             0 0 20px rgba(0, 0, 0, 0.1), 
@@ -163,7 +167,7 @@ button {
 
 /* Footer styles */
 .footer {
-  background: var(--primary);
+  background: var(--secondary);
   color: var(--text);
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   width: 100%;
@@ -202,14 +206,12 @@ button {
   }
 }
 .footer-link {
-  color: var(--text, #222);
+  /* color: var(--text, #222); */
   font-size: 0.75rem;
   text-decoration: none;
   transition: text-decoration 0.2s;
 }
-.footer-link:hover {
-  text-decoration: underline;
-}
+
 .footer-info {
   display: flex;
   flex-direction: column;
@@ -442,7 +444,7 @@ button {
 }
 
 .custom-sidebar {
-  background-color: var(--accent-secondary);
+  background-color: var(--sidebar);
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
@@ -453,12 +455,17 @@ button {
   gap: 1rem;
   height: fit-content;
 }
+.custom-sidebar button{
+  background-color: var(--accent-secondary);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
 
 .custom-sidebar-title {
   font-size: 1.125rem;
   font-weight: bold;
   margin-bottom: 0.75rem;
-  color: var(--editor);
+  color: var(--text-secondary);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -487,6 +494,10 @@ button {
   color: #7e22ce;
   font-weight: 500;
   margin-top: auto;
+  padding: 0.5rem;
+}
+.custom-pagination button {
+  padding: 0.25rem;
 }
 
 .custom-forum {
@@ -502,14 +513,14 @@ button {
 }
 
 .custom-forum-title {
-  color: var(--editor);
+  color: var(--text);
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 .custom-forum-content {
-  color: #374151;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
 }
 
