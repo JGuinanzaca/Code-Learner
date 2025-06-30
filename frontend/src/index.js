@@ -10,7 +10,7 @@ import HomePage from './App.jsx';
 import Forums from "./pages/Forums.jsx";
 import Code from "./pages/Practice.jsx"
 import Docs from "./pages/Docs.jsx";
-import LoginPage from "./pages/LoginPage.js";
+import LoginPage from "./pages/LoginPage.jsx";
 
 function App() {
 
