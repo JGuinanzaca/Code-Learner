@@ -167,6 +167,7 @@ router.post("/register", async (req, res) => {
                         VALUES (${id}, '{}')`);
     await client.end();
     res.status(200).json({ message: "Registration successful!" });
+    res.send(id);
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error registering user" });
@@ -198,8 +199,10 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid password" });
     }
     await client.end();
-    // Needs more extension i think, after validPassword is true
+    const id = result.rows.at(0).user_id;
+    res.send(id);
     res.status(200).json({ message: "Login successful!" }); //temporary for now
+    // Needs more extension i think, after validPassword is true
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error logging in" });
