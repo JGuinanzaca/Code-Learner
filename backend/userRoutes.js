@@ -166,7 +166,7 @@ router.post("/register", async (req, res) => {
     await client.query(`INSERT INTO codelearner.progress(user_id, lessons_completed)
                         VALUES (${id}, '{}')`);
     await client.end();
-    res.json({ message: "Registration successful!" });
+    res.status(200).json({ message: "Registration successful!" });
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error registering user" });
@@ -199,6 +199,7 @@ router.post("/login", async (req, res) => {
     }
     await client.end();
     // Needs more extension i think, after validPassword is true
+    res.status(200).json({ message: "Login successful!" }); //temporary for now
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error logging in" });
