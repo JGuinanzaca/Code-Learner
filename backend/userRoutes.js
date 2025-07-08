@@ -67,8 +67,8 @@ router.get("/lessons/:id", async (req, res) => {
     );
     if (result.rowCount == 0)
       return res.status(404).json({ message: "Lesson is not found" });
-    res.json(result.rows);
     await client.end();
+    res.json(result.rows);
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error retrieving lesson data" });
@@ -146,7 +146,7 @@ router.put("/progress/:id", async (req, res) => {
 // Registration route (template of what register path should look like? needs testing)
 // May add check to ensure there is no usage of duplicate emails used in database storage
 router.post("/register", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
 
   try {
     // Generates a salt with a specific number of rounds (e.g., 10)
@@ -158,11 +158,11 @@ router.post("/register", async (req, res) => {
 
     const result = await client.query(`SELECT * FROM codelearner.users`); // poor query, but will use for now
     let id = result.rowCount; // id stores the count of objects in the row
-    console.log(id); // Debug: checking current number of entries in table
+    console.log(`Debug: Current id value: ${id}`); // Debug: checking current number of entries in table
     id++;
 
     await client.query(`INSERT INTO codelearner.users(user_id, name, email, password)
-                        VALUES (${id}, 'bob', '${email}', '${hashedPassword}')`);
+                        VALUES (${id}, '${name}', '${email}', '${hashedPassword}')`);
     await client.query(`INSERT INTO codelearner.progress(user_id, lessons_completed)
                         VALUES (${id}, '{}')`);
     await client.end();

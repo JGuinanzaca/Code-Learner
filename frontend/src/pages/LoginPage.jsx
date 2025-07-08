@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import "../globals.css"; 
+import "../globals.css";
 import "../login.css";
+import { login } from "../Api.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
@@ -10,8 +13,14 @@ export default function LoginPage() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Logging in with: ${formData.email}`);
+    try {
+      e.preventDefault();
+      alert(`Logging in with: ${formData.email}`);
+      login(formData);
+      navigate("/Code");
+    } catch (error) {
+      console.error("Log-in failed:", error);
+    }
   };
   return (
     <div className="login-container">
@@ -19,7 +28,9 @@ export default function LoginPage() {
         <h2 className="login-title">Welcome Back</h2>
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="login-field">
-            <label htmlFor="email" className="login-label">Email</label>
+            <label htmlFor="email" className="login-label">
+              Email
+            </label>
             <input
               type="email"
               name="email"
@@ -33,7 +44,9 @@ export default function LoginPage() {
           </div>
 
           <div className="login-field">
-            <label htmlFor="password" className="login-label">Password</label>
+            <label htmlFor="password" className="login-label">
+              Password
+            </label>
             <input
               type="password"
               name="password"
@@ -46,10 +59,15 @@ export default function LoginPage() {
             />
           </div>
 
-          <button type="submit" className="login-button">Log In</button>
+          <button type="submit" className="login-button">
+            Log In
+          </button>
         </form>
         <p className="login-footer">
-          Don't have an account? <a href="/signup" className="login-link">Sign up</a>
+          Don't have an account?{" "}
+          <a href="/signup" className="login-link">
+            Sign up
+          </a>
         </p>
       </div>
     </div>

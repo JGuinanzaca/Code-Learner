@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import "../globals.css"; 
-import "../login.css"; 
+import "../globals.css";
+import "../login.css";
+import { register } from "../Api.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,12 +18,22 @@ export default function SignupPage() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+    try {
+      e.preventDefault();
+      if (formData.password !== formData.confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+      alert(`Signing up: ${formData.name} | ${formData.email}`);
+      register({
+        email: formData.email,
+        password: formData.password,
+        name: formData.name,
+      });
+      navigate("/Code");
+    } catch (error) {
+      console.error("Register failed:", error);
     }
-    alert(`Signing up: ${formData.name} | ${formData.email}`);
   };
 
   return (
@@ -29,7 +42,9 @@ export default function SignupPage() {
         <h2 className="login-title">Create an Account</h2>
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="login-field">
-            <label htmlFor="name" className="login-label">Full Name</label>
+            <label htmlFor="name" className="login-label">
+              Full Name
+            </label>
             <input
               type="text"
               name="name"
@@ -43,7 +58,9 @@ export default function SignupPage() {
           </div>
 
           <div className="login-field">
-            <label htmlFor="email" className="login-label">Email</label>
+            <label htmlFor="email" className="login-label">
+              Email
+            </label>
             <input
               type="email"
               name="email"
@@ -57,7 +74,9 @@ export default function SignupPage() {
           </div>
 
           <div className="login-field">
-            <label htmlFor="password" className="login-label">Password</label>
+            <label htmlFor="password" className="login-label">
+              Password
+            </label>
             <input
               type="password"
               name="password"
@@ -71,7 +90,9 @@ export default function SignupPage() {
           </div>
 
           <div className="login-field">
-            <label htmlFor="confirmPassword" className="login-label">Confirm Password</label>
+            <label htmlFor="confirmPassword" className="login-label">
+              Confirm Password
+            </label>
             <input
               type="password"
               name="confirmPassword"
@@ -84,10 +105,15 @@ export default function SignupPage() {
             />
           </div>
 
-          <button type="submit" className="login-button">Sign Up</button>
+          <button type="submit" className="login-button">
+            Sign Up
+          </button>
         </form>
         <p className="login-footer">
-          Already have an account? <a href="/login" className="login-link">Log in</a>
+          Already have an account?{" "}
+          <a href="/login" className="login-link">
+            Log in
+          </a>
         </p>
       </div>
     </div>
