@@ -1,7 +1,5 @@
 import { FaRegUserCircle, FaRegSun, FaRegMoon } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { selectId } from "../redux/authSlice";
 import "../globals.css";
 
 const navItems = [
@@ -18,6 +16,7 @@ export default function Header({
   textLeave,
 }) {
   const [scrolled, setScrolled] = useState(false);
+  const [auth, setAuth] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,14 +26,22 @@ export default function Header({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // if the default id in the store is -1 (meaning user has not logged in or signed up), default path is /signup
+  useEffect(() => {
+    if (sessionStorage.getItem("isAuthenticated") === "true") {
+      setAuth(true);
+    }
+  }, []);
+
+  // if the boolean value is false (meaning user has not logged in or signed up), default path is /signup
   // otherwise, return the href stored in the map of navItems
+  // sessionStorage persist even after page refresh
   function NavToPath(href) {
-    const id = useSelector((state) => selectId(state));
-    if (id !== -1) {
-      return href;
-    } else {
+    if (!auth) {
+      console.log("Not Authenticated"); // Debug
       return "/signup";
+    } else if (auth) {
+      console.log("Authenticated"); // Debug
+      return href;
     }
   }
 
