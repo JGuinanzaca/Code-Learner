@@ -1,8 +1,9 @@
 import { FaRegUserCircle, FaRegSun, FaRegMoon } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { selectId } from "../redux/authSlice";
-import { useSelector } from "react-redux";
+import { selectId, saveId } from "../redux/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 import "../globals.css";
+import { useNavigate } from "react-router-dom";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -17,6 +18,8 @@ export default function Header({
   textEnter,
   textLeave,
 }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -27,9 +30,14 @@ export default function Header({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // default value for id is -1
-  // persistence is now guarenteed across the board on page refresh...except it persist even after terminating host
-  // another issue is scrolling up and down on the window makes multiple calls (scrolling most likely causes refreshing)
+  // returns auth id to default value, removing "authentication" from user
+  const handleLogout = () => {
+    dispatch(saveId(-1));
+    navigate("/");
+  };
+
+  // default value for id is -1, persistence is now guarenteed across the board
+  // one issue is scrolling up and down on the window makes multiple calls (scrolling most likely causes refreshing)
   function NavToPath(href) {
     const userId = useSelector((state) => selectId(state));
     if (userId !== -1) {
@@ -75,6 +83,7 @@ export default function Header({
             <button onClick={() => (window.location.href = "/login")}>
               <FaRegUserCircle size={24} style={{ padding: 3 }} />
             </button>
+            <button onClick={handleLogout}>logout</button>
           </div>
         </div>
       </div>
