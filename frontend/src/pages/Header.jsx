@@ -1,5 +1,7 @@
 import { FaRegUserCircle, FaRegSun, FaRegMoon } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { selectId } from "../redux/authSlice";
+import { useSelector } from "react-redux";
 import "../globals.css";
 
 const navItems = [
@@ -16,7 +18,6 @@ export default function Header({
   textLeave,
 }) {
   const [scrolled, setScrolled] = useState(false);
-  const [auth, setAuth] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,22 +27,17 @@ export default function Header({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (sessionStorage.getItem("isAuthenticated") === "true") {
-      setAuth(true);
-    }
-  }, []);
-
-  // if the boolean value is false (meaning user has not logged in or signed up), default path is /signup
-  // otherwise, return the href stored in the map of navItems
-  // sessionStorage persist even after page refresh
+  // default value for id is -1
+  // persistence is now guarenteed across the board on page refresh...except it persist even after terminating host
+  // another issue is scrolling up and down on the window makes multiple calls (scrolling most likely causes refreshing)
   function NavToPath(href) {
-    if (!auth) {
-      console.log("Not Authenticated"); // Debug
-      return "/signup";
-    } else if (auth) {
+    const userId = useSelector((state) => selectId(state));
+    if (userId !== -1) {
       console.log("Authenticated"); // Debug
       return href;
+    } else if (userId === -1) {
+      console.log("Not Authenticated"); // Debug
+      return "/signup";
     }
   }
 

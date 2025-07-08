@@ -15,8 +15,8 @@ export default function LoginPage() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // the idea is to save the Id that is in the response from /login, and save that to the redux store
-  // then, set sessionStorage with a boolean value of true, that persist after page refresh to authenticate user
+  // when login endpoint is invoked and it returns a valid id, we save the userId to the redux store, so that it can be
+  // maintained across the app to be used in all components (persistence guarenteed)
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
@@ -24,8 +24,6 @@ export default function LoginPage() {
       login(formData).then((response) => {
         console.log(response); // Debug: checking if promise was fufilled (returns id of user in database)
         dispatch(saveId(response));
-        sessionStorage.setItem("isAuthenticated", "true");
-        sessionStorage.setItem("userId", `${response}`);
         navigate("/Code");
       });
     } catch (error) {
