@@ -1,6 +1,51 @@
+import React, { useState } from "react";
+import { fetchLessons } from "../Api";
 import "../globals.css";
 
 export default function Code() {
+  const [lessons, setLessons] = useState({ title: "", content: "" });
+  const [Id, setId] = useState(1);
+
+  async function handleBack() {
+    try {
+      if (Id === 1) {
+        setId(3);
+        await fetchLessons(Id).then((response) => {
+          console.log(response[0]); // Debug purposes
+          setLessons(response[0]);
+        });
+      } else {
+        setId(Id - 1);
+        await fetchLessons(Id).then((response) => {
+          console.log(response[0]);
+          setLessons(response[0]);
+        });
+      }
+    } catch (error) {
+      console.log("Fetching lessons failed:", error);
+    }
+  }
+
+  async function handleNext() {
+    try {
+      if (Id === 3) {
+        setId(1);
+        await fetchLessons(Id).then((response) => {
+          console.log(response[0]); //Debug purposes
+          setLessons(response[0]);
+        });
+      } else {
+        setId(Id + 1);
+        await fetchLessons(Id).then((response) => {
+          console.log(response[0]);
+          setLessons(response[0]);
+        });
+      }
+    } catch (error) {
+      console.log("Fetching lessons failed:", error);
+    }
+  }
+
   return (
     <div className="custom-container">
       {/* Hero */}
@@ -23,15 +68,12 @@ export default function Code() {
       </section>
 
       <main className="custom-main">
-        
         <div className="custom-code-problem">
-          <h2 className="custom-forum-title">X. Code Problem Title</h2>
-          <p className="custom-forum-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt...
-          </p>
+          <h2 className="custom-forum-title">{lessons.title}</h2>
+          <p className="custom-forum-content">{lessons.content}</p>
           <div className="custom-pagination">
-            <button>back</button>
-            <button>next</button>
+            <button onClick={handleBack}>back</button>
+            <button onClick={handleNext}>next</button>
           </div>
         </div>
 
@@ -39,7 +81,7 @@ export default function Code() {
         <div className="custom-code-block">
           <p>if this project is awesome, print “Yes!”</p>
           <pre>
-{`if project.isAwesome == True:
+            {`if project.isAwesome == True:
     print("Yes!")
 else:
     print("Yikes :/")`}
