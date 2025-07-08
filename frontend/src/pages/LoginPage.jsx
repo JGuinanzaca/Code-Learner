@@ -3,21 +3,36 @@ import "../globals.css";
 import "../login.css";
 import { login } from "../Api.jsx";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectId, saveId } from "../redux/authSlice";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // the idea is to save the Id that is in the response from /login, and save that to the redux store
+  // then, make a comparison by retrieving that id and navigate to the relevant path, otherwise do nothing
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
       alert(`Logging in with: ${formData.email}`);
-      login(formData);
-      navigate("/Code");
+      login(formData).then((response) => {
+        console.log(response); // Debug: checking if promise was fufilled (returns id of user in database)
+        dispatch(saveId(response));
+      });
+      /*
+      const id = useSelector((state) => selectId(state));
+      if (id !== -1) {
+        navigate("/Code");
+      } else {
+        alert(`Invalid login. Try again`);
+      }
+      */
     } catch (error) {
       console.error("Log-in failed:", error);
     }
