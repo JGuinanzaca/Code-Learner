@@ -25,7 +25,11 @@ export default function SignupPage() {
         return;
       }
       alert(`Signing up: ${formData.name} | ${formData.email}`);
-      register({ email: formData.email, password: formData.password });
+      register({
+        email: formData.email,
+        password: formData.password,
+        name: formData.name,
+      });
       navigate("/Code");
     } catch (error) {
       console.error("Register failed:", error);
