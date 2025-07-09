@@ -11,7 +11,7 @@ export default function Forums() {
           <button
             key={idx}
             className="custom-button"
-            onClick={() => alert(`${text} loaded, open editor`)}
+            onClick={() => console.log(`${text} forum loaded`)}
           >
             <h2 className="custom-button-heading">{text}</h2>
           </button>

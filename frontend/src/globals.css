@@ -14,15 +14,15 @@
   --accent-s-light: #ffffff;
   --text-light: #1e2939;
   --text-s-light: #1b1b1b; 
-  --editor-l: #101828;
+  --editor-l: #9facc2;
   --sidebar-l: #f3f4f6;
 
   --primary-dark: #2c2a2e;
   --secondary-dark: #2f2834;
-  --accent-dark: #e4db74;
-  --accent-s-dark: #f72870;
-  --text-dark: #a6e22e;
-  --text-s-dark: #ae81ff;
+  --accent-dark: #a75cb2;
+  --accent-s-dark: #a6e22e;
+  --text-dark: #c4c4c3;
+  --text-s-dark: #b3b3ef;
   --editor-d: #24262a;
   --sidebar-d: #1e1e1e;
 
@@ -338,7 +338,7 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: var(--accent-secondary);
+  background: var(--bg);
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
@@ -456,7 +456,7 @@ button {
   height: fit-content;
 }
 .custom-sidebar button{
-  background-color: var(--accent-secondary);
+  background-color: var(--accent);
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
@@ -538,7 +538,7 @@ button {
 
 .custom-code-block {
   background-color: var(--editor);
-  color: oklch(79.2% 0.209 151.711);
+  color: oklch(54.389% 0.1401 152.523);
   padding: 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -559,7 +559,7 @@ button {
 }
 
 .custom-code-problem {
-  background-color: white;
+  background-color: var(--editor);
   padding: 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
