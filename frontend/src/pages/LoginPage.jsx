@@ -3,21 +3,29 @@ import "../globals.css";
 import "../login.css";
 import { login } from "../Api.jsx";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { saveId } from "../redux/authSlice";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // when login endpoint is invoked and it returns a valid id, we save the userId to the redux store, so that it can be
+  // maintained across the app to be used in all components (persistence guarenteed)
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
       alert(`Logging in with: ${formData.email}`);
-      login(formData);
-      navigate("/Code");
+      login(formData).then((response) => {
+        console.log(response); // Debug: checking if promise was fufilled (returns id of user in database)
+        dispatch(saveId(response));
+        navigate("/Code");
+      });
     } catch (error) {
       console.error("Log-in failed:", error);
     }

@@ -3,9 +3,12 @@ import "../globals.css";
 import "../login.css";
 import { register } from "../Api.jsx";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { saveId } from "../redux/authSlice";
 
 export default function SignupPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,6 +20,8 @@ export default function SignupPage() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // when register endpoint is invoked and it returns a valid id, we save the userId to the redux store, so that it can be
+  // maintained across the app to be used in all components (persistence guarenteed)
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
@@ -29,8 +34,10 @@ export default function SignupPage() {
         email: formData.email,
         password: formData.password,
         name: formData.name,
+      }).then((response) => {
+        dispatch(saveId(response));
+        navigate("/Code");
       });
-      navigate("/Code");
     } catch (error) {
       console.error("Register failed:", error);
     }
