@@ -17,26 +17,31 @@ import Code from "./pages/Practice.jsx";
 import Docs from "./pages/Docs.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import SignUp from "./pages/Signup.jsx";
+import Sitemap from "./pages/Sitemap.jsx";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
   const darkMode = theme !== "dark";
 
   return (
-    <>
-      <Header darkMode={darkMode} toggleTheme={toggleTheme} />
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/code" element={<Code />} />
-          <Route path="/forums" element={<Forums />} />
-          <Route path="/docs" element={<Docs />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-        <Footer />
-      </main>
-    </>
+      <>
+        <Header 
+          darkMode={darkMode} 
+          toggleTheme={toggleTheme} />
+        <main>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/code' element={<Code />} />
+            <Route path='/forums' element={<Forums />} />
+            <Route path='/docs' element={<Docs />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/sitemap" element={<Sitemap />} />
+            <Route path="*" element={<h1>Page Not Found</h1>} />
+          </Routes>
+          <Footer />
+        </main>
+      </>
   );
 }
 

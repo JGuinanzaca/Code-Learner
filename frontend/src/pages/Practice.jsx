@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import CodeEditor from "./CodeEditor.jsx";
 import { fetchLessons } from "../Api";
 import "../globals.css";
+
 
 export default function Code() {
   const [lessons, setLessons] = useState({ title: "", content: "" });
   const [Id, setId] = useState(1);
+  const [code, setCode] = useState();
 
   async function handleBack() {
     try {
@@ -59,8 +62,7 @@ export default function Code() {
             <button
               key={idx}
               className="custom-button"
-              onClick={() => alert(`${lang} loaded, open editor`)}
-            >
+              onClick={() => alert(`${lang} loaded`)}>
               <h2 className="custom-button-heading">{lang}</h2>
             </button>
           ))}
@@ -77,16 +79,8 @@ export default function Code() {
           </div>
         </div>
 
-        {/* Code Block */}
-        <div className="custom-code-block">
-          <p>if this project is awesome, print “Yes!”</p>
-          <pre>
-            {`if project.isAwesome == True:
-    print("Yes!")
-else:
-    print("Yikes :/")`}
-          </pre>
-        </div>
+        {/* Code Editor */}
+        <CodeEditor initialCode={code} onChange={setCode} />
       </main>
     </div>
   );

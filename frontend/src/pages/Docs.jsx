@@ -14,7 +14,7 @@ export default function Docs() {
             <button
               key={idx}
               className="custom-button"
-              onClick={() => alert(`${text} loaded, open editor`)}
+              onClick={() => alert(`${text} docs loaded`)}
             >
               <h2 className="custom-button-heading">{text}</h2>
             </button>
@@ -47,11 +47,11 @@ export default function Docs() {
         <div className="custom-forum">
           <h2 className="custom-forum-title">Topic</h2>
           <p className="custom-forum-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            This will be a description of the topic being covered in this section. Users can come back to see how certain concepts are implemented in different programming languages. This part of the website will virtually act as a textbook/reference/review page.
           </p>
 
           <div className="custom-code-block">
-            <p className="mb-3">example code for topic:</p>
+            <p>example code for topic:</p>
             <pre>
 {`if project.isAwesome == True:
     print("Yes!")
