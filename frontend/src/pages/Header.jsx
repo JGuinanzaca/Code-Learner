@@ -45,7 +45,7 @@ export default function Header({
       return href;
     } else if (userId === -1) {
       console.log("Not Authenticated"); // Debug
-      return "/signup";
+      return "/login";
     }
   }
 
