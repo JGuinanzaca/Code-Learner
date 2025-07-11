@@ -3,6 +3,24 @@ const router = express.Router();
 const { Client } = require("pg");
 const config = require("./config.js"); // Contains object that is used to config Client
 const bcrypt = require("bcrypt");
+const { spawn } = require("child_process");
+
+router.get("/", (req, res) => {
+  var dataToSend;
+  // spawn new child process to call the python script
+  const python = spawn("python", ["testing.py", "node.js"]);
+  // collect data from script
+  python.stdout.on("data", function (data) {
+    console.log("Pipe data from python script ...");
+    dataToSend = data.toString();
+  });
+  // in close event we are sure that stream from child process is closed
+  python.on("close", (code) => {
+    console.log(`child process close all stdio with code ${code}`);
+    // send data to browser
+    res.send(dataToSend);
+  });
+});
 
 // localhost:5000/codelearner/users
 // may add a join of some sort to also display the users progress
