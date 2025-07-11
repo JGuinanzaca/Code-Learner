@@ -40,6 +40,7 @@ export default function Header({
   // one issue is scrolling up and down on the window makes multiple calls (scrolling most likely causes refreshing)
   function NavToPath(href) {
     const userId = useSelector((state) => selectId(state));
+    if (href === "/") return href;
     if (userId !== -1) {
       console.log("Authenticated"); // Debug
       return href;
