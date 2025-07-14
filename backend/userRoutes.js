@@ -4,23 +4,7 @@ const { Client } = require("pg");
 const config = require("./config.js"); // Contains object that is used to config Client
 const bcrypt = require("bcrypt");
 const { spawn } = require("child_process");
-
-router.get("/", (req, res) => {
-  var dataToSend;
-  // spawn new child process to call the python script
-  const python = spawn("python", ["testing.py", "node.js"]);
-  // collect data from script
-  python.stdout.on("data", function (data) {
-    console.log("Pipe data from python script ...");
-    dataToSend = data.toString();
-  });
-  // in close event we are sure that stream from child process is closed
-  python.on("close", (code) => {
-    console.log(`child process close all stdio with code ${code}`);
-    // send data to browser
-    res.send(dataToSend);
-  });
-});
+const fs = require("fs");
 
 // localhost:5000/codelearner/users
 // may add a join of some sort to also display the users progress
@@ -38,14 +22,14 @@ router.get("/users", async (req, res) => {
   }
 });
 
-// localhost:5000/codelearner/users/:id
-router.get("/users/:id", async (req, res) => {
+// localhost:5000/codelearner/users/:user_id
+router.get("/users/:user_id", async (req, res) => {
   try {
     const client = new Client(config);
     await client.connect();
 
     const result = await client.query(
-      `SELECT * FROM codelearner.users WHERE user_id = ${req.params.id}`
+      `SELECT * FROM codelearner.users WHERE user_id = ${req.params.user_id}`
     );
     if (result.rowCount == 0)
       return res.status(404).json({ message: "User is not found" });
@@ -74,14 +58,14 @@ router.get("/lessons", async (req, res) => {
   }
 });
 
-// localhost:5000/codelearner/lessons/:id
-router.get("/lessons/:id", async (req, res) => {
+// localhost:5000/codelearner/lessons/:lesson_id
+router.get("/lessons/:lesson_id", async (req, res) => {
   try {
     const client = new Client(config);
     await client.connect();
 
     const result = await client.query(
-      `SELECT title, content FROM codelearner.lessons WHERE lesson_id = ${req.params.id}`
+      `SELECT title, content FROM codelearner.lessons WHERE lesson_id = ${req.params.lesson_id}`
     );
     if (result.rowCount == 0)
       return res.status(404).json({ message: "Lesson is not found" });
@@ -110,14 +94,14 @@ router.get("/progress", async (req, res) => {
   }
 });
 
-// localhost:5000/codelearner/progress/:id
-router.get("/progress/:id", async (req, res) => {
+// localhost:5000/codelearner/progress/:user_id
+router.get("/progress/:user_id", async (req, res) => {
   try {
     const client = new Client(config);
     await client.connect();
 
     const result = await client.query(
-      `SELECT * FROM codelearner.progress WHERE user_id = ${req.params.id}`
+      `SELECT * FROM codelearner.progress WHERE user_id = ${req.params.user_id}`
     );
     if (result.rowCount == 0)
       return res.status(404).json({ message: "User is not found" });
@@ -129,32 +113,78 @@ router.get("/progress/:id", async (req, res) => {
   }
 });
 
-// localhost:5000/codelearner/progress/:id (needs testing)
-// Pseudo query for what it should look like for updating progress of user (remove later)
-//    UPDATE codelearner.progress
-//    SET lessons_completed[index] = 4
-//    WHERE user_id = id;
-router.put("/progress/:id", async (req, res) => {
-  console.log("Request Body: ", req.body); // Debug
-  const { lesson_id } = req.body;
+// localhost:5000/codelearner/progress/:user_id (needs testing)
+// the userAnswer retrieved from req.body should container '\n' otherwise, filewriting
+// may return an error regardless of what the user wrote
+router.put("/progress/:user_id", async (req, res) => {
+  const { lesson_id, userAnswer } = req.body;
+  console.log(`The users answer: ${userAnswer}`); // Debug
+
+  const filePath = "./userScript.py";
+  fs.writeFile(filePath, userAnswer, (err) => {
+    if (err) {
+      res.status(500).json({ message: "Error overwriting the file" });
+    } else {
+      console.log("File successfully overwritten!");
+    }
+  });
+
+  var dataRecievedFromScript;
+  const python = spawn("python", ["userScript.py"]); // spawns new child process to call the python script
+  // collect data from script (handles even compilation errors, but returns nothing)
+  python.stdout.on("data", function (data) {
+    console.log("Pipe data from python script ...");
+    dataRecievedFromScript = data.toString();
+  });
+  // in close event we are sure that stream from child process is closed
+  python.on("close", (code) => {
+    console.log(`child process close all stdio with code ${code}`);
+    if (code === 1) {
+      console.log("User wrote poor code and interpreter threw an error");
+      res.status(400).json({ message: "Error during compilation" });
+    }
+  });
 
   try {
     const client = new Client(config);
     await client.connect();
+    console.log(
+      `Logging the answer in the try block: ${dataRecievedFromScript}`
+    ); // Debug (remove later)
 
+    const solution = await client.query(
+      `SELECT answer FROM codelearner.lessons WHERE lesson_id = ${lesson_id}}`
+    );
+    if (solution.rows.at(0).answer !== dataRecievedFromScript) {
+      await client.end();
+      res.status(400).json({ message: "Expeceted output was not matched!" });
+    }
+    await client.end();
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ message: "Error retrieving answer data" });
+  }
+
+  try {
+    const client = new Client(config);
+    await client.connect();
     // Select array tied to user that will have an entry inserted
     const result = await client.query(
-      `SELECT lessons_completed FROM codelearner.progress WHERE user_id = ${req.params.id}`
+      `SELECT lessons_completed FROM codelearner.progress WHERE user_id = ${req.params.user_id}`
     );
-    if (result.rowCount == 0)
+    if (result.rowCount == 0) {
       return res.status(404).json({ message: "User is not found" });
+    }
+    if (result.rows.at(0).lessons_completed.find((id) => id === lesson_id)) {
+      return res.status(200).json({ message: "Lesson already completed!" });
+    }
     let index = result.rows.at(0).lessons_completed.length;
-    console.log(`Index: ${index}`); // Debug: shows new index that entry will be inserted in array
 
     const result2 = await client.query(`UPDATE codelearner.progress
                                  SET lessons_completed[${index}] = ${lesson_id}
                                  WHERE user_id = ${req.params.id}`);
     await client.end();
+    console.log("Progress successfully saved to user's account");
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error inserting progress data" });

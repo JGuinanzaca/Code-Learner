@@ -25,18 +25,33 @@ export const login = async (userData) => {
   }
 };
 
-export const fetchUsers = async (id) => {
+export const fetchUsers = async (user_id) => {
   try {
-    const response = await axios.get(`${BASE_URL}/codelearner/users/${id}`);
+    const response = await axios.get(
+      `${BASE_URL}/codelearner/users/${user_id}`
+    );
     return response.data;
   } catch (error) {
     throw error.response.data;
   }
 };
 
-export const fetchLessons = async (id) => {
+export const fetchLessons = async (lesson_id) => {
   try {
-    const response = await axios.get(`${BASE_URL}/codelearner/lessons/${id}`);
+    const response = await axios.get(
+      `${BASE_URL}/codelearner/lessons/${lesson_id}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const saveProgress = async (user_id) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/codelearner/progress/${user_id}`
+    );
     return response.data;
   } catch (error) {
     throw error.response.data;
