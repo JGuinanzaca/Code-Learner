@@ -131,17 +131,25 @@ router.put("/progress/:user_id", async (req, res) => {
 
   var dataRecievedFromScript;
   const python = spawn("python", ["userScript.py"]); // spawns new child process to call the python script
-  // collect data from script (handles even compilation errors, but returns nothing)
+  // collect data from script (if no compilation error)
   python.stdout.on("data", function (data) {
-    console.log("Pipe data from python script ...");
+    console.log("Pipe data from python script (stdout) ...");
     dataRecievedFromScript = data.toString();
   });
+  // collect error data from script (if compilation error)
+  if (dataRecievedFromScript === undefined) {
+    python.stderr.on("data", function (data) {
+      console.log("Pipe data from python script (stderr) ...");
+      dataRecievedFromScript = data.toString();
+      console.log(`${dataRecievedFromScript}`); // Debug: error thrown from user
+    });
+  }
   // in close event we are sure that stream from child process is closed
   python.on("close", (code) => {
     console.log(`child process close all stdio with code ${code}`);
     if (code === 1) {
       console.log("User wrote poor code and interpreter threw an error");
-      res.status(400).json({ message: "Error during compilation" });
+      res.status(400).json({ userError: `${dataRecievedFromScript}` });
     }
   });
 
@@ -185,6 +193,7 @@ router.put("/progress/:user_id", async (req, res) => {
                                  WHERE user_id = ${req.params.id}`);
     await client.end();
     console.log("Progress successfully saved to user's account");
+    return res.status(200).json({ message: "Progress saved" });
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error inserting progress data" });
