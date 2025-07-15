@@ -129,6 +129,13 @@ router.put("/progress/:user_id", async (req, res) => {
     }
   });
 
+  // code for killing process will return null
+  setTimeout(async function () {
+    await new Promise(() => {
+      python.kill(2);
+    });
+  }, 10000); // 10k milliseconds = 10 seconds
+
   var dataRecievedFromScript;
   const python = spawn("python", ["userScript.py"]); // spawns new child process to call the python script
   // collect data from script (if no compilation error)
@@ -150,6 +157,9 @@ router.put("/progress/:user_id", async (req, res) => {
     if (code === 1) {
       console.log("User wrote poor code and interpreter threw an error");
       res.status(400).json({ userError: `${dataRecievedFromScript}` });
+    } else if (code === null) {
+      console.log(`Process killed: infinite loop/long execution`);
+      res.status(500).json({ Message: "Timer ran out dumbass" });
     }
   });
 
