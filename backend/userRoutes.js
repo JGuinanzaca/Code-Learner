@@ -114,7 +114,7 @@ router.get("/progress/:user_id", async (req, res) => {
 });
 
 // localhost:5000/codelearner/progress/:user_id (needs testing)
-// the userAnswer retrieved from req.body should container '\n' otherwise, filewriting
+// the userAnswer retrieved from req.body should contain '\n' otherwise, filewriting
 // may return an error regardless of what the user wrote
 router.put("/progress/:user_id", async (req, res) => {
   const { lesson_id, userAnswer } = req.body;
@@ -159,7 +159,7 @@ router.put("/progress/:user_id", async (req, res) => {
       res.status(400).json({ userError: `${dataRecievedFromScript}` });
     } else if (code === null) {
       console.log(`Process killed: infinite loop/long execution`);
-      res.status(500).json({ Message: "Timer ran out dumbass" });
+      res.status(500).json({ message: "Timer ran out dumbass" });
     }
   });
 
@@ -202,7 +202,7 @@ router.put("/progress/:user_id", async (req, res) => {
 
     const result2 = await client.query(`UPDATE codelearner.progress
                                  SET lessons_completed[${index}] = ${lesson_id}
-                                 WHERE user_id = ${req.params.id}`);
+                                 WHERE user_id = ${req.params.user_id}`);
     await client.end();
     console.log("Progress successfully saved to user's account");
     return res.status(200).json({ message: "Progress saved" });
