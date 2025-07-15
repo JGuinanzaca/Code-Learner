@@ -134,7 +134,7 @@ router.put("/progress/:user_id", async (req, res) => {
     await new Promise(() => {
       python.kill(2);
     });
-  }, 10000); // 10k milliseconds = 10 seconds
+  }, 10000); // 10k milliseconds = 10 second limit
 
   var dataRecievedFromScript;
   const python = spawn("python", ["userScript.py"]); // spawns new child process to call the python script
@@ -163,6 +163,7 @@ router.put("/progress/:user_id", async (req, res) => {
     }
   });
 
+  /* REMOVED COMPARISON OF ANSWERS
   try {
     const client = new Client(config);
     await client.connect();
@@ -182,6 +183,7 @@ router.put("/progress/:user_id", async (req, res) => {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error retrieving answer data" });
   }
+  */
 
   try {
     const client = new Client(config);
