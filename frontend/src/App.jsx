@@ -1,8 +1,4 @@
 import "./globals.css";
-import ProfilePage from './pages/ProfilePage';
-
-// In your <Routes>
-<Route path="/profile" element={<ProfilePage />} />
 
 export default function HomePage() {
   return (
