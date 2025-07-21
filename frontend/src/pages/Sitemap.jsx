@@ -28,7 +28,7 @@ function NavToPath(path) {
 }
 
 const Sitemap = () => (
-  <div style={{ padding: "2rem" }}>
+  <div className="custom-container">
     <h1>Sitemap</h1>
     <ul>
       {sitemapLinks.map((link) => (
