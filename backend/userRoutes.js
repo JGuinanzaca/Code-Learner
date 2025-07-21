@@ -269,9 +269,7 @@ router.post("/login", async (req, res) => {
     }
     await client.end();
     const id = result.rows.at(0).user_id;
-    res.send(id);
-    res.status(200).json({ message: "Login successful!" }); //temporary for now
-    // Needs more extension i think, after validPassword is true
+    res.send(id); // sends id of user as the response after all checks completed
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error logging in" });
