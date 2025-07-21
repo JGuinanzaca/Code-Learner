@@ -76,15 +76,15 @@ export default function Header({
           <div className="header-actions">
             <button onClick={toggleTheme} aria-label="Toggle theme">
               {darkMode ? (
-                <FaRegSun size={25} style={{ padding: 3 }} />
+                <FaRegSun size={30} style={{ padding: 3 }} />
               ) : (
-                <FaRegMoon size={25} style={{ padding: 3 }} />
+                <FaRegMoon size={30} style={{ padding: 3 }} />
               )}
             </button>
             <button onClick={() => (window.location.href = "/login")}>
-              <FaRegUserCircle size={24} style={{ padding: 3 }} />
+              <FaRegUserCircle size={30} style={{ padding: 3 }} />
             </button>
-            <button onClick={handleLogout}>logout</button>
+            <button size={30} style={{ padding: 3 }} onClick={handleLogout}>logout</button>
           </div>
         </div>
       </div>

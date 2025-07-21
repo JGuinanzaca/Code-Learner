@@ -29,14 +29,18 @@ function NavToPath(path) {
 
 const Sitemap = () => (
   <div className="custom-container">
-    <h1>Sitemap</h1>
-    <ul>
-      {sitemapLinks.map((link) => (
-        <li key={link.path}>
-          <Link to={NavToPath(link.path)}>{link.label}</Link>
-        </li>
-      ))}
-    </ul>
+    <section className="custom-hero">
+      <h1 className="custom-title">Sitemap</h1>
+    </section>
+    <div className="custom-main custom-grid">
+      <ul>
+        {sitemapLinks.map((link) => (
+          <li key={link.path}>
+            <Link to={NavToPath(link.path)}>{link.label}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 );
 

@@ -14,12 +14,12 @@
   --accent-s-light: #ffffff;
   --text-light: #1e2939;
   --text-s-light: #1b1b1b; 
-  --editor-l: #9facc2;
+  --editor-l: #eaedf1;
   --sidebar-l: #f3f4f6;
 
   --primary-dark: #2c2a2e;
   --secondary-dark: #2f2834;
-  --accent-dark: #a75cb2;
+  --accent-dark: #b64fc5;
   --accent-s-dark: #a6e22e;
   --text-dark: #c4c4c3;
   --text-s-dark: #b3b3ef;
@@ -43,7 +43,7 @@ body {
   line-height: 1.6;
   letter-spacing: 8%;
   overflow-x: hidden;
-
+  font-size: 1rem;
 }
 
 a {
@@ -59,7 +59,22 @@ button {
   font-family: var(--font-primary);
   font-variation-settings: 'wght' 400; 
   font-weight: 400; 
+  /* padding: 3%; */
 }
+
+button:hover {
+  filter: brightness(1.125);
+}
+
+/* 
+@media (max-width: 768px) {
+  body {
+    line-height: 1;
+    letter-spacing: 4%;
+    overflow-x: hidden;
+    font-size: .9rem;
+  }
+} */
 
 .titlee {
   font-weight: 400;
@@ -113,16 +128,16 @@ button {
   width: 100%;
   z-index: 50;
   transition: all 0.3s;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.2rem;
   background: transparent;
 }
 .header-scrolled {
-  background: color-mix(in srgb, var(--primary) 10%, transparent);
-  backdrop-filter: blur(4px); 
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background: color-mix(in srgb, var(--primary) 13%, transparent);
+  backdrop-filter: blur(7px); 
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 .header-container {
   width: 100%;
@@ -163,6 +178,9 @@ button {
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
+}
+.header-icons {
+  font-size: 1.5rem;
 }
 
 /* Footer styles */
@@ -287,7 +305,7 @@ button {
 }
 
 .hero-btn {
-  font-size: 1rem;
+  font-size: 1.1rem;
   padding: 0.75rem 1.5rem;
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -333,6 +351,7 @@ button {
 
 .cta-section {
   min-height: 50vh;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -364,7 +383,8 @@ button {
 
 /* Forums Style */
 .custom-container {
-  min-height: 100vh;
+  padding-top: 2rem;
+  min-height: 80vh;
   font-family: sans-serif;
 }
 
@@ -394,9 +414,9 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 3.75rem;
+  font-size: 3.5rem;
   font-weight: 200;
-  margin-top: 7.5rem; 
+  /* margin-top: 7.5rem;  */
   margin: 2.5rem;
 }
 
@@ -489,7 +509,7 @@ button {
 
 .custom-pagination {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 1rem;
   color: #7e22ce;
   font-weight: 500;

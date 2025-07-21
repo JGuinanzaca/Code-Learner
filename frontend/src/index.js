@@ -37,10 +37,17 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/sitemap" element={<Sitemap />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="*" element={<h1>Page Not Found</h1>} />
+          <Route path="*" element={
+            <div className="custom-container"> 
+              <div className="custom-main" style={{marginTop: "15%"}}>
+                <h1 className="custom-title" style={{color: "var(--accent)"}}>404</h1>
+                <h1 className="custom-title">Page Not Found</h1>
+              </div>
+            </div>
+            } />
         </Routes>
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }
