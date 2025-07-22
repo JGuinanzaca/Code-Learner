@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "../globals.css";
 import "../login.css";
 import { login } from "../Api.jsx";
+import { fetchUsers } from "../Api.jsx";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { saveId } from "../redux/authSlice";
+import { saveUserDetails } from "../redux/userSlice.js";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ export default function LoginPage() {
 
   // when login endpoint is invoked and it returns a valid id, we save the userId to the redux store, so that it can be
   // maintained across the app to be used in all components (persistence guarenteed)
+  // then we store the user's information in the store as well
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
@@ -24,6 +27,11 @@ export default function LoginPage() {
       login(formData).then((response) => {
         console.log(response); // Debug: checking if promise was fufilled (returns id of user in database)
         dispatch(saveId(response));
+
+        fetchUsers(response).then((res) => {
+          console.log(res[0]); // Debug: should return name and email object
+          dispatch(saveUserDetails(res[0]));
+        });
         navigate("/Code");
       });
     } catch (error) {

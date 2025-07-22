@@ -1,42 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectUserDetails } from "../redux/userSlice";
 
-function ProfilePage({ userId = 'default-user' }) {
-  const [avatarUrl, setAvatarUrl] = useState('');
+function ProfilePage() {
+  /*
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [file, setFile] = useState(null);
+  */
+  const [displayUserName, setDisplayUsername] = useState("");
+  const [displayUserEmail, setDisplayUserEmail] = useState("");
+  const userDetails = useSelector((state) => selectUserDetails(state));
 
   useEffect(() => {
-    // If you're storing avatar URLs in a database, fetch them here
-    // For now, assume no avatar yet
+    setDisplayUsername(userDetails.name);
+    setDisplayUserEmail(userDetails.email);
   }, []);
 
+  /*
   async function handleUpload(e) {
     e.preventDefault();
     if (!file) return;
 
     const formData = new FormData();
-    formData.append('avatar', file);
+    formData.append("avatar", file);
 
     const response = await fetch(`/api/profile/${userId}/avatar`, {
-      method: 'POST',
+      method: "POST",
       body: formData,
     });
 
     const data = await response.json();
     setAvatarUrl(data.avatarUrl);
   }
+    */
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Profile Page</h1>
-      {avatarUrl ? (
-        <img src={avatarUrl} alt="Avatar" style={{ width: '150px', borderRadius: '50%' }} />
-      ) : (
-        <p>No avatar uploaded.</p>
-      )}
-      <form onSubmit={handleUpload} style={{ marginTop: '1rem' }}>
-        <input type="file" accept="image/*" onChange={e => setFile(e.target.files[0])} />
-        <button type="submit">Upload Avatar</button>
-      </form>
+    <div className="profile-page">
+      <header>{displayUserName}</header>
+      <section>{displayUserEmail}</section>
     </div>
   );
 }

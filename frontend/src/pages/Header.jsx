@@ -22,6 +22,8 @@ export default function Header({
   const dispatch = useDispatch();
   const [scrolled, setScrolled] = useState(false);
 
+  const userId = useSelector((state) => selectId(state));
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -39,7 +41,6 @@ export default function Header({
   // default value for id is -1, persistence is now guarenteed across the board
   // one issue is scrolling up and down on the window makes multiple calls (scrolling most likely causes refreshing)
   function NavToPath(href) {
-    const userId = useSelector((state) => selectId(state));
     if (href === "/") return href;
     if (userId !== -1) {
       console.log("Authenticated"); // Debug
@@ -48,6 +49,11 @@ export default function Header({
       console.log("Not Authenticated"); // Debug
       return "/login";
     }
+  }
+
+  function ProfileOnClick(href) {
+    if (userId !== -1) return "/profile";
+    else if (userId === -1) return href;
   }
 
   return (
@@ -81,10 +87,14 @@ export default function Header({
                 <FaRegMoon size={30} style={{ padding: 3 }} />
               )}
             </button>
-            <button onClick={() => (window.location.href = "/login")}>
+            <button
+              onClick={() => (window.location.href = ProfileOnClick("/login"))}
+            >
               <FaRegUserCircle size={30} style={{ padding: 3 }} />
             </button>
-            <button size={30} style={{ padding: 3 }} onClick={handleLogout}>logout</button>
+            <button size={30} style={{ padding: 3 }} onClick={handleLogout}>
+              logout
+            </button>
           </div>
         </div>
       </div>
