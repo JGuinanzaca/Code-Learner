@@ -582,7 +582,10 @@ button:hover {
   max-width: 40vw;
 }
 
-/* Profile Page */
+/* 
+  Profile Page 
+  NOT DEFINITIVE DON'T HATE ME i was playing around with colors
+*/
 .profile-page {
   position: relative;
   top: 60px;
@@ -593,4 +596,40 @@ button:hover {
   width: 60%;
   margin-bottom: 4%;
   background-color: red;
+}
+
+.profile-title {
+  position: relative;
+  top: -50px;
+  left: 300px;
+}
+
+.personal-info {
+  position: relative;
+  left: 400px;
+  border-radius: 20px;
+  padding: 2%;
+  width: 50%;
+  height: 100px;
+  background-color: green;
+}
+
+.user-fields {
+  border-radius: 20px;
+  background-color: blue;
+}
+
+.profile-image {
+  position: relative;
+  top: -100px;
+  border-radius: 50%;
+  width: 20%;
+}
+
+.change-image {
+  position: relative;
+  top: -50px;
+  border-radius: 20px;
+  background-color: orange;
+  width: 30%;
 }

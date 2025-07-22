@@ -19,7 +19,7 @@ export default function LoginPage() {
 
   // when login endpoint is invoked and it returns a valid id, we save the userId to the redux store, so that it can be
   // maintained across the app to be used in all components (persistence guarenteed)
-  // then we store the user's information in the store as well
+  // then we store the user's information in the store as well for later users
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
