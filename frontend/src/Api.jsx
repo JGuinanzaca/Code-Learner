@@ -1,6 +1,14 @@
 import axios from "axios";
 const BASE_URL = "http://localhost:5000";
 
+export const retrieveURL = async (formData) => {
+  const response = await axios.post(
+    `${BASE_URL}/codelearner/profile-image/url`,
+    formData
+  );
+  return response.data;
+};
+
 export const register = async (userData) => {
   try {
     const response = await axios.post(

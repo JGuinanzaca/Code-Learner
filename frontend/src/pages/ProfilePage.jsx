@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectUserDetails } from "../redux/userSlice";
 import profile from "../Profile.png";
+import { retrieveURL } from "../Api";
 
 function ProfilePage() {
-  const [file, setFile] = useState(undefined);
   const [fileUrl, setFileUrl] = useState(undefined);
   const [displayUserName, setDisplayUsername] = useState("");
   const [displayUserEmail, setDisplayUserEmail] = useState("");
@@ -15,20 +15,19 @@ function ProfilePage() {
     setDisplayUserEmail(userDetails.email);
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     e.preventDefault();
-    const data = e.target.files[0];
-    setFile(data);
+    const formData = new FormData();
+    formData.append("profilePic", e.target.files[0]);
 
-    if (data) {
-      const url = URL.createObjectURL(data);
-      setFileUrl(url);
-    }
+    await retrieveURL(formData).then((res) => {
+      console.log(`Link generated: ${res}`); // Debug: link generated that will take you to user's photo
+      setFileUrl(res);
+    });
   };
-  console.log({ file }); // Debug: checking if object file exist
 
   function image() {
-    if (file) {
+    if (fileUrl) {
       return fileUrl;
     } else {
       return profile;
@@ -51,7 +50,6 @@ function ProfilePage() {
             upload file:
             <input
               type="file"
-              id="file"
               accept="image/jpeg,image/png"
               onChange={handleChange}
             ></input>
