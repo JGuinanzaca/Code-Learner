@@ -6,6 +6,7 @@ const userSlice = createSlice({
     user: {
       name: "",
       email: "",
+      image: "",
     },
   },
   reducers: {

@@ -1,14 +1,6 @@
 import axios from "axios";
 const BASE_URL = "http://localhost:5000";
 
-export const retrieveURL = async (formData) => {
-  const response = await axios.post(
-    `${BASE_URL}/codelearner/profile-image/url`,
-    formData
-  );
-  return response.data;
-};
-
 export const register = async (userData) => {
   try {
     const response = await axios.post(
@@ -64,4 +56,20 @@ export const saveProgress = async (user_id) => {
   } catch (error) {
     throw error.response.data;
   }
+};
+
+export const generateURL = async (formData) => {
+  const response = await axios.post(
+    `${BASE_URL}/codelearner/profile-image/url`,
+    formData
+  );
+  return response.data;
+};
+
+export const uploadURL = async (user_id, url) => {
+  const response = await axios.put(
+    `${BASE_URL}/codelearner/profile-image/upload/${user_id}`,
+    url
+  );
+  return response.data;
 };

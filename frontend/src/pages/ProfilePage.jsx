@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { selectId } from "../redux/authSlice";
 import { selectUserDetails } from "../redux/userSlice";
-import profile from "../Profile.png";
-import { retrieveURL } from "../Api";
+import defaultProfile from "../Profile.png";
+import { generateURL, uploadURL } from "../Api";
+import { useDispatch } from "react-redux";
+import { saveUserDetails } from "../redux/userSlice.js";
 
 function ProfilePage() {
+  const dispatch = useDispatch();
   const [fileUrl, setFileUrl] = useState(undefined);
   const [displayUserName, setDisplayUsername] = useState("");
   const [displayUserEmail, setDisplayUserEmail] = useState("");
   const userDetails = useSelector((state) => selectUserDetails(state));
+  const userId = useSelector((state) => selectId(state));
 
   useEffect(() => {
     setDisplayUsername(userDetails.name);
     setDisplayUserEmail(userDetails.email);
+    setFileUrl(userDetails.image);
   }, []);
 
   const handleChange = async (e) => {
@@ -20,17 +26,22 @@ function ProfilePage() {
     const formData = new FormData();
     formData.append("profilePic", e.target.files[0]);
 
-    await retrieveURL(formData).then((res) => {
+    await generateURL(formData).then((res) => {
       console.log(`Link generated: ${res}`); // Debug: link generated that will take you to user's photo
+      const url = {
+        url: res,
+      };
+      uploadURL(userId, url);
       setFileUrl(res);
+      dispatch(saveUserDetails({ image: res }));
     });
   };
 
-  function image() {
+  function profileImage() {
     if (fileUrl) {
       return fileUrl;
     } else {
-      return profile;
+      return defaultProfile;
     }
   }
 
@@ -42,7 +53,12 @@ function ProfilePage() {
         <p className="user-fields">Name: {displayUserName}</p>
       </div>
       <div className="profile-image">
-        <img src={image()} alt="Upload Profile" width="200" height="200"></img>
+        <img
+          src={profileImage()}
+          alt="Upload Profile"
+          width="200"
+          height="200"
+        ></img>
       </div>
       <div className="change-image">
         <form>

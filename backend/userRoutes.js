@@ -6,23 +6,6 @@ const bcrypt = require("bcrypt");
 const { spawn } = require("child_process");
 const fs = require("fs");
 
-// temporary for image testing, will remove later
-router.get("/", async (req, res) => {
-  try {
-    const client = new Client(config);
-    await client.connect();
-
-    const result = await client.query(
-      `SELECT image FROM codelearner.users WHERE user_id = 100`
-    );
-    res.setHeader("content-type", "image/png");
-    res.send(result.rows.at(0).image);
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
-    res.status(500).json({ message: "Error selecting data from table" });
-  }
-});
-
 // localhost:5000/codelearner/users
 // may add a join of some sort to also display the users progress
 router.get("/users", async (req, res) => {
@@ -46,7 +29,7 @@ router.get("/users/:user_id", async (req, res) => {
     await client.connect();
 
     const result = await client.query(
-      `SELECT name, email FROM codelearner.users WHERE user_id = ${req.params.user_id}`
+      `SELECT name, email, image FROM codelearner.users WHERE user_id = ${req.params.user_id}`
     );
     if (result.rowCount == 0)
       return res.status(404).json({ message: "User is not found" });

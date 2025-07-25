@@ -29,7 +29,7 @@ export default function LoginPage() {
         dispatch(saveId(response));
 
         fetchUsers(response).then((res) => {
-          console.log(res[0]); // Debug: should return name and email object
+          console.log(res[0]); // Debug: should return object containing name, email and image url
           dispatch(saveUserDetails(res[0]));
         });
         navigate("/Code");
