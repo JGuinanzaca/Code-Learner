@@ -3,12 +3,13 @@ const router = express.Router();
 const { Client } = require("pg");
 const config = require("../config.js"); // Contains object that is used to config Client
 
-router.get("/messages", async (req, res) => { // REMOVE COMMENT LATER: needs to be returned in DESC order
+router.get("/messages", async (req, res) => {
   try {
     const client = new Client(config);
     await client.connect();
 
-    const result = await client.query(`SELECT * FROM codelearner.forum`);
+    const result = await client.query(`SELECT * FROM codelearner.forum
+                                       ORDER BY forum_id DESC;`);
     await client.end();
     res.json(result.rows);
   } catch (error) {
@@ -24,10 +25,13 @@ router.post("/post-message", async (req, res) => {
     await client.connect();
 
     const result = await client.query(`SELECT * FROM codelearner.forum`);
-    const id = result.rowCount;
+    const id = result.rowCount + 1;
 
     await client.query(`INSERT INTO codelearner.forum (forum_id, name, tag, title, message, time)
                         VALUES (${id}, '${name}', 'null', '${title}', '${message}', '${time}')`);
+    await client.end();
+    console.log('Successfully uploaded forum post to database');
+    return res.status(200).json({ message: "Forum post uploaded to database" });
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error posting to the forum" });

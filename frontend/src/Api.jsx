@@ -82,3 +82,14 @@ export const fetchForumPost = async () => {
     throw error.response.data;
   }
 }
+
+export const uploadForumPost = async (forumPost) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/codelearner/forum/post-message`,
+      forumPost
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}

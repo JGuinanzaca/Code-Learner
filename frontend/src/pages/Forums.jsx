@@ -1,35 +1,91 @@
-import { fetchForumPost } from "../Api";
+import { fetchForumPost, uploadForumPost } from "../Api";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectUserDetails } from "../redux/userSlice";
 
 export default function Forums() {
 
-  useEffect(() => {
-    async function generateForumPosts() {
-      let array = await fetchForumPost();
-      console.log(array); // Debug: checking if array contains valid object
+  const userDetails = useSelector((state) => selectUserDetails(state));
 
-      // Newest post will be at the top, and oldest post at the bottom
-      const div = document.getElementById('forum-post');
-      for(let i = 0; i < array.length; i++) {
-        const newPost = document.createElement('button');
-        newPost.className = 'custom-topic-button';
-        newPost.id = `${array[i].forum_id}`;
-        newPost.textContent = `${array[i].title}`;
+  async function generateForumPosts() {
+    let forumData = await fetchForumPost();
+    console.log(forumData); // Debug: checking if array contains valid object
 
-        newPost.onclick = async function () {
-          let array = await fetchForumPost();
-          let reversed = array.reverse(); //since we want to access the correct index, we reverse the array
-          const header = document.getElementById('title');
-          const message = document.getElementById('message');
-          const index = Number(newPost.id) - 1;
+    // Newest post will be at the top, and oldest post at the bottom
+    const div = document.getElementById('forum-posts');
+    div.replaceChildren();
+    for(let i = 0; i < forumData.length; i++) {
+      const newPost = document.createElement('button');
+      newPost.className = 'custom-topic-button';
+      newPost.id = `${forumData[i].forum_id}`;
+      newPost.textContent = `${forumData[i].title}`;
+
+      newPost.onclick = async function () {
+        const div = document.getElementById('forum');
+        div.replaceChildren();
+        let forumData = await fetchForumPost();
+        let reversedforumData = forumData.reverse(); //since we want to access the correct index, we reverse the array
+        const header = document.createElement('h2');
+        const title = document.createElement('h3');
+        const message = document.createElement('p');
+        const index = Number(newPost.id) - 1;
           
-          header.textContent = `${reversed[index].title}`;
-          message.textContent = `${reversed[index].message}`;
-        };
+        header.textContent = `${reversedforumData[index].name} created a post at ${reversedforumData[index].time}`;
+        title.textContent = `${reversedforumData[index].title}`;
+        message.textContent = `${reversedforumData[index].message}`;
+        div.appendChild(header);
+        div.appendChild(title);
+        div.appendChild(message);
+      };
 
-        div.appendChild(newPost);
-      }
+      div.appendChild(newPost);
     }
+  }
+
+  function generateUserSubmission() {
+    const div = document.getElementById('forum');
+    div.replaceChildren();
+
+    const titleLabel = document.createElement('label');
+    titleLabel.textContent = 'Title: ';
+    div.appendChild(titleLabel);
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.id = 'title';
+    titleInput.style.backgroundColor = 'white';
+    div.appendChild(titleInput);
+
+    const messageLabel = document.createElement('label');
+    messageLabel.textContent = 'Write out your message: ';
+    div.appendChild(messageLabel);
+    const messageInput = document.createElement('input');
+    messageInput.type = 'text';
+    messageInput.id = 'message'
+    messageInput.style.backgroundColor = 'white';
+    div.appendChild(messageInput);
+
+    const submitButton = document.createElement('button');
+    submitButton.className = 'custom-button';
+    submitButton.textContent = 'submit';
+    // Bug: adding an apostrophe to any of the text fields will throw an error for ending the query too soon
+    submitButton.onclick = async function () {
+      const titleInput = document.getElementById('title').value;
+      const messageInput = document.getElementById('message').value;
+      const date = new Date;
+      await uploadForumPost({
+        name: userDetails.name,
+        title: titleInput,
+        message: messageInput,
+        time: `${date}`,
+      })
+      generateForumPosts();
+      const div = document.getElementById('forum');
+      div.replaceChildren();
+    }
+    div.appendChild(submitButton);
+  }
+
+  useEffect(() => {
     generateForumPosts();
   }, []);
 
@@ -56,7 +112,7 @@ export default function Forums() {
     <main className="custom-main">
       <aside className="custom-sidebar">
         <h2 className="custom-sidebar-title">Topics</h2>
-        <ul className="custom-topic-list" id="forum-post">
+        <ul className="custom-topic-list" id="forum-posts">
         </ul>
         <div className="custom-pagination">
           <button>back</button>
@@ -64,11 +120,8 @@ export default function Forums() {
         </div>
       </aside>
 
-      <div className="custom-forum" id ="forum">
-        <h2 className="custom-forum-title" id="title"></h2>
-        <p className="custom-forum-content" id="message">
-        </p>
-      </div>
+      <div className="custom-forum" id ="forum"></div>
+      <button className="custom-button" onClick={generateUserSubmission}>Create a new post</button>
     </main>
   </div>  
   );
