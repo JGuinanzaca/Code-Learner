@@ -73,3 +73,12 @@ export const uploadURL = async (user_id, url) => {
   );
   return response.data;
 };
+
+export const fetchForumPost = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/codelearner/forum/messages`);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+}

@@ -3,6 +3,20 @@ const router = express.Router();
 const { Client } = require("pg");
 const config = require("../config.js"); // Contains object that is used to config Client
 
+router.get("/messages", async (req, res) => { // REMOVE COMMENT LATER: needs to be returned in DESC order
+  try {
+    const client = new Client(config);
+    await client.connect();
+
+    const result = await client.query(`SELECT * FROM codelearner.forum`);
+    await client.end();
+    res.json(result.rows);
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ message: "Error retrieving forum post" });
+  }
+})
+
 router.post("/post-message", async (req, res) => {
   try {
     const { name , title, message, time } = req.body
