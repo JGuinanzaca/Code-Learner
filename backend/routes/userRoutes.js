@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Client } = require("pg");
-const config = require("./config.js"); // Contains object that is used to config Client
+const config = require("../config.js"); // Contains object that is used to config Client
 const bcrypt = require("bcrypt");
 const { spawn } = require("child_process");
 const fs = require("fs");

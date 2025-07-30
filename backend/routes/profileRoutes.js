@@ -8,7 +8,7 @@ const PutObjectCommand = require("@aws-sdk/client-s3");
 const getSignedUrl = require("@aws-sdk/s3-request-presigner");
 const crypto = require("crypto");
 const { Client } = require("pg");
-const config = require("./config.js");
+const config = require("../config.js");
 
 // localhost:5000/codelearner/profile-image/url
 router.post("/url", upload.any(), async (req, res) => {
