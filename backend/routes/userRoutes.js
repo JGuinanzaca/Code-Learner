@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Client } = require("pg");
-const config = require("./config.js"); // Contains object that is used to config Client
+const config = require("../config.js"); // Contains object that is used to config Client
 const bcrypt = require("bcrypt");
 const { spawn } = require("child_process");
 const fs = require("fs");
@@ -29,7 +29,7 @@ router.get("/users/:user_id", async (req, res) => {
     await client.connect();
 
     const result = await client.query(
-      `SELECT * FROM codelearner.users WHERE user_id = ${req.params.user_id}`
+      `SELECT name, email, image FROM codelearner.users WHERE user_id = ${req.params.user_id}`
     );
     if (result.rowCount == 0)
       return res.status(404).json({ message: "User is not found" });

@@ -57,3 +57,19 @@ export const saveProgress = async (user_id) => {
     throw error.response.data;
   }
 };
+
+export const generateURL = async (formData) => {
+  const response = await axios.post(
+    `${BASE_URL}/codelearner/profile-image/url`,
+    formData
+  );
+  return response.data;
+};
+
+export const uploadURL = async (user_id, url) => {
+  const response = await axios.put(
+    `${BASE_URL}/codelearner/profile-image/upload/${user_id}`,
+    url
+  );
+  return response.data;
+};

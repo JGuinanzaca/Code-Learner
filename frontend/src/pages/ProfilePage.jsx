@@ -1,42 +1,77 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectId } from "../redux/authSlice";
+import { selectUserDetails } from "../redux/userSlice";
+import defaultProfile from "../Profile.png";
+import { generateURL, uploadURL } from "../Api";
+import { useDispatch } from "react-redux";
+import { saveUserDetails } from "../redux/userSlice.js";
 
-function ProfilePage({ userId = 'default-user' }) {
-  const [avatarUrl, setAvatarUrl] = useState('');
-  const [file, setFile] = useState(null);
+function ProfilePage() {
+  const dispatch = useDispatch();
+  const [fileUrl, setFileUrl] = useState(undefined);
+  const [displayUserName, setDisplayUsername] = useState("");
+  const [displayUserEmail, setDisplayUserEmail] = useState("");
+  const userDetails = useSelector((state) => selectUserDetails(state));
+  const userId = useSelector((state) => selectId(state));
 
   useEffect(() => {
-    // If you're storing avatar URLs in a database, fetch them here
-    // For now, assume no avatar yet
+    setDisplayUsername(userDetails.name);
+    setDisplayUserEmail(userDetails.email);
+    setFileUrl(userDetails.image);
   }, []);
 
-  async function handleUpload(e) {
+  const handleChange = async (e) => {
     e.preventDefault();
-    if (!file) return;
-
     const formData = new FormData();
-    formData.append('avatar', file);
+    formData.append("profilePic", e.target.files[0]);
 
-    const response = await fetch(`/api/profile/${userId}/avatar`, {
-      method: 'POST',
-      body: formData,
+    await generateURL(formData).then((res) => {
+      console.log(`Link generated: ${res}`); // Debug: link generated that will take you to user's photo
+      const url = {
+        url: res,
+      };
+      uploadURL(userId, url);
+      setFileUrl(res);
+      dispatch(saveUserDetails({ image: res }));
     });
+  };
 
-    const data = await response.json();
-    setAvatarUrl(data.avatarUrl);
+  function profileImage() {
+    if (fileUrl) {
+      return fileUrl;
+    } else {
+      return defaultProfile;
+    }
   }
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Profile Page</h1>
-      {avatarUrl ? (
-        <img src={avatarUrl} alt="Avatar" style={{ width: '150px', borderRadius: '50%' }} />
-      ) : (
-        <p>No avatar uploaded.</p>
-      )}
-      <form onSubmit={handleUpload} style={{ marginTop: '1rem' }}>
-        <input type="file" accept="image/*" onChange={e => setFile(e.target.files[0])} />
-        <button type="submit">Upload Avatar</button>
-      </form>
+    <div className="profile-page">
+      <h1 className="profile-title">{displayUserName}'s profile page</h1>
+      <div className="personal-info">
+        <p className="user-fields">Email: {displayUserEmail}</p>
+        <p className="user-fields">Name: {displayUserName}</p>
+      </div>
+      <div className="profile-image">
+        <img
+          src={profileImage()}
+          alt="Upload Profile"
+          width="200"
+          height="200"
+        ></img>
+      </div>
+      <div className="change-image">
+        <form>
+          <label>
+            upload file:
+            <input
+              type="file"
+              accept="image/jpeg,image/png"
+              onChange={handleChange}
+            ></input>
+          </label>
+        </form>
+      </div>
     </div>
   );
 }
