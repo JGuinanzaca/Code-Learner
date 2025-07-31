@@ -220,12 +220,17 @@ router.post("/register", async (req, res) => {
   try {
     // Generates a salt with a specific number of rounds (e.g., 10)
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt); // hashed password will be stored in database
+    const hashedPassword = await bcrypt.hash(password, salt); // Hashed password will be stored in database
 
     const client = new Client(config);
     await client.connect();
 
-    const result = await client.query(`SELECT * FROM codelearner.users`); // poor query, but will use for now
+    const checkEmail = await client.query(`SELECT email FROM codelearner.users WHERE email = '${email}'`);
+    if(checkEmail.rowCount > 0) {
+      return res.status(400).json({ message: "Email already in use" });
+    }
+
+    const result = await client.query(`SELECT * FROM codelearner.users`);
     let id = result.rowCount; // id stores the count of objects in the row
     console.log(`Debug: Current id value: ${id}`); // Debug: checking current number of entries in table
     id++;

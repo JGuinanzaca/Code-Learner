@@ -7,39 +7,55 @@ export default function Forums() {
 
   const userDetails = useSelector((state) => selectUserDetails(state));
 
+  async function displayForumPost() {
+    const div = document.getElementById('forum');
+    div.replaceChildren();
+    let forumData = await fetchForumPost();
+    let reversedforumData = forumData.reverse(); //since we want to access the correct index, we reverse the array
+    const header = document.createElement('h2');
+    const title = document.createElement('h3');
+    const message = document.createElement('p');
+    const index = Number(this.id) - 1;
+          
+    header.textContent = `${reversedforumData[index].name} created a post on ${reversedforumData[index].time}`;
+    title.textContent = `${reversedforumData[index].title}`;
+    message.textContent = `${reversedforumData[index].message}`;
+    div.appendChild(header);
+    div.appendChild(title);
+    div.appendChild(message);    
+  }
+
   async function generateForumPosts() {
     let forumData = await fetchForumPost();
     console.log(forumData); // Debug: checking if array contains valid object
-
-    // Newest post will be at the top, and oldest post at the bottom
     const div = document.getElementById('forum-posts');
     div.replaceChildren();
+
+    // Newest post will be at the top, and oldest post at the bottom
     for(let i = 0; i < forumData.length; i++) {
       const newPost = document.createElement('button');
       newPost.className = 'custom-topic-button';
       newPost.id = `${forumData[i].forum_id}`;
       newPost.textContent = `${forumData[i].title}`;
-
-      newPost.onclick = async function () {
-        const div = document.getElementById('forum');
-        div.replaceChildren();
-        let forumData = await fetchForumPost();
-        let reversedforumData = forumData.reverse(); //since we want to access the correct index, we reverse the array
-        const header = document.createElement('h2');
-        const title = document.createElement('h3');
-        const message = document.createElement('p');
-        const index = Number(newPost.id) - 1;
-          
-        header.textContent = `${reversedforumData[index].name} created a post at ${reversedforumData[index].time}`;
-        title.textContent = `${reversedforumData[index].title}`;
-        message.textContent = `${reversedforumData[index].message}`;
-        div.appendChild(header);
-        div.appendChild(title);
-        div.appendChild(message);
-      };
-
+      newPost.onclick = displayForumPost;
       div.appendChild(newPost);
     }
+  }
+
+  // Bug: adding an apostrophe to any of the text fields will throw an error for ending the query too soon
+  async function uploadUserSubmission() {
+    const titleInput = document.getElementById('title').value;
+    const messageInput = document.getElementById('message').value;
+    const date = new Date;
+    await uploadForumPost({
+      name: userDetails.name,
+      title: titleInput,
+      message: messageInput,
+      time: `${date}`,
+    })
+    generateForumPosts(); // Removes & then generates all forum post to reflect changes dynamically
+    const div = document.getElementById('forum');
+    div.replaceChildren();
   }
 
   function generateUserSubmission() {
@@ -67,21 +83,7 @@ export default function Forums() {
     const submitButton = document.createElement('button');
     submitButton.className = 'custom-button';
     submitButton.textContent = 'submit';
-    // Bug: adding an apostrophe to any of the text fields will throw an error for ending the query too soon
-    submitButton.onclick = async function () {
-      const titleInput = document.getElementById('title').value;
-      const messageInput = document.getElementById('message').value;
-      const date = new Date;
-      await uploadForumPost({
-        name: userDetails.name,
-        title: titleInput,
-        message: messageInput,
-        time: `${date}`,
-      })
-      generateForumPosts();
-      const div = document.getElementById('forum');
-      div.replaceChildren();
-    }
+    submitButton.onclick = uploadUserSubmission;
     div.appendChild(submitButton);
   }
 

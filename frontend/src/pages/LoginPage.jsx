@@ -25,7 +25,11 @@ export default function LoginPage() {
       e.preventDefault();
       alert(`Logging in with: ${formData.email}`);
       login(formData).then((response) => {
-        console.log(response); // Debug: checking if promise was fufilled (returns id of user in database)
+        console.log(response); // Debug: checking if promise was fufilled (returns id of user in database or error message)
+        if(response.message === "Invalid password") {
+          alert(`${response.message}: try again`);
+          return;
+        }
         dispatch(saveId(response));
 
         fetchUsers(response).then((res) => {
