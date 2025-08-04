@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { selectId } from "../redux/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectId, saveId } from "../redux/authSlice";
 import { selectUserDetails } from "../redux/userSlice";
 import defaultProfile from "../Profile.png";
 import { generateURL, uploadURL } from "../Api";
-import { useDispatch } from "react-redux";
 import { saveUserDetails } from "../redux/userSlice.js";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [fileUrl, setFileUrl] = useState(undefined);
   const [displayUserName, setDisplayUsername] = useState("");
   const [displayUserEmail, setDisplayUserEmail] = useState("");
@@ -20,6 +21,12 @@ function ProfilePage() {
     setDisplayUserEmail(userDetails.email);
     setFileUrl(userDetails.image);
   }, []);
+
+  // returns auth id to default value, removing "authentication" from user
+  const handleLogout = () => {
+    dispatch(saveId(-1));
+    navigate("/");
+  };
 
   const handleChange = async (e) => {
     e.preventDefault();
@@ -72,6 +79,9 @@ function ProfilePage() {
           </label>
         </form>
       </div>
+      <button className= "Logout" size={30} style={{ padding: 3 }} onClick={handleLogout}>
+      Logout
+      </button>
     </div>
   );
 }

@@ -36,10 +36,16 @@ export default function SignupPage() {
         password: formData.password,
         name: formData.name,
       }).then((response) => {
+        if(response.message ===  "Error registering user") {
+          alert(`${response.message} into the database: try again later`);
+          return;
+        }
+        else if(response.message ===  "Email already in use") {
+          alert(`${response.message}: use another email that is not registered`);
+          return;
+        }
         dispatch(saveId(response));
-        dispatch(
-          saveUserDetails({ name: formData.name, email: formData.email })
-        );
+        dispatch(saveUserDetails({ name: formData.name, email: formData.email }));
         navigate("/Code");
       });
     } catch (error) {
