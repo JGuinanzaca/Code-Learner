@@ -9,7 +9,6 @@ export default function Forums() {
   const userDetails = useSelector((state) => selectUserDetails(state));
 
   async function displayForumPost() {
-<<<<<<< HEAD
     let index;
     let replyData;
     if(this == null) { // When func is invoked from replySubmission, use the forumId already in the state to avoid error
@@ -61,35 +60,13 @@ export default function Forums() {
         displayPost.appendChild(postDiv);
       }
     }
-=======
-    const div = document.getElementById('forum');
-    div.replaceChildren();
-    let forumData = await fetchForumPost();
-    let reversedforumData = forumData.reverse(); //since we want to access the correct index, we reverse the array
-    const header = document.createElement('h2');
-    const title = document.createElement('h3');
-    const message = document.createElement('p');
-    const index = Number(this.id) - 1;
-          
-    header.textContent = `${reversedforumData[index].name} created a post on ${reversedforumData[index].time}`;
-    title.textContent = `${reversedforumData[index].title}`;
-    message.textContent = `${reversedforumData[index].message}`;
-    div.appendChild(header);
-    div.appendChild(title);
-    div.appendChild(message);    
->>>>>>> 8c880584796ca6a4f4804710b42363616a131a34
   }
 
   async function generateForumPosts() {
     let forumData = await fetchForumPost();
     console.log(forumData); // Debug: checking if array contains valid object
-<<<<<<< HEAD
     const listOfPosts = document.getElementById('forum-posts');
     listOfPosts.replaceChildren();
-=======
-    const div = document.getElementById('forum-posts');
-    div.replaceChildren();
->>>>>>> 8c880584796ca6a4f4804710b42363616a131a34
 
     // Newest post will be at the top, and oldest post at the bottom
     for(let i = 0; i < forumData.length; i++) {
@@ -98,18 +75,11 @@ export default function Forums() {
       newPost.id = `${forumData[i].forum_id}`;
       newPost.textContent = `${forumData[i].title}`;
       newPost.onclick = displayForumPost;
-<<<<<<< HEAD
       listOfPosts.appendChild(newPost);
     }
   }
 
-=======
-      div.appendChild(newPost);
-    }
-  }
-
   // Bug: adding an apostrophe to any of the text fields will throw an error for ending the query too soon
->>>>>>> 8c880584796ca6a4f4804710b42363616a131a34
   async function uploadUserSubmission() {
     const titleInput = document.getElementById('title').value;
     const messageInput = document.getElementById('message').value;
@@ -121,13 +91,8 @@ export default function Forums() {
       time: `${date}`,
     })
     generateForumPosts(); // Removes & then generates all forum post to reflect changes dynamically
-<<<<<<< HEAD
     const displayPost = document.getElementById('forum');
     displayPost.replaceChildren();
-=======
-    const div = document.getElementById('forum');
-    div.replaceChildren();
->>>>>>> 8c880584796ca6a4f4804710b42363616a131a34
   }
 
   function generateUserSubmission() {
@@ -156,7 +121,6 @@ export default function Forums() {
     submitButton.className = 'custom-button';
     submitButton.textContent = 'submit';
     submitButton.onclick = uploadUserSubmission;
-<<<<<<< HEAD
     displayPost.appendChild(submitButton);
   }
 
@@ -201,9 +165,6 @@ export default function Forums() {
     submitButton.onclick = uploadReplySubmission;
     displayPost.appendChild(submitButton);
     setIsReplying(true);
-=======
-    div.appendChild(submitButton);
->>>>>>> 8c880584796ca6a4f4804710b42363616a131a34
   }
 
   useEffect(() => {

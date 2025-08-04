@@ -82,7 +82,6 @@ export const fetchForumPost = async () => {
     return response.data;
   } catch (error) {
     throw "Issue fetching all forum post";
-<<<<<<< HEAD
   }
 }
 
@@ -92,8 +91,6 @@ export const fetchRepliesFromPost = async (forum_id) => {
     return response.data;
   } catch (error) {
     throw "Issue fetching all replies from forum post";
-=======
->>>>>>> 8c880584796ca6a4f4804710b42363616a131a34
   }
 }
 
@@ -104,7 +101,6 @@ export const uploadForumPost = async (forumPost) => {
     );
     return response.data;
   } catch (error) {
-<<<<<<< HEAD
     throw "Issue uploading forum post";
   }
 }
@@ -117,8 +113,5 @@ export const replyToForumPost = async (forum_id, forumPost) => {
     return response.data;
   } catch (error) {
     throw "Issue uploading reply to forum post";
-=======
-    throw "Issue uploading all forum post";
->>>>>>> 8c880584796ca6a4f4804710b42363616a131a34
   }
 }
