@@ -28,6 +28,11 @@ function ProfilePage() {
     navigate("/");
   };
 
+  const handleReset = () => {
+    alert(`Reset email sent to ${userDetails.email}`);
+    // Idea is that email link will navigate you to ResetPage (somehow)
+  }
+
   const handleChange = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -81,6 +86,9 @@ function ProfilePage() {
       </div>
       <button className= "Logout" size={30} style={{ padding: 3 }} onClick={handleLogout}>
       Logout
+      </button>
+      <button className= "Reset" size={30} style={{ padding: 3 }} onClick={handleReset}>
+      Reset Password
       </button>
     </div>
   );

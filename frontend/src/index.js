@@ -19,6 +19,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import SignUp from "./pages/Signup.jsx";
 import Sitemap from "./pages/Sitemap.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
+import Reset from "./pages/ResetPage.jsx";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -37,6 +38,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/sitemap" element={<Sitemap />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/reset" element={<Reset />} />
           <Route path="*" element={
             <div className="custom-container"> 
               <div className="custom-main" style={{marginTop: "15%"}}>

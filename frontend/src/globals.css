@@ -640,8 +640,16 @@ button:hover {
 
 .Logout {
     position: relative;
-    top: -30px;
+    top: -60px;
     left: 700px;
+    background-color: #c4c4c3;
+    font-size: 20px;
+}
+
+.Reset {
+    position: relative;
+    top: -10px;
+    left: 600px;
     background-color: #c4c4c3;
     font-size: 20px;
 }
