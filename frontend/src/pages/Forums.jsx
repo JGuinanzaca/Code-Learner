@@ -35,8 +35,11 @@ export default function Forums() {
     postDiv.className = 'custom-topic-button';
     postDiv.style.backgroundColor = '#f9c74f';
     header.textContent = `${reversedforumData[index].name} created a post on ${reversedforumData[index].time}`;
+    header.style.fontWeight = 'bold';
     title.textContent = `${reversedforumData[index].title}`;
+    title.style.textDecoration = 'underline';
     message.textContent = `${reversedforumData[index].message}`;
+
     postDiv.appendChild(header);
     postDiv.appendChild(title);
     postDiv.appendChild(message);    
@@ -52,8 +55,11 @@ export default function Forums() {
         postDiv.className = 'custom-topic-button';
         postDiv.style.backgroundColor = '#f9c74f';
         header.textContent = `${replyData[0].responses[i].name} replied to a post on ${replyData[0].responses[i].time}`;
+        header.style.fontWeight = 'bold';
         title.textContent = `${replyData[0].responses[i].title}`;
+        title.style.textDecoration = 'underline';
         message.textContent = `${replyData[0].responses[i].message}`;
+
         postDiv.appendChild(header);
         postDiv.appendChild(title);
         postDiv.appendChild(message);    
@@ -79,8 +85,11 @@ export default function Forums() {
     }
   }
 
-  // Bug: adding an apostrophe to any of the text fields will throw an error for ending the query too soon
   async function uploadUserSubmission() {
+    if(document.getElementById('title').value == "" || document.getElementById('message').value == "") {
+      alert("Empty fields detected. Please fill in all fields");
+      return
+    }
     const titleInput = document.getElementById('title').value;
     const messageInput = document.getElementById('message').value;
     const date = new Date;
@@ -89,7 +98,7 @@ export default function Forums() {
       title: titleInput,
       message: messageInput,
       time: `${date}`,
-    })
+    });
     generateForumPosts(); // Removes & then generates all forum post to reflect changes dynamically
     const displayPost = document.getElementById('forum');
     displayPost.replaceChildren();
@@ -102,6 +111,7 @@ export default function Forums() {
     const titleLabel = document.createElement('label');
     titleLabel.textContent = 'Title: ';
     displayPost.appendChild(titleLabel);
+
     const titleInput = document.createElement('input');
     titleInput.type = 'text';
     titleInput.id = 'title';
@@ -111,6 +121,7 @@ export default function Forums() {
     const messageLabel = document.createElement('label');
     messageLabel.textContent = 'Write out your message: ';
     displayPost.appendChild(messageLabel);
+
     const messageInput = document.createElement('input');
     messageInput.type = 'text';
     messageInput.id = 'message'
@@ -125,6 +136,10 @@ export default function Forums() {
   }
 
   async function uploadReplySubmission() {
+    if(document.getElementById('title').value == "" || document.getElementById('message').value == "") {
+      alert("Empty fields detected. Please fill in all fields");
+      return
+    }
     const titleInput = document.getElementById('title').value;
     const messageInput = document.getElementById('message').value;
     const date = new Date;
@@ -144,6 +159,7 @@ export default function Forums() {
     const titleLabel = document.createElement('label');
     titleLabel.textContent = 'Title: ';
     displayPost.appendChild(titleLabel);
+
     const titleInput = document.createElement('input');
     titleInput.type = 'text';
     titleInput.id = 'title';
@@ -153,6 +169,7 @@ export default function Forums() {
     const messageLabel = document.createElement('label');
     messageLabel.textContent = 'Write out your message: ';
     displayPost.appendChild(messageLabel);
+
     const messageInput = document.createElement('input');
     messageInput.type = 'text';
     messageInput.id = 'message'
