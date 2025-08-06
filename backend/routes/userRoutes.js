@@ -31,8 +31,10 @@ router.get("/users/:user_id", async (req, res) => {
     const result = await client.query(
       `SELECT name, email, image FROM codelearner.users WHERE user_id = ${req.params.user_id}`
     );
-    if (result.rowCount == 0)
+    if (result.rowCount == 0) {
+      console.log('User was not found in database');
       return res.status(404).json({ message: "User is not found" });
+    }
     res.json(result.rows);
     await client.end();
   } catch (error) {
@@ -67,8 +69,10 @@ router.get("/lessons/:lesson_id", async (req, res) => {
     const result = await client.query(
       `SELECT title, content FROM codelearner.lessons WHERE lesson_id = ${req.params.lesson_id}`
     );
-    if (result.rowCount == 0)
+    if (result.rowCount == 0) {
+      console.log('User was not found in database');
       return res.status(404).json({ message: "Lesson is not found" });
+    }
     await client.end();
     res.json(result.rows);
   } catch (error) {
@@ -103,8 +107,10 @@ router.get("/progress/:user_id", async (req, res) => {
     const result = await client.query(
       `SELECT * FROM codelearner.progress WHERE user_id = ${req.params.user_id}`
     );
-    if (result.rowCount == 0)
+    if (result.rowCount == 0) {
+      console.log('User was not found in database');
       return res.status(404).json({ message: "User is not found" });
+    }
     res.json(result.rows);
     await client.end();
   } catch (error) {
@@ -193,6 +199,7 @@ router.put("/progress/:user_id", async (req, res) => {
       `SELECT lessons_completed FROM codelearner.progress WHERE user_id = ${req.params.user_id}`
     );
     if (result.rowCount == 0) {
+      console.log('User was not found in database');
       return res.status(404).json({ message: "User is not found" });
     }
     if (result.rows.at(0).lessons_completed.find((id) => id === lesson_id)) {
@@ -227,6 +234,7 @@ router.post("/register", async (req, res) => {
 
     const checkEmail = await client.query(`SELECT email FROM codelearner.users WHERE email = '${email}'`);
     if(checkEmail.rowCount > 0) {
+      console.log('Email already present in database');
       return res.status(400).json({ message: "Email already in use" });
     }
 
@@ -248,7 +256,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// Login route (another template, needs testing)
+// Login route
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const client = new Client(config);
@@ -257,9 +265,10 @@ router.post("/login", async (req, res) => {
   const result = await client.query(
     `SELECT * FROM codelearner.users WHERE email = '${email}'`
   );
-  if (result.rowCount == 0)
-    // If query returns nothing (meaning 0 results) return status code 400
+  if (result.rowCount == 0) {
+    console.log('User was not found in database');
     return res.status(400).json({ message: "Email is not found" });
+  }
 
   try {
     // Check if the password is correct
@@ -270,6 +279,7 @@ router.post("/login", async (req, res) => {
     console.log("Password Comparison Result:", validPassword); // Debug: Log password comparison result
 
     if (!validPassword) {
+      console.log('Password does not match');
       return res.status(400).json({ message: "Invalid password" });
     }
     await client.end();

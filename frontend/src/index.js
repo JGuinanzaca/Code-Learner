@@ -38,7 +38,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/sitemap" element={<Sitemap />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/reset" element={<Reset />} />
+          <Route path="/reset/:user_id" element={<Reset />} />
           <Route path="*" element={
             <div className="custom-container"> 
               <div className="custom-main" style={{marginTop: "15%"}}>

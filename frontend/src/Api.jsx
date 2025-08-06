@@ -115,3 +115,14 @@ export const replyToForumPost = async (forum_id, forumPost) => {
     throw "Issue uploading reply to forum post";
   }
 }
+
+export const sendResetEmail = async (email) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/codelearner/reset/forgot-password`,
+      email
+    );
+    return response.data;
+  } catch (error) {
+    return response.data;
+  }
+}

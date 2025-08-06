@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectId, saveId } from "../redux/authSlice";
 import { selectUserDetails } from "../redux/userSlice";
 import defaultProfile from "../Profile.png";
-import { generateURL, uploadURL } from "../Api";
+import { generateURL, uploadURL, sendResetEmail } from "../Api";
 import { saveUserDetails } from "../redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
 
@@ -28,9 +28,15 @@ function ProfilePage() {
     navigate("/");
   };
 
-  const handleReset = () => {
-    alert(`Reset email sent to ${userDetails.email}`);
-    // Idea is that email link will navigate you to ResetPage (somehow)
+  const handleReset = async () => {
+    await sendResetEmail({email: userDetails.email}).then((response) => {
+      if(response.message == 'Password reset email sent successfully') {
+        alert(`Reset email sent to ${userDetails.email}`);
+      }
+      else {
+        alert(`An error occurred while generating reset email. Try again later.`)
+      }
+    });
   }
 
   const handleChange = async (e) => {
