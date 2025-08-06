@@ -3,28 +3,7 @@ const router = express.Router();
 const { Client } = require("pg");
 const config = require("../config.js"); // Contains object that is used to config Client
 const nodemailer = require('nodemailer');
-
-router.post('/forgot-password', async (req, res) => {
-    const { email } = req.body;
-    try {
-    const client = new Client(config);
-    await client.connect();
-
-    const result = await client.query(`SELECT user_id FROM codelearner.users WHERE email = '${email}'`);
-    if(result.rowCount == 0) {
-        console.log('User was not found in database');
-        return res.status(404).json({ message: "User is not found" });
-    }
-    const user_id =  result.rows.at(0).user_id;
-    const resetLink = `http://localhost:3000/codelearner/reset/${user_id}`;
-
-    sendResetEmail(email, resetLink);
-    res.json({ message: 'Password reset email sent successfully' });
-    } catch (error) {
-    console.error(`Error: ${error.message}`);
-    res.status(500).json({ message: "Error sending reset email to user" });
-    }
-});
+const bcrypt = require("bcrypt");
 
 const sendResetEmail = (email, link) => {
     console.log(`Reset email being sent to: ${email}`);
@@ -55,5 +34,48 @@ const sendResetEmail = (email, link) => {
     }
   });
 };
+
+router.post('/forgot-password', async (req, res) => {
+    const { email } = req.body;
+    try {
+    const client = new Client(config);
+    await client.connect();
+
+    const result = await client.query(`SELECT user_id FROM codelearner.users WHERE email = '${email}'`);
+    if(result.rowCount == 0) {
+        console.log('User was not found in database');
+        return res.status(404).json({ message: "User is not found" });
+    }
+    const user_id =  result.rows.at(0).user_id;
+    const resetLink = `http://localhost:3000/reset/${user_id}`;
+
+    sendResetEmail(email, resetLink);
+    res.json({ message: 'Password reset email sent successfully' });
+    } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ message: "Error sending reset email to user" });
+    }
+});
+
+router.put('/reset-password/:user_id', async (req, res) => {
+    const { newPassword } = req.body;
+    try {
+        const client = new Client(config);
+        await client.connect();
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        await client.query(`UPDATE codelearner.users
+                            SET password = $1
+                            WHERE user_id = ${req.params.user_id}`, [hashedPassword]);
+        console.log(`Password has changed for user number ${req.params.user_id}`)
+        res.status(200).json({message: "Password successfully updated!"});
+    } catch (error) {
+        console.error(`Error: ${error.message}`);
+        res.status(500).json({ message: "Error resetting password of the user" });
+    }
+});
+
 
 module.exports = router;

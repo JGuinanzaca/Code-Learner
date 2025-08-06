@@ -126,3 +126,14 @@ export const sendResetEmail = async (email) => {
     return response.data;
   }
 }
+
+export const resetPassword = async (user_id, newPassword) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/codelearner/reset/reset-password/${user_id}`, 
+      newPassword
+    );
+    return response.data;
+  } catch (error) {
+    throw "Issue resetting user's password in the database";
+  }
+}
