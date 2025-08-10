@@ -1,9 +1,9 @@
-import { FaRegUserCircle, FaRegSun, FaRegMoon } from "react-icons/fa";
+import { FaRegUserCircle, FaRegMoon } from "react-icons/fa";
+import { ImSun } from "react-icons/im";
 import { useState, useEffect } from "react";
 import { selectId, saveId } from "../redux/authSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "../globals.css";
-import { useNavigate } from "react-router-dom";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -15,12 +15,9 @@ const navItems = [
 export default function Header({
   darkMode,
   toggleTheme,
-  textEnter,
-  textLeave,
 }) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [scrolled, setScrolled] = useState(false);
+  const userId = useSelector((state) => selectId(state));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,16 +27,19 @@ export default function Header({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // returns auth id to default value, removing "authentication" from user
-  const handleLogout = () => {
-    dispatch(saveId(-1));
-    navigate("/");
-  };
+  // useEffect(() => {
+  //   function handleScroll() {
+  //     setScrolled(window.scrollY > 10);
+  //   }
+  //   window.addEventListener("scroll", handleScroll, { passive: true });
+  //   handleScroll(); // Set initial state
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
+
 
   // default value for id is -1, persistence is now guarenteed across the board
   // one issue is scrolling up and down on the window makes multiple calls (scrolling most likely causes refreshing)
   function NavToPath(href) {
-    const userId = useSelector((state) => selectId(state));
     if (href === "/") return href;
     if (userId !== -1) {
       console.log("Authenticated"); // Debug
@@ -48,6 +48,11 @@ export default function Header({
       console.log("Not Authenticated"); // Debug
       return "/login";
     }
+  }
+
+  function ProfileOnClick(href) {
+    if (userId !== -1) return "/profile";
+    else if (userId === -1) return href;
   }
 
   return (
@@ -62,8 +67,6 @@ export default function Header({
                   <a
                     href={NavToPath(item.href)}
                     className="nav-link"
-                    onMouseEnter={textEnter}
-                    onMouseLeave={textLeave}
                   >
                     {item.name}
                   </a>
@@ -76,15 +79,15 @@ export default function Header({
           <div className="header-actions">
             <button onClick={toggleTheme} aria-label="Toggle theme">
               {darkMode ? (
-                <FaRegSun size={30} style={{ padding: 3 }} />
+                <ImSun size={30} style={{ padding: 3 }} />
               ) : (
                 <FaRegMoon size={30} style={{ padding: 3 }} />
               )}
             </button>
-            <button onClick={() => (window.location.href = "/login")}>
+            <button onClick={() => (window.location.href = ProfileOnClick("/login"))}>
               <FaRegUserCircle size={30} style={{ padding: 3 }} />
             </button>
-            <button size={30} style={{ padding: 3 }} onClick={handleLogout}>logout</button>
+            {/* <button size={30} style={{ padding: 3 }} onClick={handleLogout}>logout</button> */}
           </div>
         </div>
       </div>

@@ -24,7 +24,6 @@ export default function Docs() {
       </section>
 
       <main className="custom-main">
-
         <aside className="custom-sidebar">
           <h2 className="custom-sidebar-title">References: </h2>
           <ul className="custom-topic-list">
@@ -44,9 +43,9 @@ export default function Docs() {
           </ul>
         </aside>
 
-        <div className="custom-forum">
-          <h2 className="custom-forum-title">Topic</h2>
-          <p className="custom-forum-content">
+        <div className="main">
+          <h2 className="main-title">Topic</h2>
+          <p className="main-content">
             This will be a description of the topic being covered in this section. Users can come back to see how certain concepts are implemented in different programming languages. This part of the website will virtually act as a textbook/reference/review page.
           </p>
 

@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 2.5rem;
   min-height: 80vh;
   background-color: var(--bg);
 }
@@ -46,10 +47,14 @@
 
 .login-input {
   padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--sidebar);
   border-radius: 0.375rem;
-  background-color: var(--foreground);
+  background-color: var(--sidebar);
   color: var(--text-secondary);
+}
+
+.login-input::placeholder{
+  opacity: .35;
 }
 
 .login-button {
@@ -78,3 +83,4 @@
 .login-link {
   color: var(--accent-secondary);
 }
+

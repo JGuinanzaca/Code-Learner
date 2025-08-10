@@ -51,7 +51,7 @@ a {
   color: var(--text-secondary);
 }
 
-button {
+button, .profile-image label {
   background-color: var(--accent);
   color: var(--primary);
   border-radius: 5px;
@@ -62,27 +62,9 @@ button {
   /* padding: 3%; */
 }
 
-button:hover {
+button:hover, .profile-image label:hover {
   filter: brightness(1.125);
-}
-
-/* 
-@media (max-width: 768px) {
-  body {
-    line-height: 1;
-    letter-spacing: 4%;
-    overflow-x: hidden;
-    font-size: .9rem;
-  }
-} */
-
-.titlee {
-  font-weight: 400;
-  font-size: larger;
-  letter-spacing: .2em;
-  font-family: 'ClashDisplayVariable', sans-serif;
-  color: var(--accent-secondary);
-  text-shadow: var(--tshadow);
+  box-shadow: 0 0 20px 3px color-mix(in srgb, var(--accent) 15%, var(--accent-secondary) 20%);
 }
 
 .dark {
@@ -97,9 +79,9 @@ button:hover {
   --editor: var(--editor-d);
   --sidebar: var(--sidebar-d);
 
-  --tshadow:0 0 10px rgba(255, 255, 255, 0.1), 
-            0 0 20px rgba(255, 255, 255, 0.1), 
-            0 0 30px rgba(255, 255, 255, 0.1);
+  --tshadow:0 0 10px rgba(255, 255, 255, 0.12), 
+            0 0 20px rgba(255, 255, 255, 0.2), 
+            0 0 30px rgba(255, 255, 255, 0.25);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -115,9 +97,9 @@ button:hover {
   --editor: var(--editor-l);
   --sidebar: var(--sidebar-l);
 
-  --tshadow:0 0 10px rgba(0, 0, 0, 0.1), 
-            0 0 20px rgba(0, 0, 0, 0.1), 
-            0 0 30px rgba(0, 0, 0, 0.1);
+  --tshadow:0 0 10px rgba(0, 0, 0, 0.12), 
+            0 0 20px rgba(0, 0, 0, 0.2), 
+            0 0 30px rgba(0, 0, 0, 0.25);
   transition: background-color 0.3s ease, color 0.3s ease;
 
 }
@@ -142,8 +124,8 @@ button:hover {
 .header-container {
   width: 100%;
   margin: 0 auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 2%;
+  padding-right: 2%;
 }
 .header-inner {
   display: flex;
@@ -225,7 +207,7 @@ button:hover {
 }
 .footer-link {
   /* color: var(--text, #222); */
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   text-decoration: none;
   transition: text-decoration 0.2s;
 }
@@ -249,7 +231,7 @@ button:hover {
   font-size: 1.125rem;
 }
 .footer-meta {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
 }
 .footer-copyright {
   display: flex;
@@ -262,13 +244,7 @@ button:hover {
   margin: 0;
 }
 
-
 /* Homepage style */
-.homepage {
-  min-height: 100vh;
-  font-family: 'Inter', sans-serif;
-}
-
 .hero-section {
   background: var(--bg);
   min-height: 100vh;
@@ -287,10 +263,19 @@ button:hover {
 }
 
 .hero-title {
-  font-size: 3.75rem;
+  font-size: 2rem;
   font-weight: 200;
   margin-top: 7.5rem;
   margin: 1.25rem;
+}
+
+.titlee {
+  font-size: 3.75rem;
+  font-weight: 400;
+  letter-spacing: .2em;
+  font-family: 'ClashDisplayVariable', sans-serif;
+  color: var(--accent-secondary);
+  text-shadow: var(--tshadow);
 }
 
 .hero-subtitle {
@@ -316,18 +301,29 @@ button:hover {
 }
 
 .features-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: var(--accent, #f3f4f6);
   color: var(--text-secondary, #555);
-  width: 100%;;
-  padding: 4rem 5rem;
+  width: 100%;
+  padding: 4rem;
+}
+
+.features-grid {
+  background: var(--accent, #f3f4f6);
+  color: var(--text-secondary, #555);
+  width: 100%;
   margin: 0 auto;
+  margin-top: 2%;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
-  .features-section {
+  .features-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -337,6 +333,7 @@ button:hover {
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   padding: 1.5rem;
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -344,9 +341,11 @@ button:hover {
 }
 
 .feature-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  word-break: break-word;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 1.5rem 0;
+  text-align: center;
 }
 
 .cta-section {
@@ -361,13 +360,16 @@ button:hover {
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+
+/* RETIRED CSS */
+/*
 .cta-title {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
-.cta-btn {
+ .cta-btn {
   font-size: 1.125rem;
   padding: 0.75rem 1.5rem;
   border-radius: 1rem;
@@ -375,13 +377,13 @@ button:hover {
   color: var(--primary);
   border: none;
   cursor: pointer;
-}
+} */
 
 .cta-note {
   margin-top: 1rem;
 }
 
-/* Forums Style */
+/* Default Style */
 .custom-container {
   padding-top: 2rem;
   min-height: 80vh;
@@ -444,10 +446,10 @@ button:hover {
               0 1px 2px rgba(0, 0, 0, 0.06);
   padding: 0.75rem;
   max-height: 56px;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  text-align: center; */
   cursor: pointer;
 }
 
@@ -458,9 +460,9 @@ button:hover {
 
 .custom-main {
   display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 2.5rem;
+  justify-content: flex-start; 
+  margin: 4% 10%;
+  gap: 1.25rem;
 }
 
 .custom-sidebar {
@@ -520,7 +522,7 @@ button:hover {
   padding: 0.25rem;
 }
 
-.custom-forum {
+.main {
   background-color: var(--secondary);
   display: flex;
   flex-direction: column;;
@@ -528,18 +530,17 @@ button:hover {
   padding: 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  min-width: 50vw;
-  max-width: 40vw;
+  min-width: 60vw;
 }
 
-.custom-forum-title {
+.main-title {
   color: var(--text);
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
-.custom-forum-content {
+.main-content {
   color: var(--text-secondary);
   margin-bottom: 1rem;
 }
@@ -562,8 +563,7 @@ button:hover {
   padding: 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  min-width: 30vw;
-  max-width: 60vw;
+  margin: 0 3%;
 }
 
 .custom-code-grid {
@@ -586,3 +586,265 @@ button:hover {
   min-width: 30vw;
   max-width: 40vw;
 }
+
+/* 
+  Profile Page 
+  NOT DEFINITIVE DON'T HATE ME i was playing around with colors
+*/
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50px;
+  padding: 6%;
+  padding-top: 2%;
+  height: auto;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 2%;
+  margin-bottom: 3%;
+  /* max-width: 40vw; */
+
+  background-color: var(--sidebar);
+}
+
+.profile-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5% 0%;
+  width: 100%;
+  gap: 5%;
+}
+
+.user-id {
+  width: 70%;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.profile-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 3%;
+  margin: 0;
+  width: 100%;
+}
+.profile-buttons button {
+  margin: 4% 0;
+}
+
+.profile-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.profile-image .change-image {
+  background-color: var(--accent-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* 
+  width: 25vh;
+  height: 25vh; 
+  */
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.profile-image:hover .change-image {
+  opacity: 1;
+  pointer-events: auto;
+}
+.profile-image img{
+  object-fit: cover;
+  width: 30vh;
+  height: 30vh;
+  border-radius: 50%;
+}
+
+.personal-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 2%;
+  margin-bottom: 2.5%;
+  width: 100%;
+  background-color: var(--editor);
+}
+
+.user-fields {
+  background-color: var(--editor);
+  width: 100%;
+  margin: 0;
+  padding: 3%;
+  border-radius: 20px;
+  /* border: 3px solid var(--accent-secondary); */
+}
+
+
+@media (max-width: 768px) {
+  /* body {
+    line-height: 1;
+    letter-spacing: 4%;
+    overflow-x: hidden;
+    font-size: .9rem; 
+  }*/
+
+  .titlee {
+    font-size: 3rem;
+    letter-spacing: .3rem;
+  }
+  .hero-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+  }
+
+  .hero-subtitle {
+    display: none;
+    font-size: .9rem;
+    margin-bottom: .2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-btn {
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background: var(--accent);
+    color: var(--primary);
+    border: none;
+    cursor: pointer;
+  }
+
+  .features-section {
+    padding: 2rem;
+  }
+  .feature-title {
+    font-size: 1rem;
+    margin: 1.5rem 0;
+  }
+  .feature-card p {
+    font-size: .85rem;
+  }
+
+  .header-inner {
+    margin: 0% 2%;
+    margin-top: 2%;
+  }
+  .nav-list {
+    gap: 3.4%;
+    font-size: 25%;
+    font-weight: 500;
+  }
+  .header-actions {
+    padding: 2% 2.3%;
+    font-size: .9rem;
+  }
+  .header-scrolled {
+    background: color-mix(in srgb, var(--sidebar) 85%, transparent);
+  }
+
+  .custom-hero {
+    padding: 0% 2%;
+    margin-top: 15%;
+    flex-direction: column;
+  }
+  .custom-hero-content {
+    margin: 0;
+    padding: 0;
+  }
+  .custom-title {
+    font-size: 2rem;
+    margin: .3rem;
+  }
+  .custom-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin: 5%;
+  }
+  .custom-button {
+    padding: 0rem;
+    font-size: 0.1rem;
+  }
+  .custom-button-heading {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .main {
+    min-width: 90vw
+  }
+
+  .custom-main {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .custom-topic-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+  }
+
+  .custom-topic-button {
+    height: 100%;
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+  }
+
+  .custom-code-problem, .code-editor-container{
+    min-width: 95vw;
+  }
+  .custom-sidebar {
+    min-width: 90vw;;
+  }
+  .profile-page {
+    width: 83vw;
+    padding: 2.5%;
+  }
+  .profile-main {
+    flex-direction: column;
+    gap: 0;
+  }
+  .user-id {
+    width: 100%;
+  }
+  .profile-buttons {
+    justify-content: center;
+  }
+  .profile-buttons button {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    margin: 4% 0;
+  }
+  .profile-image img{
+    width: 20vh;
+    height: 20vh;
+  }
+  .profile-page{
+    padding: 5% 8%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+} 

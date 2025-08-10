@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import "../globals.css";
+import { useState } from "react";
 import "../login.css";
 import { register } from "../Api.jsx";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { saveId } from "../redux/authSlice";
+import { saveUserDetails } from "../redux/userSlice.js";
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -20,8 +20,8 @@ export default function SignupPage() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // when register endpoint is invoked and it returns a valid id, we save the userId to the redux store, so that it can be
-  // maintained across the app to be used in all components (persistence guarenteed)
+  // when register endpoint is invoked and it returns a valid id, we save the userId, name and email
+  // to the redux store, so that it can be maintained across the app to be used in all components (persistence guarenteed)
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
@@ -35,7 +35,16 @@ export default function SignupPage() {
         password: formData.password,
         name: formData.name,
       }).then((response) => {
+        if(response.message ===  "Error registering user") {
+          alert(`${response.message} into the database: try again later`);
+          return;
+        }
+        else if(response.message ===  "Email already in use") {
+          alert(`${response.message}: use another email that is not registered`);
+          return;
+        }
         dispatch(saveId(response));
+        dispatch(saveUserDetails({ name: formData.name, email: formData.email }));
         navigate("/Code");
       });
     } catch (error) {

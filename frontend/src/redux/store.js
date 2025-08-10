@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
+import userReducer from "./userSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
@@ -8,7 +9,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 // import the following functions and reducers:
 //      import { useDispatch/useSelector } from "react-redux";
 //      import { selectId/saveId } from "./redux/authSlice";
-// then you would save the id by invoking dispatch(saveId(whatever)), where dispatch = useDispatch()
+// then you would save the id by invoking dispatch(saveId(ID)), where dispatch = useDispatch()
 // and call the id in the store by using e.g., const id = useSelector((state) => selectId(state));
 
 const persistConfig = {
@@ -19,6 +20,7 @@ const persistConfig = {
 
 const reducer = combineReducers({
   auth: authReducer,
+  userDetails: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

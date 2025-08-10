@@ -1,42 +1,111 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectId, saveId } from "../redux/authSlice";
+import { selectUserDetails } from "../redux/userSlice";
+import defaultProfile from "../Profile.png";
+import { generateURL, uploadURL } from "../Api";
+import { saveUserDetails } from "../redux/userSlice.js";
+import { useNavigate } from "react-router-dom";
 
-function ProfilePage({ userId = 'default-user' }) {
-  const [avatarUrl, setAvatarUrl] = useState('');
-  const [file, setFile] = useState(null);
+function ProfilePage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [fileUrl, setFileUrl] = useState(undefined);
+  const [displayUserName, setDisplayUsername] = useState("");
+  const [displayUserEmail, setDisplayUserEmail] = useState("");
+  const userDetails = useSelector((state) => selectUserDetails(state));
+  const userId = useSelector((state) => selectId(state));
+
+  const [displayUserBio, setDisplayUserBio] = useState("");
+  // const [lessonsCompleted, setLessonsCompleted] = useState("");
+  // const [forumPosts, setForumPosts] = useState("");
 
   useEffect(() => {
-    // If you're storing avatar URLs in a database, fetch them here
-    // For now, assume no avatar yet
+    setDisplayUsername(userDetails.name);
+    setDisplayUserEmail(userDetails.email);
+    setFileUrl(userDetails.image);
   }, []);
 
-  async function handleUpload(e) {
+  // returns auth id to default value, removing "authentication" from user
+  const handleLogout = () => {
+    dispatch(saveId(-1));
+    navigate("/");
+  };
+
+  const handleReset = () => {
+    alert(`Reset email sent to ${userDetails.email}`);
+    // Idea is that email link will navigate you to ResetPage (somehow)
+  }
+
+  const handleChange = async (e) => {
     e.preventDefault();
-    if (!file) return;
-
     const formData = new FormData();
-    formData.append('avatar', file);
+    formData.append("profilePic", e.target.files[0]);
 
-    const response = await fetch(`/api/profile/${userId}/avatar`, {
-      method: 'POST',
-      body: formData,
+    await generateURL(formData).then((res) => {
+      console.log(`Link generated: ${res}`); // Debug: link generated that will take you to user's photo
+      const url = {
+        url: res,
+      };
+      uploadURL(userId, url);
+      setFileUrl(res);
+      dispatch(saveUserDetails({ image: res }));
     });
+  };
 
-    const data = await response.json();
-    setAvatarUrl(data.avatarUrl);
+  function profileImage() {
+    if (fileUrl) {
+      return fileUrl;
+    } else {
+      return defaultProfile;
+    }
   }
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Profile Page</h1>
-      {avatarUrl ? (
-        <img src={avatarUrl} alt="Avatar" style={{ width: '150px', borderRadius: '50%' }} />
-      ) : (
-        <p>No avatar uploaded.</p>
-      )}
-      <form onSubmit={handleUpload} style={{ marginTop: '1rem' }}>
-        <input type="file" accept="image/*" onChange={e => setFile(e.target.files[0])} />
-        <button type="submit">Upload Avatar</button>
-      </form>
+    <div className='custom-container'>
+      <section className='custom-hero'>
+        <h1 className="custom-title">{displayUserName}'s Profile</h1>
+      </section>
+      <div className="profile-page">
+
+        <div className="profile-main">
+          <div className="profile-image">
+            <img src={profileImage()} alt="Profile Picture" for="file"></img>
+            <input
+              type="file"
+              id="file"
+              accept="image/jpeg,image/png"
+              onChange={handleChange}
+              style={{ display: 'none' }}
+            ></input>
+            <label for='file' className="change-image">
+              Upload Image:
+            </label>
+          </div>
+          <div className="user-id">
+            <div className='profile-buttons'>
+              <button className="hero-btn" onClick={handleReset}>
+                <h2>Reset Password</h2>
+              </button>
+              <button className="hero-btn" onClick={handleLogout}>
+                <h2>Logout</h2>
+              </button>
+            </div>
+
+            <div className='personal-info'>
+              <p className="user-fields">Name: {displayUserName}</p>
+              <p className="user-fields">Email: {displayUserEmail}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className='personal-info'>
+          <p className='user-fields'>
+            Bio: {displayUserBio || "This user has not set a bio yet."}
+          </p>
+        </div>
+
+      </div>
     </div>
   );
 }
