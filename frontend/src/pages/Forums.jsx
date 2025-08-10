@@ -212,6 +212,7 @@ export default function Forums() {
       <aside className="custom-sidebar">
         <h2 className="custom-sidebar-title">Topics</h2>
         <ul className="custom-topic-list" id="forum-posts">
+        <ul className="custom-topic-list" id="forum-posts">
         </ul>
         <div className="custom-pagination">
           <button>back</button>
@@ -219,6 +220,9 @@ export default function Forums() {
         </div>
       </aside>
 
+      <div className="custom-forum" id ="forum"></div>
+      <button className="custom-button" onClick={generateUserSubmission}>Create a new post</button>
+      <button className="custom-button" onClick={generateReplySubmission}>Reply to post</button>
       <div className="custom-forum" id ="forum"></div>
       <button className="custom-button" onClick={generateUserSubmission}>Create a new post</button>
       <button className="custom-button" onClick={generateReplySubmission}>Reply to post</button>

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Client } = require("pg");
-const config = require("./config.js"); // Contains object that is used to config Client
+const config = require("../config.js"); // Contains object that is used to config Client
 const bcrypt = require("bcrypt");
 const { spawn } = require("child_process");
 const fs = require("fs");
@@ -29,7 +29,7 @@ router.get("/users/:user_id", async (req, res) => {
     await client.connect();
 
     const result = await client.query(
-      `SELECT * FROM codelearner.users WHERE user_id = ${req.params.user_id}`
+      `SELECT name, email, image FROM codelearner.users WHERE user_id = ${req.params.user_id}`
     );
     if (result.rowCount == 0)
       return res.status(404).json({ message: "User is not found" });
@@ -220,12 +220,17 @@ router.post("/register", async (req, res) => {
   try {
     // Generates a salt with a specific number of rounds (e.g., 10)
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt); // hashed password will be stored in database
+    const hashedPassword = await bcrypt.hash(password, salt); // Hashed password will be stored in database
 
     const client = new Client(config);
     await client.connect();
 
-    const result = await client.query(`SELECT * FROM codelearner.users`); // poor query, but will use for now
+    const checkEmail = await client.query(`SELECT email FROM codelearner.users WHERE email = '${email}'`);
+    if(checkEmail.rowCount > 0) {
+      return res.status(400).json({ message: "Email already in use" });
+    }
+
+    const result = await client.query(`SELECT * FROM codelearner.users`);
     let id = result.rowCount; // id stores the count of objects in the row
     console.log(`Debug: Current id value: ${id}`); // Debug: checking current number of entries in table
     id++;

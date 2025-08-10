@@ -10,10 +10,10 @@
 
   --primary-light: #545454;
   --secondary-light: #d3d3d3;
-  --accent-light: #F9C74F;
+  --accent-light: #f9c74f;
   --accent-s-light: #ffffff;
   --text-light: #1e2939;
-  --text-s-light: #1b1b1b; 
+  --text-s-light: #1b1b1b;
   --editor-l: #eaedf1;
   --sidebar-l: #f3f4f6;
 
@@ -26,7 +26,7 @@
   --editor-d: #24262a;
   --sidebar-d: #1e1e1e;
 
-  --font-primary: 'Inter', sans-serif;
+  --font-primary: "Inter", sans-serif;
 }
 /* 
 @media (prefers-color-scheme: dark) {
@@ -55,10 +55,10 @@ button, .profile-image label {
   background-color: var(--accent);
   color: var(--primary);
   border-radius: 5px;
-  cursor:pointer;
+  cursor: pointer;
   font-family: var(--font-primary);
-  font-variation-settings: 'wght' 400; 
-  font-weight: 400; 
+  font-variation-settings: "wght" 400;
+  font-weight: 400;
   /* padding: 3%; */
 }
 
@@ -69,7 +69,7 @@ button:hover, .profile-image label:hover {
 
 .dark {
   --bg: var(--background);
-  --c: var(--text-dark);  
+  --c: var(--text-dark);
   --primary: var(--primary-dark);
   --secondary: var(--secondary-dark);
   --accent: var(--accent-dark);
@@ -101,7 +101,6 @@ button:hover, .profile-image label:hover {
             0 0 20px rgba(0, 0, 0, 0.2), 
             0 0 30px rgba(0, 0, 0, 0.25);
   transition: background-color 0.3s ease, color 0.3s ease;
-
 }
 
 /* Header styles */
@@ -116,10 +115,10 @@ button:hover, .profile-image label:hover {
 }
 .header-scrolled {
   background: color-mix(in srgb, var(--primary) 13%, transparent);
-  backdrop-filter: blur(7px); 
+  backdrop-filter: blur(7px);
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 .header-container {
   width: 100%;
@@ -169,7 +168,7 @@ button:hover, .profile-image label:hover {
 .footer {
   background: var(--secondary);
   color: var(--text);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   width: 100%;
 }
 .footer-container {
@@ -252,7 +251,7 @@ button:hover, .profile-image label:hover {
   align-items: center;
   justify-content: center;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .hero-content {
@@ -293,7 +292,7 @@ button:hover, .profile-image label:hover {
   font-size: 1.1rem;
   padding: 0.75rem 1.5rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background: var(--accent);
   color: var(--primary);
   border: none;
@@ -331,7 +330,7 @@ button:hover, .profile-image label:hover {
 .feature-card {
   background: #fff;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
   padding: 1.5rem;
   padding-top: 1rem;
   display: flex;
@@ -357,7 +356,7 @@ button:hover, .profile-image label:hover {
   justify-content: center;
   text-align: center;
   background: var(--bg);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 
@@ -442,8 +441,7 @@ button:hover, .profile-image label:hover {
 
 .custom-button {
   border-radius: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
-              0 1px 2px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
   padding: 0.75rem;
   max-height: 56px;
   /* display: flex;
@@ -477,7 +475,7 @@ button:hover, .profile-image label:hover {
   gap: 1rem;
   height: fit-content;
 }
-.custom-sidebar button{
+.custom-sidebar button {
   background-color: var(--accent);
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -525,7 +523,7 @@ button:hover, .profile-image label:hover {
 .main {
   background-color: var(--secondary);
   display: flex;
-  flex-direction: column;;
+  flex-direction: column;
   justify-content: flex-start;
   padding: 1.5rem;
   border-radius: 0.75rem;

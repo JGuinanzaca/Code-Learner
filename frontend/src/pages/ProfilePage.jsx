@@ -24,6 +24,9 @@ function ProfilePage() {
     setDisplayUsername(userDetails.name);
     setDisplayUserEmail(userDetails.email);
     setFileUrl(userDetails.image);
+    setDisplayUsername(userDetails.name);
+    setDisplayUserEmail(userDetails.email);
+    setFileUrl(userDetails.image);
   }, []);
 
   // returns auth id to default value, removing "authentication" from user
@@ -38,8 +41,39 @@ function ProfilePage() {
   }
 
   const handleChange = async (e) => {
+  // returns auth id to default value, removing "authentication" from user
+  const handleLogout = () => {
+    dispatch(saveId(-1));
+    navigate("/");
+  };
+
+  const handleReset = () => {
+    alert(`Reset email sent to ${userDetails.email}`);
+    // Idea is that email link will navigate you to ResetPage (somehow)
+  }
+
+  const handleChange = async (e) => {
     e.preventDefault();
     const formData = new FormData();
+    formData.append("profilePic", e.target.files[0]);
+
+    await generateURL(formData).then((res) => {
+      console.log(`Link generated: ${res}`); // Debug: link generated that will take you to user's photo
+      const url = {
+        url: res,
+      };
+      uploadURL(userId, url);
+      setFileUrl(res);
+      dispatch(saveUserDetails({ image: res }));
+    });
+  };
+
+  function profileImage() {
+    if (fileUrl) {
+      return fileUrl;
+    } else {
+      return defaultProfile;
+    }
     formData.append("profilePic", e.target.files[0]);
 
     await generateURL(formData).then((res) => {
