@@ -212,7 +212,6 @@ export default function Forums() {
       <aside className="custom-sidebar">
         <h2 className="custom-sidebar-title">Topics</h2>
         <ul className="custom-topic-list" id="forum-posts">
-        <ul className="custom-topic-list" id="forum-posts">
         </ul>
         <div className="custom-pagination">
           <button>back</button>

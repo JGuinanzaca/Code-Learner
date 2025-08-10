@@ -55,11 +55,6 @@ export default function Header({
     else if (userId === -1) return href;
   }
 
-  function ProfileOnClick(href) {
-    if (userId !== -1) return "/profile";
-    else if (userId === -1) return href;
-  }
-
   return (
     <header className={`header ${scrolled ? "header-scrolled" : ""}`}>
       <div className="header-container">
