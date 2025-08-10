@@ -9,7 +9,7 @@ const fs = require("fs");
 // localhost:5000/codelearner/users
 // may add a join of some sort to also display the users progress
 router.get("/users", async (req, res) => {
-  try {
+  try { 
     const client = new Client(config);
     await client.connect();
 
