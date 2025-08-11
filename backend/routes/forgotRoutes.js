@@ -47,7 +47,7 @@ router.post('/forgot-password', async (req, res) => {
         return res.status(404).json({ message: "User is not found" });
     }
     const user_id =  result.rows.at(0).user_id;
-    const resetLink = `http://localhost:3000/reset/${user_id}`;
+    const resetLink = `https://code-learner-deploy.onrender.com/codelearner/reset/${user_id}`;
 
     sendResetEmail(email, resetLink);
     res.json({ message: 'Password reset email sent successfully' });
