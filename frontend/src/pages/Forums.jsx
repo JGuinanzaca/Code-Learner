@@ -52,6 +52,17 @@ export default function Forums() {
     const restD = document.createElement('h3');
     const input = document.createElement('img');
 
+    if(reversedforumData[index].profile_image == null) {
+        profileImage = defaultProfile;
+      }
+    else {
+        profileImage = reversedforumData[index].profile_image;
+      }
+    input.src = profileImage;
+    input.style.width = '50px';
+    input.style.height = '50px';
+    header.appendChild(input);
+
     postDiv.className = 'custom-forum-content';
     postDiv.style.backgroundColor = '#f9c74f';
 
@@ -60,8 +71,6 @@ export default function Forums() {
     const nm = (reversedforumData[index].name)
     nameD.textContent = `${nm}`;
     restD.textContent = `${prettyTime}`
-    header.appendChild(nameD);
-    header.appendChild(restD);
 
     if(reversedforumData[index].profile_image == null) {
         profileImage = defaultProfile;
@@ -73,6 +82,8 @@ export default function Forums() {
     input.style.width = '50px';
     input.style.height = '50px';
     header.appendChild(input);
+    header.appendChild(nameD);
+    header.appendChild(restD);
 
     nameD.style.fontWeight = 'bold';
     nameD.style.fontSize = "1.125rem"
