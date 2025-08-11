@@ -300,7 +300,7 @@ export default function Forums() {
         </div>
       </aside>
 
-      <div className="main">
+      <div className="main-content">
         <div  id ="forum"></div>
         <div className="custom-pagination" style={{justifyContent: 'space-evenly'}}>
           <button className="custom-button" onClick={generateUserSubmission} style={{padding: '.5rem'}}>Create a new post</button>

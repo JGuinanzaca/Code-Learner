@@ -10,7 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 
 import Header from "./pages/Header.jsx";
-import Footer from "./pages/Footer.jsx";
+// import Footer from "./pages/Footer.jsx";
 import HomePage from "./App.jsx";
 import Forums from "./pages/Forums.jsx";
 import Code from "./pages/Practice.jsx";
@@ -25,7 +25,7 @@ function App() {
   const { theme, toggleTheme } = useTheme();
   const darkMode = theme !== "dark";
   const notCode = !(location.pathname === "/code")
-  
+
   return (
     <>
       <Header darkMode={darkMode} toggleTheme={toggleTheme} />
@@ -49,8 +49,8 @@ function App() {
             </div>
             } />
         </Routes>
-      </main>
-      {notCode && <Footer />}
+       </main>
+     {/* {notCode && <Footer />} */}
     </>
   );
 }
