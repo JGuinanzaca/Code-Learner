@@ -20,15 +20,15 @@ router.get("/messages", async (req, res) => {
 
 router.post("/post-message", async (req, res) => {
   try {
-    const { name , title, message, time } = req.body
+    const { name , title, message, time, image } = req.body
     const client = new Client(config);
     await client.connect();
 
     const result = await client.query(`SELECT * FROM codelearner.forum`);
     const id = result.rowCount + 1;
 
-    await client.query(`INSERT INTO codelearner.forum (forum_id, name, tag, title, message, time)
-                        VALUES ($1, $2, $3, $4, $5, $6)`, [id, name, "null", title, message, `${time}`]);
+    await client.query(`INSERT INTO codelearner.forum (forum_id, name, tag, title, message, time, profile-image)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7)`, [id, name, "null", title, message, `${time}`, image]);
     await client.end();
     console.log('Successfully uploaded forum post to database');
     return res.status(200).json({ message: "Forum post uploaded to database" });

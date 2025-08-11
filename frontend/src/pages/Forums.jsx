@@ -2,6 +2,7 @@ import { fetchForumPost, fetchRepliesFromPost, uploadForumPost, replyToForumPost
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectUserDetails } from "../redux/userSlice";
+import defaultProfile from "../Profile.png";
 
 export default function Forums() {
   const [isReplying, setIsReplying] = useState(false);
@@ -47,6 +48,7 @@ export default function Forums() {
     const postDiv = document.createElement('div');
     const nameD = document.createElement('h2');
     const restD = document.createElement('h3');
+    const input = document.createElement('img');
 
     postDiv.className = 'custom-forum-content';
     postDiv.style.backgroundColor = '#f9c74f';
@@ -58,6 +60,15 @@ export default function Forums() {
     restD.textContent = `${prettyTime}`
     header.appendChild(nameD);
     header.appendChild(restD);
+
+    input.src = () => {
+      if(reversedforumData[index].profile-image == null) {
+        return defaultProfile;
+      }
+      else {
+        return reversedforumData[index].profile-image;
+      }}
+    header.appendChild(input);
 
     nameD.style.fontWeight = 'bold';
     nameD.style.fontSize = "1.125rem"
@@ -78,20 +89,17 @@ export default function Forums() {
     if(replyData[0].responses !== null) {
       for(let i = 0; i < replyData[0].responses.length; i++) {
         const header = document.createElement('h2');
-        // const title = document.createElement('h3');
         const message = document.createElement('p');
         const postDiv = document.createElement('div');
         const nameD = document.createElement('h2');
         const restD = document.createElement('h3');
     
         postDiv.className = 'custom-forum-reply';
-        // postDiv.style.backgroundColor = '#f9c74f';
         const tt = (replyData[0].responses[i].time);
         const prettyTime = prettifyDateTime(tt);
         const nm = (replyData[0].responses[i].name)
         nameD.textContent = `${nm}`;
         restD.textContent = `${prettyTime}`
-        // title.textContent = `${replyData[0].responses[i].title}`;
         message.textContent = `${replyData[0].responses[i].message}`;
         
         nameD.style.fontWeight = 'bold';
@@ -106,7 +114,6 @@ export default function Forums() {
         header.appendChild(nameD);
         header.appendChild(restD);
         postDiv.appendChild(header);
-        // postDiv.appendChild(title);
         postDiv.appendChild(message);    
         displayPost.appendChild(postDiv);
       }
@@ -143,6 +150,7 @@ export default function Forums() {
       title: titleInput,
       message: messageInput,
       time: `${date}`,
+      image: userDetails.image,
     });
     generateForumPosts(); // Removes & then generates all forum post to reflect changes dynamically
     const displayPost = document.getElementById('forum');
@@ -193,6 +201,7 @@ export default function Forums() {
       title: titleInput,
       message: messageInput,
       time: `${date}`,
+      image: userDetails.image,
     });
     displayForumPost(); // Removes & then generates the main post + replies to reflect changes dynamically
   }

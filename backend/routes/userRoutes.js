@@ -240,7 +240,6 @@ router.post("/register", async (req, res) => {
 
     const result = await client.query(`SELECT * FROM codelearner.users`);
     let id = result.rowCount; // id stores the count of objects in the row
-    console.log(`Debug: Current id value: ${id}`); // Debug: checking current number of entries in table
     id++;
 
     await client.query(`INSERT INTO codelearner.users(user_id, name, email, password)

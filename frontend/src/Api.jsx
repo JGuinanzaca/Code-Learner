@@ -115,7 +115,6 @@ export const replyToForumPost = async (forum_id, forumPost) => {
   } catch (error) {
     throw "Issue uploading reply to forum post";
   }
-<<<<<<< HEAD
 }
 
 export const sendResetEmail = async (email) => {
@@ -139,6 +138,3 @@ export const resetPassword = async (user_id, newPassword) => {
     throw "Issue resetting user's password in the database";
   }
 }
-=======
-}
->>>>>>> 1b6be729dc2fba37dde46abe0236910f1682d226

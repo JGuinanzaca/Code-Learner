@@ -780,7 +780,6 @@ button:hover, .profile-image label:hover {
   /* border: 3px solid var(--accent-secondary); */
 }
 
-<<<<<<< HEAD
 .Reset {
     position: relative;
     top: -10px;
@@ -806,7 +805,6 @@ button:hover, .profile-image label:hover {
 .Reset-Input {
   background-color: white;
 }
-=======
 
 @media (max-width: 768px) {
   /* body {
@@ -965,4 +963,3 @@ button:hover, .profile-image label:hover {
     margin-bottom: 5%;
   }
 } 
->>>>>>> 1b6be729dc2fba37dde46abe0236910f1682d226
