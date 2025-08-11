@@ -183,6 +183,7 @@ button:hover, .profile-image label:hover {
   display: flex;
   flex-direction: column;
   height: 20vh;
+  min-height: fit-content;
 }
 .footer-content {
   display: flex;
