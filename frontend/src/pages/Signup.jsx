@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import "../globals.css";
+import { useState } from "react";
 import "../login.css";
 import { register } from "../Api.jsx";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +43,7 @@ export default function SignupPage() {
           alert(`${response.message}: use another email that is not registered`);
           return;
         }
-        dispatch(saveId(response));
+        dispatch(saveId(response.user_id));
         dispatch(saveUserDetails({ name: formData.name, email: formData.email }));
         navigate("/Code");
       });

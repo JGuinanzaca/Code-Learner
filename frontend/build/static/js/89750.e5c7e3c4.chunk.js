@@ -1,0 +1,2 @@
+(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[89750],{89750:()=>{Prism.languages["go-mod"]=Prism.languages["go-module"]={comment:{pattern:/\/\/.*/,greedy:!0},version:{pattern:/(^|[\s()[\],])v\d+\.\d+\.\d+(?:[+-][-+.\w]*)?(?![^\s()[\],])/,lookbehind:!0,alias:"number"},"go-version":{pattern:/((?:^|\s)go\s+)\d+(?:\.\d+){1,2}/,lookbehind:!0,alias:"number"},keyword:{pattern:/^([ \t]*)(?:exclude|go|module|replace|require|retract)\b/m,lookbehind:!0},operator:/=>/,punctuation:/[()[\],]/}}}]);
+//# sourceMappingURL=89750.e5c7e3c4.chunk.js.map

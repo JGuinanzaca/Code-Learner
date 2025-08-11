@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import "../globals.css";
+import { useState } from "react";
 import "../login.css";
 import { login } from "../Api.jsx";
 import { fetchUsers } from "../Api.jsx";

@@ -6,7 +6,7 @@ const config = require("../config.js"); // Contains object that is used to confi
 router.get("/messages", async (req, res) => {
   try {
     const client = new Client(config);
-    await client.connect();
+    await client.connect(); 
 
     const result = await client.query(`SELECT * FROM codelearner.forum
                                        ORDER BY forum_id DESC;`);

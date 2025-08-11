@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://code-learner-deploy.onrender.com";
 
 // All errors are displayed in the console in the backend 
 
@@ -49,10 +49,11 @@ export const fetchLessons = async (lesson_id) => {
   }
 };
 
-export const saveProgress = async (user_id) => {
+export const saveProgress = async (userId, lessonData) => {
   try {
     const response = await axios.put(
-      `${BASE_URL}/codelearner/progress/${user_id}`
+      `${BASE_URL}/codelearner/progress/${userId}`, 
+      lessonData
     );
     return response.data;
   } catch (error) {
@@ -114,6 +115,7 @@ export const replyToForumPost = async (forum_id, forumPost) => {
   } catch (error) {
     throw "Issue uploading reply to forum post";
   }
+<<<<<<< HEAD
 }
 
 export const sendResetEmail = async (email) => {
@@ -137,3 +139,6 @@ export const resetPassword = async (user_id, newPassword) => {
     throw "Issue resetting user's password in the database";
   }
 }
+=======
+}
+>>>>>>> 1b6be729dc2fba37dde46abe0236910f1682d226

@@ -4,7 +4,7 @@ const profileRoutes = require("./routes/profileRoutes.js");
 const forumRoutes = require("./routes/forumRoutes.js");
 const forgotRoutes = require("./routes/forgotRoutes.js");
 const cors = require("cors");
-const port = 5000;
+const port = process.env.PORT || 5000;
 const server = express();
 server.use(cors());
 server.use(express.json({ limit: "100mb" }));

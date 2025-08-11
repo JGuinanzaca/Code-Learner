@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectId, saveId } from "../redux/authSlice";
 import { selectUserDetails } from "../redux/userSlice";
@@ -15,6 +15,10 @@ function ProfilePage() {
   const [displayUserEmail, setDisplayUserEmail] = useState("");
   const userDetails = useSelector((state) => selectUserDetails(state));
   const userId = useSelector((state) => selectId(state));
+
+  const [displayUserBio, setDisplayUserBio] = useState("");
+  // const [lessonsCompleted, setLessonsCompleted] = useState("");
+  // const [forumPosts, setForumPosts] = useState("");
 
   useEffect(() => {
     setDisplayUsername(userDetails.name);
@@ -64,38 +68,50 @@ function ProfilePage() {
   }
 
   return (
-    <div className="profile-page">
-      <h1 className="profile-title">{displayUserName}'s profile page</h1>
-      <div className="personal-info">
-        <p className="user-fields">Email: {displayUserEmail}</p>
-        <p className="user-fields">Name: {displayUserName}</p>
-      </div>
-      <div className="profile-image">
-        <img
-          src={profileImage()}
-          alt="Upload Profile"
-          width="200"
-          height="200"
-        ></img>
-      </div>
-      <div className="change-image">
-        <form>
-          <label>
-            upload file:
+    <div className='custom-container'>
+      <section className='custom-hero'>
+        <h1 className="custom-title">{displayUserName}'s Profile</h1>
+      </section>
+      <div className="profile-page">
+
+        <div className="profile-main">
+          <div className="profile-image">
+            <img src={profileImage()} alt="Profile Picture" for="file"></img>
             <input
               type="file"
+              id="file"
               accept="image/jpeg,image/png"
               onChange={handleChange}
+              style={{ display: 'none' }}
             ></input>
-          </label>
-        </form>
+            <label for='file' className="change-image">
+              Upload Image:
+            </label>
+          </div>
+          <div className="user-id">
+            <div className='profile-buttons'>
+              <button className="hero-btn" onClick={handleReset}>
+                <h2>Reset Password</h2>
+              </button>
+              <button className="hero-btn" onClick={handleLogout}>
+                <h2>Logout</h2>
+              </button>
+            </div>
+
+            <div className='personal-info'>
+              <p className="user-fields">Name: {displayUserName}</p>
+              <p className="user-fields">Email: {displayUserEmail}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className='personal-info'>
+          <p className='user-fields'>
+            Bio: {displayUserBio || "This user has not set a bio yet."}
+          </p>
+        </div>
+
       </div>
-      <button className= "Logout" size={30} style={{ padding: 3 }} onClick={handleLogout}>
-      Logout
-      </button>
-      <button className= "Reset" size={30} style={{ padding: 3 }} onClick={handleReset}>
-      Reset Password
-      </button>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { selectId } from "../redux/authSlice";
 import { useSelector } from "react-redux";

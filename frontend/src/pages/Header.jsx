@@ -1,4 +1,5 @@
-import { FaRegUserCircle, FaRegSun, FaRegMoon } from "react-icons/fa";
+import { FaRegUserCircle, FaRegMoon } from "react-icons/fa";
+import { ImSun } from "react-icons/im";
 import { useState, useEffect } from "react";
 import { selectId, saveId } from "../redux/authSlice";
 import { useSelector } from "react-redux";
@@ -14,11 +15,8 @@ const navItems = [
 export default function Header({
   darkMode,
   toggleTheme,
-  textEnter,
-  textLeave,
 }) {
   const [scrolled, setScrolled] = useState(false);
-
   const userId = useSelector((state) => selectId(state));
 
   useEffect(() => {
@@ -59,8 +57,6 @@ export default function Header({
                   <a
                     href={NavToPath(item.href)}
                     className="nav-link"
-                    onMouseEnter={textEnter}
-                    onMouseLeave={textLeave}
                   >
                     {item.name}
                   </a>
@@ -73,16 +69,15 @@ export default function Header({
           <div className="header-actions">
             <button onClick={toggleTheme} aria-label="Toggle theme">
               {darkMode ? (
-                <FaRegSun size={30} style={{ padding: 3 }} />
+                <ImSun size={30} style={{ padding: 3 }} />
               ) : (
                 <FaRegMoon size={30} style={{ padding: 3 }} />
               )}
             </button>
-            <button
-              onClick={() => (window.location.href = ProfileOnClick("/login"))}
-            >
+            <button onClick={() => (window.location.href = ProfileOnClick("/login"))}>
               <FaRegUserCircle size={30} style={{ padding: 3 }} />
             </button>
+            {/* <button size={30} style={{ padding: 3 }} onClick={handleLogout}>logout</button> */}
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ const fs = require("fs");
 // localhost:5000/codelearner/users
 // may add a join of some sort to also display the users progress
 router.get("/users", async (req, res) => {
-  try {
+  try { 
     const client = new Client(config);
     await client.connect();
 
@@ -248,8 +248,8 @@ router.post("/register", async (req, res) => {
     await client.query(`INSERT INTO codelearner.progress(user_id, lessons_completed)
                         VALUES (${id}, '{}')`);
     await client.end();
-    res.status(200).json({ message: "Registration successful!" });
-    res.send(id);
+    console.log(`Account number ${id} registered!`);
+    res.status(200).json({ message: "Registration successful!", user_id: id });
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error registering user" });

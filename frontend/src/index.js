@@ -49,7 +49,7 @@ function App() {
             } />
         </Routes>
       </main>
-      <Footer />
+      {!(location.pathname === "/code") && <Footer />}
     </>
   );
 }
