@@ -650,7 +650,7 @@ button:hover, .profile-image label:hover {
   position: fixed; 
   right: 0;
   width: 45vw; 
-  min-height: 95vh; 
+  min-height: 93vh; 
   overflow-y: hidden
 }
 

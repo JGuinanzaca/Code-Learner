@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, href } from "react-router-dom";
 
 import { ThemeProvider, useTheme } from "./pages/ThemeProvider.jsx";
 
@@ -24,7 +24,8 @@ import Reset from "./pages/ResetPage.jsx";
 function App() {
   const { theme, toggleTheme } = useTheme();
   const darkMode = theme !== "dark";
-
+  const notCode = !(location.pathname === "/code")
+  
   return (
     <>
       <Header darkMode={darkMode} toggleTheme={toggleTheme} />
@@ -49,7 +50,7 @@ function App() {
             } />
         </Routes>
       </main>
-      {!(location.pathname === "/code") && <Footer />}
+      {notCode && <Footer />}
     </>
   );
 }
