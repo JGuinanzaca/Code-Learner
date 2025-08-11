@@ -5,14 +5,14 @@
   16% { color: orange; }
   33% { color: yellow; }
   50% { color: green; }
-  66% { color: blue; }
-  83% { color: indigo; }
+  66% { color: rgb(67, 67, 255); }
+  83% { color: rgb(130, 17, 210); }
   100% { color: violet; }
 }
 
 @keyframes mismatch {
   0% { color: #eee; }
-  15% { color: var(--accent); }
+  12% { color: var(--accent); }
   100% { color: #eee; }
 }
 
@@ -22,7 +22,7 @@
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   color: white;
-  width: 53vw;
+  width: 45vw;
   max-width: 100%;
   overflow-x: hidden;
   scrollbar-width: none;
@@ -32,8 +32,7 @@
   position: relative;
   width: 100%;
   height: auto;
-  min-height: 10rem;
-  max-height: 100%;
+  min-height: 90%;
   overflow: auto;
   font-family: monospace;
   font-size: 0.875rem;
@@ -53,6 +52,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  min-height: 100%;
   background: transparent;
   border: none;
   outline: none;
@@ -141,7 +141,7 @@
 }
 
 .mismatch {
-  animation: mismatch 5s ease;
+  animation: mismatch 4s linear;
 }
 
 .send-button {

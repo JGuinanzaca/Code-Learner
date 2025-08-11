@@ -1,246 +1,98 @@
 [
   {
     "id": 1,
-    "title": "Print Hello World",
-    "description": "Write a program that prints 'Hello, World!' to the console.",
-    "python": "print('Hello, World!')",
-    "javascript": "console.log('Hello, World!');",
-    "cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    cout << \"Hello, World!\" << endl;\n    return 0;\n}",
-    "solution": "Hello, World!\n",
-    "tests": [
-      { "input": "", "output": "Hello, World!\n" }
-    ]
+    "title": "Hello, World!",
+    "description": {
+      "default":"",
+      "challenge":"Write a program that prints 'Hello, World!' to the console.",
+      "python": "In Python, the print function allows us to output a message into the console. We can print a message by typing anything in between two quotation marks (or two apostrophes), and then placing our message inside the parentheses of our function: print().\n\nWrite your first program by typing in: <h6>print('Hello, World!')</h6>",
+      "javascript": "In JavaScript, a.k.a. JS, we can print out messages out into the console by typing:<h6>console.log()</h6><br>Write your first program by typing in: <h6>console.log('Hello, World!')</h6>",
+      "cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    cout << \"Hello, World!\" << endl;\n    return 0;\n}"
+    },
+    "solution": "Hello, World!\n"
   },
   {
     "id": 2,
-    "title": "Sum of Two Numbers",
-    "description": "Read two integers (each on its own line) and print their sum.",
-    "python": "a = int(input())\nb = int(input())\nprint(a + b)",
-    "javascript": "let a = parseInt(prompt());\nlet b = parseInt(prompt());\nconsole.log(a + b);",
-    "cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
-    "solution": "8\n",
-    "tests": [
-      { "input": "3\n5\n", "output": "8\n" }
-    ]
+    "title": "Triangles",
+    "description": {
+      "default":"Now that you know how to print out a message to the console, why don't you also go on ahead and do an extra challenge!",
+      "challenge":"Write a program that prints out the following triangle (notice how there are spaces...)<h6>1<br>2 3<br>4 5 6<br>7 8 9 10<br></h6><hr>Hint: print out your message four separate times.",
+      "python": "You can print multiple items on the same line by separating them with commas in Python:<h6>print('A B C')</h6>This will print out: A B C",
+      "javascript": "In JavaScript, you can print multiple items by concatenating them with spaces:<h6>console.log('A B C');</h6>",
+      "cpp": "In C++, you can print multiple values on the same line by chaining them with the << operator:<h6>cout << \"A B C\" << endl;</h6>Notice how the spaces between the letters make a difference.</h6>"
+    },
+    "solution": "1\n2 3\n4 5 6\n7 8 9 10\n"
   },
   {
     "id": 3,
-    "title": "Even or Odd",
-    "description": "Check if a number is even or odd and print 'Even' or 'Odd'.",
-    "python": "n = int(input())\nprint('Even' if n % 2 == 0 else 'Odd')",
-    "javascript": "let n = parseInt(prompt());\nconsole.log(n % 2 === 0 ? 'Even' : 'Odd');",
-    "cpp": "#include <iostream>\nusing namespace std;\nint main() {\n    int n; cin >> n;\n    cout << (n % 2 == 0 ? \"Even\" : \"Odd\") << endl;\n    return 0;\n}",
-    "solution": "Even\n",
-    "tests": [
-      { "input": "4\n", "output": "Even\n" },
-      { "input": "7\n", "output": "Odd\n" }
-    ]
+    "title": "Numbers, numbers, and more numbers",
+    "description": {
+      "default":"The cool thing about most programming languages is that you don't need a function for solving most math problems. All you need are some basic symbols to represent addition (+), subtraction (-), multiplication (*), and division (/)",
+      "challenge":"You ready? Print the following equation out into to the console: <h6>291 + 72 - 1243 / 2 * 3</h6>...Do you think you can figure it out before the computer does? :3<br> As a bonus challenge, try crafting your own math problems and test your own skills against the computer!",
+      "python": "Python follows the standard order of operations (PEMDAS/BODMAS). You can perform calculations directly:<h6>print(10 + 5 * 2)</h6>This will calculate 5 * 2 first, then add 10, giving you 20.<br><br>Try more complex expressions like:<h6>print(100 - 25 / 5 + 3 * 4)</h6>Remember: multiplication and division happen before addition and subtraction!",
+      "javascript": "JavaScript follows the standard order of operations (PEMDAS/BODMAS). You can calculate expressions directly:<h6>console.log(15 + 3 * 4);</h6>This calculates 3 * 4 = 12 first, then 15 + 12 = 27.<br><br>Experiment with expressions like:<h6>console.log(50 * 2 - 75 / 3);</h6>Division and multiplication are performed left to right, then subtraction.",
+      "cpp": "C++ performs arithmetic following standard mathematical order:<h6>cout << 20 + 8 / 4 << endl;</h6>This will calculate 8 / 4 = 2 first, then 20 + 2 = 22.<br><br>Try calculating:<h6>cout << 60 - 15 + 9 * 2 << endl;</h6>Remember that * and / have higher precedence than + and -."
+    },
+      "solution": "-1501.5\n"
   },
   {
     "id": 4,
-    "title": "Factorial",
-    "description": "Compute the factorial of a given non-negative integer and print the result.",
-    "python": "def fact(n):\n    return 1 if n <= 1 else n * fact(n - 1)\nprint(fact(int(input())))",
-    "javascript": "function fact(n) { return n <= 1 ? 1 : n * fact(n-1); }\nconsole.log(fact(parseInt(prompt())));",
-    "cpp": "#include <iostream>\nusing namespace std;\nint fact(int n) { return n <= 1 ? 1 : n * fact(n - 1); }\nint main() { int n; cin >> n; cout << fact(n) << endl; return 0; }",
-    "solution": "120\n",
-    "tests": [
-      { "input": "5\n", "output": "120\n" },
-      { "input": "0\n", "output": "1\n" }
-    ]
+    "title": "An Information age",
+    "description": {
+      "default":"How can computers remember your data? Well they do it through something called <b>variables</b>.<br><br>Variables are containers that hold any information that we want the computer to remember. we can store many different kinds of information inside of a variable including integers, decimal numbers, words, booleans, and so much more! <br>Let's go over the most common types of data/information: ",
+      "challenge":"Create 3 variables and have them store the data described below. Then, print out each of the variable values using separate statements. <h6>assign 'anna' a value of \"coder\"<br>assign 'bob' a value of 3.14<br>assign 'charlie' a value of 123</h6>",
+      "python": "",
+      "javascript": "",
+      "cpp": ""    
+    },
+      "solution": "code learner\n3.14\n123\n"
   },
   {
     "id": 5,
-    "title": "Fibonacci Sequence",
-    "description": "Print the first N Fibonacci numbers, each on its own line (starting from 0).",
-    "python": "n = int(input())\na, b = 0, 1\nfor _ in range(n):\n    print(a)\n    a, b = b, a + b",
-    "javascript": "let n = parseInt(prompt()); let a=0,b=1; for(let i=0;i<n;i++){ console.log(a); [a,b] = [b, a+b]; }",
-    "cpp": "#include <iostream>\nusing namespace std;\nint main(){ int n; cin>>n; int a=0,b=1; for(int i=0;i<n;i++){ cout<<a<<endl; int t=a; a=b; b=t+b;} return 0; }",
-    "solution": "0\n1\n1\n2\n3\n",
-    "tests": [
-      { "input": "5\n", "output": "0\n1\n1\n2\n3\n" }
-    ]
+    "title": "Varying Variables?!",
+    "description": {
+      "default":"Now that you know how to create variables, let's review why they are so special. Variables can VARY! That means with time, they can change...that is... if we want them to. ",
+      "challenge":"For your challenge, we will test whether <span class='titlee'>code learner</span> can correctly guess your age... <h6>1. Create a variable, 'age', that will hold a number from 1 to 9. <br>2. On a new line, multiply the variable 'age' by two. <br>3. Add 5 to the variable. <br>4. Multiply it again by 50.<br>5. If you had your birthday already this year, add 1775, else, add 1774.<br>6. Subtract your birth year from 'age'.<br>7. Print out the variable to the console. </h6>Although the console won't know if it's right, confirm for yourself! The first number will be the random number you chose, and the next two digits will be your age :3 ",
+      "python": "",
+      "javascript": "",
+      "cpp": ""
+    },
+    "solution": "1\n2 3\n4 5 6\n7 8 9 10\n"
   },
   {
     "id": 6,
-    "title": "Reverse a String",
-    "description": "Read a single word (no spaces) and print it reversed.",
-    "python": "s = input().strip()\nprint(s[::-1])",
-    "javascript": "let s = prompt().trim(); console.log(s.split('').reverse().join(''));",
-    "cpp": "#include <iostream>\n#include <algorithm>\n#include <string>\nusing namespace std;\nint main(){ string s; cin>>s; reverse(s.begin(), s.end()); cout<<s<<endl; return 0; }",
-    "solution": "olleh\n",
-    "tests": [
-      { "input": "hello\n", "output": "olleh\n" }
-    ]
+    "title": "Terms and Conditions",
+    "description": {
+      "default":"Don't fret, we don't want your data. But now that you know so much about ",
+      "challenge":"Write a program that prints out the following triangle when the code is run:<h6>1<br>2 3<br>4 5 6<br>7 8 9 10<br></h6><hr>Hint: print out your message four separate times.",
+      "python": "",
+      "javascript": "",
+      "cpp": ""
+    },
+    "solution": "1\n2 3\n4 5 6\n7 8 9 10\n"
   },
   {
     "id": 7,
-    "title": "Palindrome Check",
-    "description": "Print 'Yes' if the input word (no spaces) is a palindrome, otherwise 'No'.",
-    "python": "s = input().strip()\nprint('Yes' if s == s[::-1] else 'No')",
-    "javascript": "let s = prompt().trim(); console.log(s === s.split('').reverse().join('') ? 'Yes' : 'No');",
-    "cpp": "#include <iostream>\n#include <algorithm>\n#include <string>\nusing namespace std;\nint main(){ string s; cin>>s; string r=s; reverse(r.begin(), r.end()); cout<<(s==r?\"Yes\":\"No\")<<endl; return 0; }",
-    "solution": "Yes\n",
-    "tests": [
-      { "input": "racecar\n", "output": "Yes\n" },
-      { "input": "hello\n", "output": "No\n" }
-    ]
+    "title": "If you could please...",
+    "description": {
+      "default":"In times when we want something to only happen ",
+      "challenge":"You ready? Print the following equation out into to the console: <h6>291 + 72.1243 / 267 * 3</h6>... Do you think you can figure it out before the computer does?<br>As a bonus challenge, try crafting your own math problems and test your own skills against the computer!",
+      "python": "",
+      "javascript": "",
+      "cpp": ""    
+    },
+      "solution": "7\n"
   },
   {
     "id": 8,
-    "title": "Find Maximum",
-    "description": "Read a single line of space-separated integers and print the largest integer.",
-    "python": "nums = list(map(int, input().split()))\nprint(max(nums))",
-    "javascript": "let nums = prompt().split(' ').map(Number); console.log(Math.max(...nums));",
-    "cpp": "#include <iostream>\n#include <vector>\n#include <limits>\nusing namespace std;\nint main(){ int x; vector<int> v; while(cin>>x) v.push_back(x); int m = v[0]; for(int n: v) if(n>m) m = n; cout<<m<<endl; return 0; }",
-    "solution": "4\n",
-    "tests": [
-      { "input": "3 1 4 2\n", "output": "4\n" }
-    ]
-  },
-  {
-    "id": 9,
-    "title": "Count Vowels",
-    "description": "Count vowels (a,e,i,o,u) in the input string (case-insensitive) and print the integer count.",
-    "python": "s = input().strip().lower()\nprint(sum(1 for c in s if c in 'aeiou'))",
-    "javascript": "let s = prompt().toLowerCase(); console.log([...s].filter(c => 'aeiou'.includes(c)).length);",
-    "cpp": "#include <iostream>\n#include <string>\nusing namespace std;\nint main(){ string s; cin>>s; int c=0; string v=\"aeiouAEIOU\"; for(char ch: s) if(v.find(ch)!=string::npos) c++; cout<<c<<endl; return 0; }",
-    "solution": "5\n",
-    "tests": [
-      { "input": "education\n", "output": "5\n" }
-    ]
-  },
-  {
-    "id": 10,
-    "title": "Sum of Digits",
-    "description": "Given an integer (could be multi-digit), print the sum of its decimal digits.",
-    "python": "n = input().strip()\nprint(sum(int(d) for d in n if d.isdigit()))",
-    "javascript": "let n = prompt().trim(); console.log([...n].reduce((s,ch)=>s+parseInt(ch),0));",
-    "cpp": "#include <iostream>\n#include <string>\nusing namespace std;\nint main(){ string s; cin>>s; int sum=0; for(char c: s) sum += c - '0'; cout<<sum<<endl; return 0; }",
-    "solution": "15\n",
-    "tests": [
-      { "input": "12345\n", "output": "15\n" }
-    ]
-  },
-  {
-    "id": 11,
-    "title": "Multiplication Table",
-    "description": "Print the multiplication table for a number N from 1 to 10. Each line: 'N x i = result'.",
-    "python": "n = int(input())\nfor i in range(1,11):\n    print(f\"{n} x {i} = {n*i}\")",
-    "javascript": "let n = parseInt(prompt()); for(let i=1;i<=10;i++){ console.log(`${n} x ${i} = ${n*i}`); }",
-    "cpp": "#include <iostream>\nusing namespace std; int main(){ int n; cin>>n; for(int i=1;i<=10;i++) cout<<n<<\" x \"<<i<<\" = \"<<n*i<<endl; return 0; }",
-    "solution": "3 x 1 = 3\n3 x 2 = 6\n3 x 3 = 9\n3 x 4 = 12\n3 x 5 = 15\n3 x 6 = 18\n3 x 7 = 21\n3 x 8 = 24\n3 x 9 = 27\n3 x 10 = 30\n",
-    "tests": [
-      { "input": "3\n", "output": "3 x 1 = 3\n3 x 2 = 6\n3 x 3 = 9\n3 x 4 = 12\n3 x 5 = 15\n3 x 6 = 18\n3 x 7 = 21\n3 x 8 = 24\n3 x 9 = 27\n3 x 10 = 30\n" }
-    ]
-  },
-  {
-    "id": 12,
-    "title": "List Sum",
-    "description": "Read a single line of space-separated integers and print their sum.",
-    "python": "nums = list(map(int, input().split()))\nprint(sum(nums))",
-    "javascript": "let nums = prompt().split(' ').map(Number); console.log(nums.reduce((a,b)=>a+b,0));",
-    "cpp": "#include <iostream>\n#include <vector>\nusing namespace std; int main(){ int x; vector<int> v; while(cin>>x) v.push_back(x); long long s=0; for(int n: v) s+=n; cout<<s<<endl; return 0; }",
-    "solution": "10\n",
-    "tests": [
-      { "input": "1 2 3 4\n", "output": "10\n" }
-    ]
-  },
-  {
-    "id": 13,
-    "title": "Square Numbers",
-    "description": "Given a line of integers, print the square of each integer on its own line (preserve order).",
-    "python": "nums = list(map(int, input().split()))\nfor n in nums:\n    print(n*n)",
-    "javascript": "let nums = prompt().split(' ').map(Number); nums.forEach(n=>console.log(n*n));",
-    "cpp": "#include <iostream>\nusing namespace std; int main(){ int x; vector<int> v; while(cin>>x) v.push_back(x); for(int n: v) cout<<n*n<<endl; return 0; }",
-    "solution": "1\n4\n9\n",
-    "tests": [
-      { "input": "1 2 3\n", "output": "1\n4\n9\n" }
-    ]
-  },
-  {
-    "id": 14,
-    "title": "Prime Check",
-    "description": "Print 'Yes' if the given integer is prime, otherwise 'No'.",
-    "python": "n=int(input())\nif n<2: print('No')\nelse:\n    for i in range(2,int(n**0.5)+1):\n        if n%i==0:\n            print('No')\n            break\n    else:\n        print('Yes')",
-    "javascript": "let n=parseInt(prompt()); if(n<2) console.log('No'); else{ let p=true; for(let i=2;i*i<=n;i++) if(n%i===0){p=false;break;} console.log(p?'Yes':'No'); }",
-    "cpp": "#include <iostream>\n#include <cmath>\nusing namespace std; int main(){ int n; cin>>n; if(n<2){ cout<<\"No\"<<endl; return 0;} for(int i=2;i*i<=n;i++) if(n%i==0){ cout<<\"No\"<<endl; return 0;} cout<<\"Yes\"<<endl; return 0; }",
-    "solution": "Yes\n",
-    "tests": [
-      { "input": "7\n", "output": "Yes\n" },
-      { "input": "8\n", "output": "No\n" }
-    ]
-  },
-  {
-    "id": 15,
-    "title": "GCD of Two Numbers",
-    "description": "Read two integers and print their greatest common divisor.",
-    "python": "import math\na,b = map(int,input().split())\nprint(math.gcd(a,b))",
-    "javascript": "function gcd(a,b){ while(b){ let t=a%b; a=b; b=t; } return Math.abs(a);} let [a,b]=prompt().split(' ').map(Number); console.log(gcd(a,b));",
-    "cpp": "#include <iostream>\n#include <algorithm>\nusing namespace std; int gcd(int a,int b){ return b==0?abs(a):gcd(b,a%b);} int main(){ int a,b; cin>>a>>b; cout<<gcd(a,b)<<endl; return 0; }",
-    "solution": "6\n",
-    "tests": [
-      { "input": "12 18\n", "output": "6\n" }
-    ]
-  },
-  {
-    "id": 16,
-    "title": "LCM of Two Numbers",
-    "description": "Read two integers and print their least common multiple.",
-    "python": "import math\na,b = map(int,input().split())\nprint(abs(a*b)//math.gcd(a,b))",
-    "javascript": "function gcd(a,b){ while(b){ let t=a%b; a=b; b=t;} return Math.abs(a);} let [a,b]=prompt().split(' ').map(Number); console.log(Math.abs(a*b)/gcd(a,b));",
-    "cpp": "#include <iostream>\n#include <algorithm>\nusing namespace std; long long gcd(long long a,long long b){ return b==0?llabs(a):gcd(b,a%b);} int main(){ long long a,b; cin>>a>>b; cout<< (llabs(a*b)/gcd(a,b)) <<endl; return 0; }",
-    "solution": "12\n",
-    "tests": [
-      { "input": "4 6\n", "output": "12\n" }
-    ]
-  },
-  {
-    "id": 17,
-    "title": "Remove Duplicates",
-    "description": "Given a line of integers, print the values with duplicates removed preserving first occurrence order, separated by single spaces.",
-    "python": "nums = list(map(int, input().split()))\nseen = set(); out = []\nfor n in nums:\n    if n not in seen:\n        seen.add(n); out.append(n)\nprint(' '.join(map(str,out)))",
-    "javascript": "let nums = prompt().split(' ').map(Number); let seen = new Set(); let out = []; nums.forEach(n=>{ if(!seen.has(n)){ seen.add(n); out.push(n); }}); console.log(out.join(' '));",
-    "cpp": "#include <iostream>\n#include <sstream>\n#include <vector>\n#include <unordered_set>\nusing namespace std; int main(){ string line; getline(cin, line); istringstream ss(line); int x; vector<int> out; unordered_set<int> seen; while(ss>>x){ if(!seen.count(x)){ seen.insert(x); out.push_back(x);} } for(size_t i=0;i<out.size();++i){ if(i) cout<<' '; cout<<out[i]; } cout<<endl; return 0; }",
-    "solution": "1 2 3\n",
-    "tests": [
-      { "input": "1 2 2 3 1\n", "output": "1 2 3\n" }
-    ]
-  },
-  {
-    "id": 18,
-    "title": "Character Frequency",
-    "description": "Count frequency of each character in the input word and print lines 'char count' sorted by character ascending.",
-    "python": "from collections import Counter\ns = input().strip()\nc = Counter(s)\nfor ch in sorted(c.keys()):\n    print(f\"{ch} {c[ch]}\")",
-    "javascript": "let s = prompt().trim(); let freq = {}; for(let ch of s) freq[ch] = (freq[ch] || 0) + 1; Object.keys(freq).sort().forEach(k => console.log(k + ' ' + freq[k]));",
-    "cpp": "#include <iostream>\n#include <map>\n#include <string>\nusing namespace std; int main(){ string s; cin>>s; map<char,int> m; for(char c: s) m[c]++; for(auto &p: m) cout<<p.first<<\" \"<<p.second<<endl; return 0; }",
-    "solution": "a 2\nb 2\nc 1\n",
-    "tests": [
-      { "input": "abbca\n", "output": "a 2\nb 2\nc 1\n" }
-    ]
-  },
-  {
-    "id": 19,
-    "title": "Second Largest",
-    "description": "From a list of integers (space-separated) print the second largest unique value. If none, print the same value again.",
-    "python": "nums = sorted(set(map(int, input().split())), reverse=True)\nprint(nums[1] if len(nums)>1 else nums[0])",
-    "javascript": "let nums = Array.from(new Set(prompt().split(' ').map(Number))).sort((a,b)=>b-a); console.log(nums.length>1?nums[1]:nums[0]);",
-    "cpp": "#include <iostream>\n#include <set>\nusing namespace std; int main(){ long long x; set<long long, greater<long long>> s; while(cin>>x) s.insert(x); auto it = s.begin(); if(s.size()==0) return 0; long long first = *it; ++it; cout << (it==s.end()? first : *it) << endl; return 0; }",
-    "solution": "4\n",
-    "tests": [
-      { "input": "5 1 4 4 3\n", "output": "4\n" }
-    ]
-  },
-  {
-    "id": 20,
-    "title": "Matrix Transpose",
-    "description": "Read two integers R and C, then R lines each with C integers. Print the transpose matrix with C lines each containing R integers separated by single spaces.",
-    "python": "r,c = map(int,input().split())\nm = [list(map(int,input().split())) for _ in range(r)]\nfor j in range(c):\n    print(' '.join(str(m[i][j]) for i in range(r)))",
-    "javascript": "let [r,c] = prompt().split(' ').map(Number); let rows = []; for(let i=0;i<r;i++) rows.push(prompt().split(' ').slice(0,c)); for(let j=0;j<c;j++) console.log(rows.map(row=>row[j]).join(' '));",
-    "cpp": "#include <iostream>\n#include <vector>\nusing namespace std; int main(){ int r,c; cin>>r>>c; vector<vector<int>> a(r, vector<int>(c)); for(int i=0;i<r;i++) for(int j=0;j<c;j++) cin>>a[i][j]; for(int j=0;j<c;j++){ for(int i=0;i<r;i++){ if(i) cout<<' '; cout<<a[i][j]; } cout<<endl; } return 0; }",
-    "solution": "1 4\n2 5\n3 6\n",
-    "tests": [
-      { "input": "2 3\n1 2 3\n4 5 6\n", "output": "1 4\n2 5\n3 6\n" }
-    ]
+    "title": "Triangles... Part 2",
+    "description": {
+      "default":"Now that you know how to print out a message to the console, why don't you also go on ahead and do an extra challenge!",
+      "challenge":"Write a program that prints out the following triangle when the code is run:<h6>1<br>2 3<br>4 5 6<br>7 8 9 10<br></h6><hr>Hint: print out your message four separate times.",
+      "python": "",
+      "javascript": "",
+      "cpp": ""
+    },
+    "solution": "*\n**\n***\n****\n*****\n******\n********\n"
   }
 ]

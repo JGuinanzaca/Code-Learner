@@ -152,7 +152,7 @@ export default function CodeEditor({ language = 'python', expectedOutput = 'hell
       if (codeRef.current && isMounted) {
         Prism.highlightElement(codeRef.current);
       }
-      console.log(`Prism language loaded: ${language}`);
+      // console.log(`Prism language loaded: ${language}`);
 
       } catch (err) {
         console.error(`Failed to load prism-${language}:`, err);
@@ -190,8 +190,8 @@ export default function CodeEditor({ language = 'python', expectedOutput = 'hell
 
   const wrapAsMultilineString = (input) => {
     // avoid issues with backslashes and multiline strings 
-    const escaped = input.replace(/\\/g, '\\\\').replace(/'''/g, "\\'\\'\\'")
-    return `'''${escaped}'''`
+    //const escaped = input.replace(/\\/g, '\\\\').replace(/'''/g, "\\'\\'\\'")
+    return `'''${input}'''`
   }
 
   const formatOutcome = (result, expected) => {

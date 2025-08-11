@@ -384,13 +384,15 @@ button:hover, .profile-image label:hover {
 
 /* Default Style */
 .custom-container {
-  padding-top: 2rem;
+  padding-top: 1.4rem;
   min-height: 80vh;
   font-family: sans-serif;
 }
 
 .custom-hero {
   display: flex;
+  flex-direction: row;
+  align-items: baseline;
   justify-content: center;
   text-align: center;
   padding-left: 3rem;
@@ -405,7 +407,6 @@ button:hover, .profile-image label:hover {
   justify-content: center;
   /* max-width: 56rem; */
   margin: 0 auto;
-  margin-top: 2.3rem;
   padding: 1rem;
   text-align: center;
 }
@@ -424,7 +425,6 @@ button:hover, .profile-image label:hover {
 .custom-grid {
   border-radius: 0.75rem;
   margin: 2rem;
-  margin-top: 7.5rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 0.75rem;
@@ -514,6 +514,7 @@ button:hover, .profile-image label:hover {
   color: #7e22ce;
   font-weight: 500;
   margin-top: auto;
+  margin-bottom: 0;
   padding: 0.5rem;
 }
 .custom-pagination button {
@@ -555,6 +556,13 @@ button:hover, .profile-image label:hover {
   }
 }
 
+.code-main {
+  display: flex;
+  justify-content: space-between; 
+  margin: 0 auto;
+  gap: 0rem;
+}
+
 .custom-code-block {
   background-color: var(--editor);
   color: oklch(54.389% 0.1401 152.523);
@@ -581,8 +589,8 @@ button:hover, .profile-image label:hover {
   padding: 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  min-width: 30vw;
-  max-width: 40vw;
+  width: 55vw;
+  min-height: 90vh;
 }
 
 /* 
@@ -735,11 +743,11 @@ button:hover, .profile-image label:hover {
   }
 
   .features-section {
-    padding: 2rem;
+    padding: 1.2rem;
   }
   .feature-title {
     font-size: 1rem;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
   }
   .feature-card p {
     font-size: .85rem;
@@ -766,6 +774,7 @@ button:hover, .profile-image label:hover {
     padding: 0% 2%;
     margin-top: 15%;
     flex-direction: column;
+    align-items: center;
   }
   .custom-hero-content {
     margin: 0;
@@ -785,8 +794,9 @@ button:hover, .profile-image label:hover {
     font-size: 0.1rem;
   }
   .custom-button-heading {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-bottom: 0.5rem;
+    padding: 0.5rem 0.75rem;
   }
 
   .main {
@@ -796,6 +806,11 @@ button:hover, .profile-image label:hover {
   .custom-main {
     flex-direction: column;
     align-items: center;
+  }
+  .code-main {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
   }
   
   .custom-topic-list {

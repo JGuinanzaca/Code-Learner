@@ -27,16 +27,6 @@ export default function Header({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // useEffect(() => {
-  //   function handleScroll() {
-  //     setScrolled(window.scrollY > 10);
-  //   }
-  //   window.addEventListener("scroll", handleScroll, { passive: true });
-  //   handleScroll(); // Set initial state
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
-
   // default value for id is -1, persistence is now guarenteed across the board
   // one issue is scrolling up and down on the window makes multiple calls (scrolling most likely causes refreshing)
   function NavToPath(href) {
