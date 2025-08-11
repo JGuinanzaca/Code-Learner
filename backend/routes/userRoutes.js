@@ -240,8 +240,8 @@ router.post("/register", async (req, res) => {
     await client.query(`INSERT INTO codelearner.progress(user_id, lessons_completed)
                         VALUES (${id}, '{}')`);
     await client.end();
-    res.status(200).json({ message: "Registration successful!" });
-    res.send(id);
+    console.log(`Account number ${id} registered!`);
+    res.status(200).json({ message: "Registration successful!", user_id: id });
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Error registering user" });

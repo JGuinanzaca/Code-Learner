@@ -43,7 +43,7 @@ export default function SignupPage() {
           alert(`${response.message}: use another email that is not registered`);
           return;
         }
-        dispatch(saveId(response));
+        dispatch(saveId(response.user_id));
         dispatch(saveUserDetails({ name: formData.name, email: formData.email }));
         navigate("/Code");
       });
