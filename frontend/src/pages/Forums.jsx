@@ -26,6 +26,7 @@ export default function Forums() {
   async function displayForumPost() {
     let index;
     let replyData;
+    let profileImage;
     if(this == null) { // When func is invoked from replySubmission, use the forumId already in the state to avoid error
       index = Number(forumId) - 1;
       replyData = await fetchRepliesFromPost(forumId);
@@ -42,6 +43,7 @@ export default function Forums() {
 
     let forumData = await fetchForumPost();
     let reversedforumData = forumData.reverse(); // Since we want to access the correct index, we reverse the array
+
     const header = document.createElement('div');
     const title = document.createElement('h3');
     const message = document.createElement('p');
@@ -61,13 +63,15 @@ export default function Forums() {
     header.appendChild(nameD);
     header.appendChild(restD);
 
-    input.src = () => {
-      if(reversedforumData[index].profile-image == null) {
-        return defaultProfile;
+    if(reversedforumData[index].profile_image == null) {
+        profileImage = defaultProfile;
       }
-      else {
-        return reversedforumData[index].profile-image;
-      }}
+    else {
+        profileImage = reversedforumData[index].profile_image;
+      }
+    input.src = profileImage;
+    input.style.width = '50px';
+    input.style.height = '50px';
     header.appendChild(input);
 
     nameD.style.fontWeight = 'bold';
@@ -93,6 +97,7 @@ export default function Forums() {
         const postDiv = document.createElement('div');
         const nameD = document.createElement('h2');
         const restD = document.createElement('h3');
+        const input = document.createElement('img');
     
         postDiv.className = 'custom-forum-reply';
         const tt = (replyData[0].responses[i].time);
@@ -101,6 +106,17 @@ export default function Forums() {
         nameD.textContent = `${nm}`;
         restD.textContent = `${prettyTime}`
         message.textContent = `${replyData[0].responses[i].message}`;
+
+        if(replyData[0].responses[i].image == null) {
+          profileImage = defaultProfile;
+        }
+        else {
+          profileImage = replyData[0].responses[i].image;
+        }
+        input.src = profileImage;
+        input.style.width = '50px';
+        input.style.height = '50px';
+        header.appendChild(input);
         
         nameD.style.fontWeight = 'bold';
         nameD.style.fontSize = "1.125rem"

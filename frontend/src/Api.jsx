@@ -1,5 +1,6 @@
 import axios from "axios";
 const BASE_URL = "https://code-learner-deploy.onrender.com";
+//const BASE_URL = "http://localhost:5000";
 
 // All errors are displayed in the console in the backend 
 
