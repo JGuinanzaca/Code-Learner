@@ -127,7 +127,7 @@ function runClientTests({ language, code, timeoutMs = 4000 }) {
   });
 }
 
-export default function CodeEditor({ language = 'python', expectedOutput = 'hello world', initialCode = '# Write your python code below\n\n' }) {
+export default function CodeEditor({ language = 'python', expectedOutput = '', initialCode = '# Write your python code below\n\n' }) {
   const [code, setCode] = useState(initialCode)
   const [activeTab, setActiveTab] = useState('editor')
   const [output, setOutput] = useState('')

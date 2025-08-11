@@ -8,6 +8,20 @@ export default function Forums() {
   const [forumId, setForumId] = useState(-1);
   const userDetails = useSelector((state) => selectUserDetails(state));
 
+  // make date shorter
+  // Sun Aug 03 2025 13:30:13 GMT-0400 (Eastern Daylight Time)
+  function prettifyDateTime (str) {
+    // Splitting the string by space
+    const [day, m, d, y, t, zone, gar, ba, ge] = str.split(" ");
+
+    // split time
+    const [hr, min, sec] = t.split(":")
+    delete [day, zone, gar, ba,ge, sec]
+
+    // Added slashes and the space before the time
+    return `@${hr}:${min} on ${m} ${d}, ${y}`
+  }
+
   async function displayForumPost() {
     let index;
     let replyData;
@@ -27,18 +41,34 @@ export default function Forums() {
 
     let forumData = await fetchForumPost();
     let reversedforumData = forumData.reverse(); // Since we want to access the correct index, we reverse the array
-    const header = document.createElement('h2');
+    const header = document.createElement('div');
     const title = document.createElement('h3');
     const message = document.createElement('p');
     const postDiv = document.createElement('div');
+    const nameD = document.createElement('h2');
+    const restD = document.createElement('h3');
 
-    postDiv.className = 'custom-topic-button';
+    postDiv.className = 'custom-forum-content';
     postDiv.style.backgroundColor = '#f9c74f';
-    header.textContent = `${reversedforumData[index].name} created a post on ${reversedforumData[index].time}`;
-    header.style.fontWeight = 'bold';
+
+    const tt = (reversedforumData[index].time);
+    const prettyTime = prettifyDateTime(tt);
+    const nm = (reversedforumData[index].name)
+    nameD.textContent = `${nm}`;
+    restD.textContent = `${prettyTime}`
+    header.appendChild(nameD);
+    header.appendChild(restD);
+
+    nameD.style.fontWeight = 'bold';
+    nameD.style.fontSize = "1.125rem"
+    restD.style.fontWeight = 'bold';
+    header.style.display = 'flex';
+    header.style.flexDirection = 'row';
+    header.style.justifyContent = 'space-between';
     title.textContent = `${reversedforumData[index].title}`;
     title.style.textDecoration = 'underline';
     message.textContent = `${reversedforumData[index].message}`;
+    postDiv.style.padding = '3%';
 
     postDiv.appendChild(header);
     postDiv.appendChild(title);
@@ -48,20 +78,35 @@ export default function Forums() {
     if(replyData[0].responses !== null) {
       for(let i = 0; i < replyData[0].responses.length; i++) {
         const header = document.createElement('h2');
-        const title = document.createElement('h3');
+        // const title = document.createElement('h3');
         const message = document.createElement('p');
         const postDiv = document.createElement('div');
+        const nameD = document.createElement('h2');
+        const restD = document.createElement('h3');
     
-        postDiv.className = 'custom-topic-button';
-        postDiv.style.backgroundColor = '#f9c74f';
-        header.textContent = `${replyData[0].responses[i].name} replied to a post on ${replyData[0].responses[i].time}`;
-        header.style.fontWeight = 'bold';
-        title.textContent = `${replyData[0].responses[i].title}`;
-        title.style.textDecoration = 'underline';
+        postDiv.className = 'custom-forum-reply';
+        // postDiv.style.backgroundColor = '#f9c74f';
+        const tt = (replyData[0].responses[i].time);
+        const prettyTime = prettifyDateTime(tt);
+        const nm = (replyData[0].responses[i].name)
+        nameD.textContent = `${nm}`;
+        restD.textContent = `${prettyTime}`
+        // title.textContent = `${replyData[0].responses[i].title}`;
         message.textContent = `${replyData[0].responses[i].message}`;
-
+        
+        nameD.style.fontWeight = 'bold';
+        nameD.style.fontSize = "1.125rem"
+        restD.style.fontWeight = 'bold';
+        header.style.display = 'flex';
+        header.style.flexDirection = 'row';
+        header.style.justifyContent = 'space-between';
+        // title.style.textDecoration = 'underline';
+        // title.style.fontSize = '1.1rem';
+        
+        header.appendChild(nameD);
+        header.appendChild(restD);
         postDiv.appendChild(header);
-        postDiv.appendChild(title);
+        // postDiv.appendChild(title);
         postDiv.appendChild(message);    
         displayPost.appendChild(postDiv);
       }
@@ -219,12 +264,15 @@ export default function Forums() {
         </div>
       </aside>
 
-      <div className="custom-forum" id ="forum"></div>
-      <button className="custom-button" onClick={generateUserSubmission}>Create a new post</button>
-      <button className="custom-button" onClick={generateReplySubmission}>Reply to post</button>
-      <div className="custom-forum" id ="forum"></div>
-      <button className="custom-button" onClick={generateUserSubmission}>Create a new post</button>
-      <button className="custom-button" onClick={generateReplySubmission}>Reply to post</button>
+      <div className="main">
+        <div  id ="forum"></div>
+        <div className="custom-pagination" style={{justifyContent: 'space-evenly'}}>
+          <button className="custom-button" onClick={generateUserSubmission} style={{padding: '.5rem'}}>Create a new post</button>
+          <button className="custom-button" onClick={generateReplySubmission} style={{padding: '.5rem'}}>Reply to post</button>
+        </div>
+
+      </div>
+
     </main>
   </div>  
   );

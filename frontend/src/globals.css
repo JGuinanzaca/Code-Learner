@@ -15,6 +15,7 @@
   --text-light: #1e2939;
   --text-s-light: #1b1b1b;
   --editor-l: #eaedf1;
+  --etext-l:var(--text-light);
   --sidebar-l: #f3f4f6;
 
   --primary-dark: #2c2a2e;
@@ -24,6 +25,7 @@
   --text-dark: #c4c4c3;
   --text-s-dark: #b3b3ef;
   --editor-d: #24262a;
+  --etext-d:var(--accent-s-dark);
   --sidebar-d: #1e1e1e;
 
   --font-primary: "Inter", sans-serif;
@@ -77,6 +79,7 @@ button:hover, .profile-image label:hover {
   --text: var(--text-dark);
   --text-secondary: var(--text-s-dark);
   --editor: var(--editor-d);
+  --etxt: var(var(--etext-d));
   --sidebar: var(--sidebar-d);
 
   --tshadow:0 0 10px rgba(255, 255, 255, 0.12), 
@@ -95,6 +98,7 @@ button:hover, .profile-image label:hover {
   --text: var(--text-light);
   --text-secondary: var(--text-s-light);
   --editor: var(--editor-l);
+  --etxt: var(--etext-l);
   --sidebar: var(--sidebar-l);
 
   --tshadow:0 0 10px rgba(0, 0, 0, 0.12), 
@@ -178,6 +182,7 @@ button:hover, .profile-image label:hover {
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
+  height: 20vh;
 }
 .footer-content {
   display: flex;
@@ -392,12 +397,13 @@ button:hover, .profile-image label:hover {
 .custom-hero {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
   text-align: center;
+  margin-top: 3%;
   padding-left: 3rem;
   padding-right: 3rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
 .custom-hero-content {
@@ -407,7 +413,7 @@ button:hover, .profile-image label:hover {
   justify-content: center;
   /* max-width: 56rem; */
   margin: 0 auto;
-  padding: 1rem;
+  /* padding: 1rem; */
   text-align: center;
 }
 
@@ -419,7 +425,7 @@ button:hover, .profile-image label:hover {
   font-size: 3.5rem;
   font-weight: 200;
   /* margin-top: 7.5rem;  */
-  margin: 2.5rem;
+  /* margin: 2.5rem; */
 }
 
 .custom-grid {
@@ -459,7 +465,7 @@ button:hover, .profile-image label:hover {
 .custom-main {
   display: flex;
   justify-content: flex-start; 
-  margin: 4% 10%;
+  margin: 0% 10% 4% 10%;
   gap: 1.25rem;
 }
 
@@ -526,7 +532,7 @@ button:hover, .profile-image label:hover {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 1.5rem;
+  padding: 2.3rem;
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   min-width: 60vw;
@@ -534,7 +540,7 @@ button:hover, .profile-image label:hover {
 
 .main-title {
   color: var(--text);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
@@ -542,6 +548,51 @@ button:hover, .profile-image label:hover {
 .main-content {
   color: var(--text-secondary);
   margin-bottom: 1rem;
+}
+
+#forum {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .custom-forum {
+  background-color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  min-width: 50vw;
+  max-width: 40vw;
+} */
+
+.custom-forum-title {
+  color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.custom-forum-content {
+  background-color: var(--accent-secondary);
+  color: var(--text-secondary);
+  font-size: .9rem;
+  margin: .1rem;
+  margin-top: 1rem;
+  border-radius: 20px;
+  padding: 2%;
+}
+
+.custom-forum-reply {
+  background-color: var(--accent-secondary);
+  color: var(--text-secondary);
+  font-size: .9rem;
+  margin: .1rem;
+  border-radius: 20px;
+  padding: 2% 3%;
+  width: 90%;
+  align-self: end;
 }
 
 .custom-docs-grid {
@@ -559,7 +610,9 @@ button:hover, .profile-image label:hover {
 .code-main {
   display: flex;
   justify-content: space-between; 
+  background-color: var(--editor);
   margin: 0 auto;
+  margin-top: 3%; 
   gap: 0rem;
 }
 
@@ -586,11 +639,35 @@ button:hover, .profile-image label:hover {
 
 .custom-code-problem {
   background-color: var(--editor);
-  padding: 1.5rem;
+  /* padding: 1.5rem; */
   border-radius: 0.75rem;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  width: 55vw;
+  /* width: 55vw; */
   min-height: 90vh;
+}
+
+.editor {
+  position: fixed; 
+  right: 0;
+  width: 45vw; 
+  min-height: 95vh; 
+  overflow-y: hidden
+}
+
+@media (max-width: 768px) {
+  .code-main {
+    margin-top: 12%;
+  }
+  .custom-code-problem {
+    min-height: fit-content;
+    height: auto;
+  }
+  .editor {
+    position:relative;
+    width: 100%;
+    min-height: fit-content;
+    margin: 0 auto;
+    overflow-y: visible;
+  }
 }
 
 /* 
@@ -662,7 +739,7 @@ button:hover, .profile-image label:hover {
   position: absolute;
   width: 100%;
   height: 100%;
-  /* 
+/*   
   width: 25vh;
   height: 25vh; 
   */
@@ -677,8 +754,8 @@ button:hover, .profile-image label:hover {
 }
 .profile-image img{
   object-fit: cover;
-  width: 30vh;
-  height: 30vh;
+  width: 25vh;
+  height: 25vh;
   border-radius: 50%;
 }
 
@@ -713,7 +790,7 @@ button:hover, .profile-image label:hover {
   }*/
 
   .titlee {
-    font-size: 3rem;
+    font-size: 2.6rem;
     letter-spacing: .3rem;
   }
   .hero-title {
@@ -794,9 +871,9 @@ button:hover, .profile-image label:hover {
     font-size: 0.1rem;
   }
   .custom-button-heading {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 0.5rem;
-    padding: 0.5rem 0.75rem;
+    padding: 0.4rem 0.64rem;
   }
 
   .main {

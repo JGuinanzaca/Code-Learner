@@ -12,15 +12,6 @@ export default function Code() {
   const [code, setCode] = useState();
   const [editorLanguage, setEditorLanguage] = useState("python");
 
-  /* i think this works?? not sure, cant test :'| */
-  // useState(() => {
-  //   fetchLessons().then(data => {
-  //     setLessons(data[Id]);
-  //   }).catch(err => {
-  //     console.error("Failed to fetch lessons:", err);
-  //   });
-  // }, [Id]);
-
   function handleBack() {
     setId(prevId => {
       const newId = prevId === 1 ? problems.length : prevId - 1;
@@ -40,8 +31,6 @@ export default function Code() {
   const cssAppliedContent = body => `
     <div>
       <style>
-
-
         h6 {
           color: #99d02cff;
           padding: 4%;
@@ -51,7 +40,6 @@ export default function Code() {
           margin-top: 5%;
           margin-bottom: 5%;
           border-radius: 20px;
-
         }
         h5 {
           color: var(--text);
@@ -69,7 +57,7 @@ export default function Code() {
       </style>
       ${body}
     <div>
-    `;
+  `;
 
   return (
     <div className="custom-container">
@@ -82,8 +70,8 @@ export default function Code() {
         
       </section> */}
 
-      <main className="code-main" style={{marginTop: '3%'}}>
-        <div className="custom-code-problem">
+      <main className="code-main">
+        <div className="custom-code-problem" style={{width: '50vw', padding: '2% 4%'}}>
           <div className="custom-grid custom-code-grid" style={{margin: '0', marginBottom: '5%'}}>
           {["Python", "JavaScript", "C++"].map((lang, idx) => (
             <button
@@ -112,14 +100,15 @@ export default function Code() {
             <button onClick={handleNext}>next</button>
           </div>
         </div>
-
-        {/* Code Editor */}
-        <CodeEditor 
-          initialCode={code} 
-          onChange={setCode}
-          language={editorLanguage}
-          expectedOutput={ lesson.solution }
-        />
+        <div className="editor">
+          {/* Code Editor */}
+          <CodeEditor 
+            initialCode={code} 
+            onChange={setCode}
+            language={editorLanguage}
+            expectedOutput={ lesson.solution }
+          />
+        </div>
       </main>
     </div>
   );

@@ -1,7 +1,45 @@
-import React from "react";
+import { useState } from "react";
+
+import lessons from "../resources/learningDocs.json";
 import "../globals.css";
 
 export default function Docs() {
+  const [ lesson, setLesson ] = useState(lessons[0])
+  const [ language, setLanguage ] = useState("python")
+
+  const cssAppliedContent = body => `
+    <div>
+      <style>
+        h6 {
+          color: oklch(54.389% 0.1401 152.523);
+          padding: 4%;
+          background-color: var(--editor);
+          width: 84%;
+          margin: 0 auto;
+          margin-top: 5%;
+          margin-bottom: 5%;
+          border-radius: 20px;
+        }
+        h5 {
+          color: var(--accent-secondary);
+          font-size: 1.3rem;
+          font-weight: 400
+        }
+        hr {
+          margin: 3% 0;
+        }
+        .titlee {
+          font-size: 1rem;
+          letter-spacing: .2em;
+          font-family: 'ClashDisplayVariable', sans-serif;
+          color: var(--accent-secondary);
+          text-shadow: var(--tshadow);
+        }  
+      </style>
+      ${body}
+    <div>
+  `;
+
   return (
     <div className="custom-container">
       {/* Hero */}
@@ -10,17 +48,24 @@ export default function Docs() {
           <h1 className="custom-title">// read our docs</h1>
         </div>
         <div className="custom-grid custom-docs-grid">
-          {["Python", "JavaScript", "C++"].map((text, idx) => (
+          {["Python", "JavaScript", "C++"].map((lang, idx) => (
             <button
               key={idx}
               className="custom-button"
-              onClick={() => alert(`${text} docs loaded`)}
-            >
-              <h2 className="custom-button-heading">{text}</h2>
+              onClick={() => {
+                const langMap = {
+                  "Python": "python",
+                  "JavaScript": "javascript",
+                  "C++": "cpp"
+                };
+                const selLang = langMap[lang];
+                setLanguage(selLang);
+              }}>
+
+              <h2 className="custom-button-heading">{lang}</h2>
             </button>
           ))}
         </div>
-        
       </section>
 
       <main className="custom-main">
@@ -28,41 +73,39 @@ export default function Docs() {
           <h2 className="custom-sidebar-title">References: </h2>
           <ul className="custom-topic-list">
             {[
+              "Functions I",
               "Variables & Data Types",
-              "Control Flow",
-              "Functions",
+              "If Statements",
               "Loops",
-              "Data Structures",
+              "Arrays",
+              "Functions II",
+              "Control Flow",
               "OOP",
+              "Data Structures",
               "Algorithms",
             ].map((topic, idx) => (
-              <li key={idx}>
-                <button className="custom-topic-button">{topic}</button>
+              <li>
+                <button  
+                  key={idx}
+                  className="custom-topic-button"
+                  onClick={() => {
+                    setLesson(lessons[idx])
+                  }}>
+                  <h2>{topic}</h2>
+                </button>
               </li>
             ))}
           </ul>
         </aside>
 
         <div className="main">
-          <h2 className="main-title">Topic</h2>
-          <p className="main-content">
-            This will be a description of the topic being covered in this section. Users can come back to see how certain concepts are implemented in different programming languages. This part of the website will virtually act as a textbook/reference/review page.
-          </p>
+          <h2 className="main-title">{lesson.topic}</h2>
+          <p className="main-content" dangerouslySetInnerHTML={{ __html: cssAppliedContent(lesson.basic + "<br><br>" + lesson.langu[language])}}></p>
 
-          <div className="custom-code-block">
-            <p>example code for topic:</p>
-            <pre>
-{`if project.isAwesome == True:
-    print("Yes!")
-else:
-    print("Yikes :/")`}
-            </pre>
-          </div>
-
-          <div className="custom-pagination">
+          {/* <div className="custom-pagination">
             <button>back</button>
             <button>next</button>
-          </div>
+          </div> */}
         </div>
       </main>
     </div>

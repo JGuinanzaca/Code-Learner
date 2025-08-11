@@ -41,9 +41,9 @@
     "description": {
       "default":"How can computers remember your data? Well they do it through something called <b>variables</b>.<br><br>Variables are containers that hold any information that we want the computer to remember. we can store many different kinds of information inside of a variable including integers, decimal numbers, words, booleans, and so much more! <br>Let's go over the most common types of data/information: ",
       "challenge":"Create 3 variables and have them store the data described below. Then, print out each of the variable values using separate statements. <h6>assign 'anna' a value of \"coder\"<br>assign 'bob' a value of 3.14<br>assign 'charlie' a value of 123</h6>",
-      "python": "",
-      "javascript": "",
-      "cpp": ""    
+      "python": "To create a variable in Python you need three things:<br>1. a variable name<br>2. an assignment operator (=)<br>3. a value (\"hello\", 123, True, etc.).<br><br>A few examples would look like: <h6>name = \"code learner\" <br>age = 0<br>favColorIsGreen = True</h6>",
+      "javascript": "To create a variable in JavaScript you need four things:<br>1. a variable type<br>2. a variable name<br>3. an assignment operator (=)<br>4. a value (\"hello\", 123, True, etc.).<br><br>A few examples would look like: <h6>const name = \"code learner\" <br>let age = 0<br>let favColorIsGreen = True</h6> The <b>const</b> type is used whenever a value will never be changed again. <b>let</b> is used when a variable can be expected to change.",
+      "cpp": "To create a variable in C++ you need four things:<br>1. a data type<br>2. a variable name<br>3. an assignment operator (=)<br>4. a value (\"hello\", 123, True, etc.).<br><br>A few examples would look like: <h6>string name = \"code learner\" <br>int age = 0<br>bool favColorIsGreen = true</h6> <b>string</b> is a datatype meant to store strings of characters (i.e. 'a', '1', '!', etc.). <br><b>int</b> is short for integer, and stores whole numbers.<br><b>bool</b> is short for boolean, and represent true or false."
     },
       "solution": "code learner\n3.14\n123\n"
   },
@@ -53,11 +53,11 @@
     "description": {
       "default":"Now that you know how to create variables, let's review why they are so special. Variables can VARY! That means with time, they can change...that is... if we want them to. ",
       "challenge":"For your challenge, we will test whether <span class='titlee'>code learner</span> can correctly guess your age... <h6>1. Create a variable, 'age', that will hold a number from 1 to 9. <br>2. On a new line, multiply the variable 'age' by two. <br>3. Add 5 to the variable. <br>4. Multiply it again by 50.<br>5. If you had your birthday already this year, add 1775, else, add 1774.<br>6. Subtract your birth year from 'age'.<br>7. Print out the variable to the console. </h6>Although the console won't know if it's right, confirm for yourself! The first number will be the random number you chose, and the next two digits will be your age :3 ",
-      "python": "",
-      "javascript": "",
-      "cpp": ""
+      "python": "Use the following operators to change a variable in Python:<br>1. an assignment operator (=)<br>2. add assignment (+=)<br>3. a value (\"hello\", 123, True, etc.).<br><br>A few examples would look like: <h6>name = \"code learner\" <br>age = 0<br>favColorIsGreen = True</h6>",
+      "javascript": "Use the following operators to change a variable in JavaScript:<br>1. a variable type<br>2. a variable name<br>3. an assignment operator (=)<br>4. a value (\"hello\", 123, True, etc.).<br><br>A few examples would look like: <h6>const name = \"code learner\" <br>let age = 0<br>let favColorIsGreen = True</h6> The <b>const</b> type is used whenever a value will never be changed again. <b>let</b> is used when a variable can be expected to change.",
+      "cpp": "Use the following operators to change a variable in C++: <br>1. a data type<br>2. a variable name<br>3. an assignment operator (=)<br>4. a value (\"hello\", 123, True, etc.).<br><br>A few examples would look like: <h6>string name = \"code learner\" <br>int age = 0<br>bool favColorIsGreen = true</h6> <b>string</b> is a datatype meant to store strings of characters (i.e. 'a', '1', '!', etc.). <br><b>int</b> is short for integer, and stores whole numbers.<br><b>bool</b> is short for boolean, and represent true or false."
     },
-    "solution": "1\n2 3\n4 5 6\n7 8 9 10\n"
+    "solution": ""
   },
   {
     "id": 6,
@@ -75,16 +75,40 @@
     "id": 7,
     "title": "If you could please...",
     "description": {
-      "default":"In times when we want something to only happen ",
-      "challenge":"You ready? Print the following equation out into to the console: <h6>291 + 72.1243 / 267 * 3</h6>... Do you think you can figure it out before the computer does?<br>As a bonus challenge, try crafting your own math problems and test your own skills against the computer!",
-      "python": "",
-      "javascript": "",
-      "cpp": ""    
+      "default":"In times when we want something to only happen <b> if and only if</b> something is true, then we must use <b> if statements </b>. To write an if statement, we need three things: an 'if', a conditional, and an action. The 'if' prompts our console to prepare itself to check if something is true or false. The conditional is the thing we are checking to see if its true or false, and the action is the event that takes place in response to a true. If the conditional is true, an action will occur. Otherwise, that action will not occur.",
+      "challenge":"Write a program that checks if 2 + 2 equals 22. If it's true, it should print out a message that says \"It's True!\"",
+      "python": "In Python, if statements look like this: <h6>if 4 + 9 == 13:<br>   print(\"Yippee!\")</h6>",
+      "javascript": "In JavaScript, if statements look like this: <h6>if (4 + 9 == 13){<br>   console.log(\"Yippee!\")<br>}</h6>",
+      "cpp": "In C++, if statements look like this: <h6>if (4 + 9 == 13){<br>   cout << \"Yippee!\";<br>}</h6>"    
     },
-      "solution": "7\n"
+      "solution": ""
   },
   {
     "id": 8,
+    "title": "Or else...",
+    "description": {
+      "default":"What if we want our code to have a backup plan? Sometimes we want different actions to happen whether its true OR false. We can plan ahead and use if-else statements in our code.",
+      "challenge":"Create a variable called year and assign it a value of 3000. If the year is a leap year according to the modern Gregorian calendar, it should print Leap year, otherwise, print Common year. n the modern Gregorian calendar, a year is a leap year if it is divisible by 4, but century years are not leap years unless they are divisible by 400. Here is the pseudocode: <h6>if (year is not divisible by 4) then (it is a common year)<br>else if (year is not divisible by 100) then (it is a leap year)<br>else if (year is not divisible by 400) then (it is a common year)<br>else (it is a leap year)</h6>",
+      "python": "To write an if-else statement, we format it like this: <h6>if 2 + 2 == 5: <br>   print(\"it equals 5\")<br>else:<br>   print(\"it doesn't equal 5\")</h6>",
+      "javascript": "To write an if-else statement, we format it like this: <h6>if (2 + 2 == 5){<br>   console.log(\"it equals 5\")<br>} else {<br>   console.log(\"it doesn't equal 5\")<br>}</h6>",
+      "cpp": "To write an if-else statement, we format it like this: <h6>if (2 + 2 == 5){<br>   cout << \"it equals 5\";<br>} else {<br>   cout <<\"it doesn't equal 5\";<br>}</h6>"
+    },
+    "solution": "*\n**\n***\n****\n*****\n******\n********\n"
+  },
+  {
+    "id": 9,
+    "title": "Triangles... Part 2",
+    "description": {
+      "default":"Now that you know how to print out a message to the console, why don't you also go on ahead and do an extra challenge!",
+      "challenge":"Write a program that prints out the following triangle when the code is run:<h6>1<br>2 3<br>4 5 6<br>7 8 9 10<br></h6><hr>Hint: print out your message four separate times.",
+      "python": "",
+      "javascript": "",
+      "cpp": ""
+    },
+    "solution": "*\n**\n***\n****\n*****\n******\n********\n"
+  },
+  {
+    "id": 10,
     "title": "Triangles... Part 2",
     "description": {
       "default":"Now that you know how to print out a message to the console, why don't you also go on ahead and do an extra challenge!",
