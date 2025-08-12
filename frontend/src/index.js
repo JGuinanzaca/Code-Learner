@@ -20,6 +20,7 @@ import SignUp from "./pages/Signup.jsx";
 import Sitemap from "./pages/Sitemap.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import Reset from "./pages/ResetPage.jsx";
+import ClickSpark from './pages/ClickSpark.js';
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -28,6 +29,15 @@ function App() {
 
   return (
     <>
+      
+
+<ClickSpark
+  sparkColor='#fff'
+  sparkSize={10}
+  sparkRadius={15}
+  sparkCount={8}
+  duration={400}
+>
       <Header darkMode={darkMode} toggleTheme={toggleTheme} />
       <main>
         <Routes>
@@ -50,6 +60,8 @@ function App() {
             } />
         </Routes>
        </main>
+  {/* Your content here */}
+</ClickSpark>
      {/* {notCode && <Footer />} */}
     </>
   );
